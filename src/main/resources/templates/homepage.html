@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label th:if="${principal == null}">Вы не авторизованы
+    <a th:href="@{'/login'}">Войти</a>
+</label>
+<label th:if="${principal != null}">
+    <a th:href="@{'/acc/' +${account.getAccountLogin()}}">Посмотреть на свой аккаунт</a>
+</label>
+<form th:if="${principal != null}" th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+</body>
+</html>

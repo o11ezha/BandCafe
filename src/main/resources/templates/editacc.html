@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/editacc/{login}(login=${login})}" th:method="post">
+  <label>Логин:
+    <input th:type="text" th:name = "login" th:value="${account.getAccountLogin()}">
+    <label style="color:red" th:text="${errorLogin}"></label>
+  </label><br>
+  <label th:if="${account.getRoleID() < 3}"  th:for="roles"></label>Роль:
+  <label>
+    <select th:name="role" th:id="role">
+      <th:block th:each="role : ${accountRoles}">
+        <option th:value="${role.getRoleID()}" th:text="${role.getRoleName().replace('_role', '')}" th:selected="${role.getRoleID() == roleSelected}"></option>
+      </th:block>
+    </select>
+  </label><br>
+
+  <label>Пароль:
+    <input th:type="text" th:name = "password">
+  </label><br>
+  <button th:type="submit">Сохранить</button>
+</form>
+</body>
+</html>

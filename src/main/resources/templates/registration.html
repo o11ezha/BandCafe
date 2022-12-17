@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/registration}" th:method="post">
+  <label>
+    Введите логин:
+    <input th:type="text" th:name = "login">
+    <label style="color:red" th:text="${errorLogin}"></label>
+  </label><br>
+
+  <label>
+    Введите пароль:
+    <input th:type="password" th:id = "password" th:name = "password">
+    <input th:type="checkbox" th:onclick="myFunction()"> Show Password
+  </label><br>
+  <button th:type="submit">Зарегистрироваться</button>
+</form>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+</script>
+</body>
+</html>

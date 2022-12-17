@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${#request.getParameter('error') == 'true'}"
+     style="color:red;margin:10px 0px;">
+    Login Failed<br/>
+    Reason:
+    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"></span>
+</div>
+
+<form th:action="@{/login}" th:method="post">
+
+    <div>
+        <label> User Name : <input th:type="text" th:name="username"/> </label>
+    </div>
+    <div>
+        <label> Password: <input th:type="password" th:id = "password" th:name="password"/> </label>
+        <input th:type="checkbox" th:onclick="myFunction()"> Show Password
+
+    </div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+<a th:href="@{/registration}">Регистрация</a><br>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Ваш логин: </p>
+<label th:text="${account.getAccountLogin()}"></label>
+<p>Ваш статус аккаунта:</p>
+<label th:text="${roleSelected.replace('_role', '')}"></label><br>
+<a th:href="@{'/editacc/' + ${account.getAccountLogin()}}">Редактировать аккаунт</a>
+<a th:href="@{'/deleteacc/' + ${account.getAccountLogin()}}">Удалить аккаунт</a>
+</body>
+</html>
