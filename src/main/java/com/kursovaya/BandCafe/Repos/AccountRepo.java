@@ -18,8 +18,13 @@ public class AccountRepo {
     @Autowired
     NamedParameterJdbcTemplate template;
 
-    public List<Account> getAllLogins() {
+    public List<Account> getAll() {
         String sql = "SELECT * FROM account";
+        return template.query(sql, new AccountRowMapper());
+    }
+
+    public List<Account> getAllManager() {
+        String sql = "SELECT * FROM account WHERE role_id = 1";
         return template.query(sql, new AccountRowMapper());
     }
 

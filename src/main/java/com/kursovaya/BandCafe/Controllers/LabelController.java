@@ -1,7 +1,6 @@
 package com.kursovaya.BandCafe.Controllers;
 
 import com.kursovaya.BandCafe.Entities.GroupLabel;
-import com.kursovaya.BandCafe.Entities.MemberGroup;
 import com.kursovaya.BandCafe.Services.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -76,7 +73,7 @@ public class LabelController {
 
         countryList(model);
 
-        if (bindingResult.hasErrors() ){
+        if (bindingResult.hasErrors()){
             return "addLabel";
         }
 
@@ -157,9 +154,8 @@ public class LabelController {
                             String errorCity,
                             String errorAddress,
                             Model model){
-        model.addAttribute("labelgroup", labelgroup);
-
         countryList(model);
+        model.addAttribute("labelgroup", labelgroup);
 
         if (bindingResult.hasErrors() ){
             return "editLabel";

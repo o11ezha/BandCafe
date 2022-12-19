@@ -14,8 +14,8 @@ public class MemberGroupRowMapper implements RowMapper<MemberGroup> {
         memberGroup.setGroupID(rs.getString("group_id"));
         memberGroup.setGroupName(rs.getString("group_name"));
         memberGroup.setGroupCountry(rs.getString("group_country"));
-        memberGroup.setGroupDebutDate(rs.getDate("group_debut_date"));
-        memberGroup.setGroupDisbandDate(rs.getDate("group_disband_date"));
+        memberGroup.setGroupDebutDate(rs.getString("group_debut_date"));
+        memberGroup.setGroupDisbandDate(rs.getString("group_disband_date"));
         memberGroup.setGroupFandom(rs.getString("group_fandom_name"));
         memberGroup.setGroupDescSource(rs.getString("group_description_source"));
         memberGroup.setGroupManager(rs.getString("group_manager"));

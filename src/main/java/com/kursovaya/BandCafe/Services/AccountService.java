@@ -17,13 +17,22 @@ public class AccountService {
 
     public List<String> findAllLogins(){
 
-        List<Account> accountsLogins = accountRepo.getAllLogins();
+        List<Account> accountsLogins = accountRepo.getAll();
         List<String> logins = new ArrayList<>();
 
         for (Account account : accountsLogins) {
             logins.add(account.getAccountLogin());
         }
         return logins;
+    }
+
+    public List<String> getAllManagersLogins() {
+        List<Account> managers = accountRepo.getAllManager();
+        List<String> managerslogins = new ArrayList<>();
+        for (Account manager : managers) {
+            managerslogins.add(manager.getAccountLogin());
+        }
+        return managerslogins;
     }
 
     public Account findByLogin(String login) {

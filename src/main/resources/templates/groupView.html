@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/bands/edit/{groupID}(groupID=${group.getGroupID()})}">Редактировать группу</a>
+<p>Название группы: </p>
+<label th:text="${group.getGroupName()}"></label>
+<p>Страна: </p>
+<label th:text="${group.getGroupCountry()}"></label>
+<p>Дебют: </p>
+<label th:text="${group.getGroupDebutDate()}"></label>
+<p>Статус: </p>
+<label th:text="${group.getGroupDisbandDate() == null ?
+ 'Активна' : 'Распалась: ' + group.getGroupDisbandDate() }"></label>
+<p>Фандом: </p>
+<label th:text="${group.getGroupFandom()}"></label>
+<p>Описание группы: </p>
+<label th:text="${groupdesc}"></label>
+</body>
+</html>

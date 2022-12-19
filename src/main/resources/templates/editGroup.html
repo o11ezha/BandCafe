@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/bands/edit/{groupID}(groupID=${groupID})}" th:method="post"  enctype="multipart/form-data" th:object="${group}">
+
+  <label th:for="groupName" th:text="'Название группы: '"></label>
+  <input type="text" th:field="*{groupName}" id="groupName" name="groupName" required>
+
+  <p style="color:red" th:errors="*{groupName}" th:if="${#fields.hasErrors('groupName')}" th:text="'groupName error'"></p>
+  <label style="color:red" th:text="${errorGroup}"></label>
+  <br>
+
+  <label th:for="groupDisbandDate" th:text="'Дата распада группы:'"></label>
+  <input th:type="date" th:field="*{groupDisbandDate}" th:id="groupDisbandDate"
+         th:min="2000-01-01" th:max="3000-12-31">
+  <br>
+
+  <label th:for="groupFandom" th:text="'Название фандома: '"></label>
+  <label>
+    <input th:field="*{groupFandom}" th:id="groupFandom" required/>
+  </label>
+  <p style="color:red" th:errors="*{groupFandom}" th:if="${#fields.hasErrors('groupFandom')}" th:text="'groupFandom error'"></p>
+  <label style="color:red" th:text="${errorFandom}"></label>
+  <br>
+
+  <label th:for="groupManager" th:text="'Менеджер: '"></label>
+  <label>
+    <select th:field="*{groupManager}" th:id = "groupManager" class="form-select form-select-sm" required>
+      <option th:each="manager : ${managers}"
+              th:selected = "${group.getGroupManager() == manager}"
+              th:value="${manager}"
+              th:text="${manager}"></option>
+    </select>
+  </label>
+  <label style="color:red" th:text="${errorManager}"></label>
+  <br>
+
+  <label> <input th:type="submit" th:value="Отредактировать"> </label>
+</form>
+</body>
+</html>

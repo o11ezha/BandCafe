@@ -1,13 +1,16 @@
 package com.kursovaya.BandCafe.Entities;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class MemberGroup {
     private String groupID;
+    @NotNull(message = "Введите имя группы")
     private String groupName;
     private String groupCountry;
-    private Date groupDebutDate;
-    private Date groupDisbandDate;
+    private String groupDebutDate;
+    private String groupDisbandDate;
+    @NotNull(message = "Введите название фандома группы")
     private String groupFandom;
     private String groupDescSource;
     private String groupManager;
@@ -36,19 +39,19 @@ public class MemberGroup {
         this.groupCountry = groupCountry;
     }
 
-    public Date getGroupDebutDate() {
+    public String getGroupDebutDate() {
         return groupDebutDate;
     }
 
-    public void setGroupDebutDate(Date groupDebutDate) {
+    public void setGroupDebutDate(String groupDebutDate) {
         this.groupDebutDate = groupDebutDate;
     }
 
-    public Date getGroupDisbandDate() {
+    public String getGroupDisbandDate() {
         return groupDisbandDate;
     }
 
-    public void setGroupDisbandDate(Date groupDisbandDate) {
+    public void setGroupDisbandDate(String groupDisbandDate) {
         this.groupDisbandDate = groupDisbandDate;
     }
 
@@ -74,5 +77,19 @@ public class MemberGroup {
 
     public void setGroupManager(String groupManager) {
         this.groupManager = groupManager;
+    }
+
+    @Override
+    public String toString() {
+        return "MemberGroup{" +
+                "groupID='" + groupID + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", groupCountry='" + groupCountry + '\'' +
+                ", groupDebutDate='" + groupDebutDate + '\'' +
+                ", groupDisbandDate='" + groupDisbandDate + '\'' +
+                ", groupFandom='" + groupFandom + '\'' +
+                ", groupDescSource='" + groupDescSource + '\'' +
+                ", groupManager='" + groupManager + '\'' +
+                '}';
     }
 }
