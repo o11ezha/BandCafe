@@ -89,8 +89,6 @@ public class AccountController {
 
         List<String> logins = accountService.findAllLogins();
 
-        System.out.println(account2.getRoleID());
-
         Integer roleSelected = account2.getRoleID();
         List<AccountRole> accountRoles = accountRoleService.findAll();
 

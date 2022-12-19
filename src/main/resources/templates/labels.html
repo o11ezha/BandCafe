@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/labels/add}">Добавить новое агентство</a>
+<table>
+    <tr>
+        <th>Название агенства</th>
+        <th>Директор агенства</th>
+        <th>Страна, в которой расположено главное здание агенства</th>
+        <th>Город, в котором расположено главное здание агенства</th>
+        <th>Адрес главного агенства</th>
+        <th>Дата основания агенства</th>
+        <th>Описание агентства</th>
+        <th>Ссылка</th>
+    </tr>
+    <tr th:each="label : ${labels}">
+        <td th:text="${label.getLabelName()}"></td>
+        <td th:text="${label.getLabelDirector()} == null ? 'Нет данных' : ${label.getLabelDirector()}"></td>
+        <td th:text="${label.getLabelCountry()}"></td>
+        <td th:text="${label.getLabelCity()}"></td>
+        <td th:text="${label.getLabelMainAddress()}"></td>
+        <td th:text="${label.getLabelDate()} == null ? 'Нет данных' : ${label.getLabelDate()}"></td>
+        <td th:type="text" name="Description"></td>
+        <td><a th:href="@{/labels/{labelID}(labelID=${label.getLabelName()})}">Перейти к агентству</a></td>
+        <td><a th:href="@{/labels/edit/{labelID}(labelID=${label.getLabelID()})}">Перейти к редактировнию лэйбла</a></td>
+    </tr>
+</table>
+<script th:inline="javascript">
+        /*<![CDATA[*/
+        var labelsDescs = /*[[${labelsDescs}]]*/ [];
+        /*]]>*/
+        var str = '';
+
+        var x = document.getElementsByName("Description");
+        for (var i = 0; i < x.length; i++) {
+            console.log(x[i]);
+            console.log(labelsDescs[i]);
+            x[i].textContent = labelsDescs[i];
+        }
+</script>
+</body>
+</html>

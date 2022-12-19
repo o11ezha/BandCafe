@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/labels/edit/{labelID}(labelID=${labelID})}" th:method="post" th:object="${labelgroup}">
+  <label th:for="labelName" th:text="'Название агенства: '"></label>
+  <input type="text" th:field="*{labelName}" id="labelName" name="labelName" required>
+  <p style="color:red" th:errors="*{labelName}" th:if="${#fields.hasErrors('labelName')}" th:text="'labelName error'"></p>
+  <label style="color:red" th:text="${errorLabel}"></label>
+  <br>
+
+  <label th:for="labelDirector" th:text="'Директор агенства: '"></label>
+  <label>
+    <input th:field="*{labelDirector}" th:id="labelDirector"/>
+  </label>
+  <p style="color:red" th:errors="*{labelDirector}" th:if="${#fields.hasErrors('labelDirector')}" th:text="'labelDirector error'"></p>
+  <br>
+
+  <label th:for="labelCountry" th:text="'Страна, в которой расположено главное здание агенства:'"></label>
+  <label>
+    <select th:field="*{labelCountry}" th:id = "labelCountry" class="form-select form-select-sm" required>
+      <option th:selected="selected" th:hidden="hidden" th:value="null">Выберите страну: </option>
+      <option th:each="country : ${countries}"
+              th:value="${country}"
+              th:text="${country}"></option>
+    </select>
+  </label>
+  <p style="color:red" th:errors="*{labelCountry}" th:if="${#fields.hasErrors('labelCountry')}" th:text="'labelCountry error'"></p>
+  <label style="color:red" th:text="${errorCountry}"></label>
+  <br>
+
+  <label th:for="labelCity" th:text="'Город, в котором расположено главное здание агенства: '"></label>
+  <label>
+    <input th:field="*{labelCity}" th:id="labelCity"/>
+  </label>
+  <p style="color:red" th:errors="*{labelCity}" th:if="${#fields.hasErrors('labelCity')}" th:text="'labelCity error'"></p>
+  <label style="color:red" th:text="${errorCity}"></label>
+  <br>
+
+  <label th:for="labelMainAddress" th:text="'Адрес главного агенства: '"></label>
+  <label>
+    <input th:field="*{labelMainAddress}" th:id="labelMainAddress"/>
+  </label>
+  <p style="color:red" th:errors="*{labelMainAddress}" th:if="${#fields.hasErrors('labelMainAddress')}" th:text="'labelMainAddress error'"></p>
+  <label style="color:red" th:text="${errorAddress}"></label>
+  <br>
+  <label> <input th:type="submit" th:value="Изменить"> </label>
+</form>
+</body>
+</html>

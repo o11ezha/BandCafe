@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Название агенства: </p>
+<label th:text="${labelgroup.getLabelName()}"></label>
+<p>Директор агенства: </p>
+<label th:text="${labelgroup.getLabelDirector()}"></label>
+<p>Страна: </p>
+<label th:text="${labelgroup.getLabelCountry()}"></label>
+<p>Город: </p>
+<label th:text="${labelgroup.getLabelCity()}"></label>
+<p>Дата основания агенства: </p>
+<label th:text="${labelgroup.getLabelDate()}"></label>
+<p>Описание агентства: </p>
+<label th:text="${labeldesc}"></label>
+</body>
+</html>
