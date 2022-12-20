@@ -49,8 +49,8 @@ public class AccountRepo {
         template.getJdbcOperations().update(connection -> {
             CallableStatement cs = connection.prepareCall(sql);
             cs.setString(1, oldlogin);
-            cs.setString(2, newlogin);
-            cs.setString(3, newpassword);
+            cs.setString(2, newpassword );
+            cs.setString(3, newlogin);
             cs.setInt(4, newroleid);
             return cs;
         });

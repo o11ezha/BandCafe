@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/bands/edit/{groupID}(groupID=${groupID})}" th:method="post"  enctype="multipart/form-data" th:object="${group}">
+<form th:action="@{/bands/edit/{groupID}(groupID=${groupID})}" th:method="post" th:object="${group}">
 
   <label th:for="groupName" th:text="'Название группы: '"></label>
   <input type="text" th:field="*{groupName}" id="groupName" name="groupName" required>

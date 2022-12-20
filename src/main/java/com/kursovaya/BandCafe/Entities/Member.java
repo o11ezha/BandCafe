@@ -1,13 +1,19 @@
 package com.kursovaya.BandCafe.Entities;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Member {
     private String memberID;
+    @NotNull(message = "Введите имя")
     private String memberName;
+    @NotNull(message = "Введите сценическое имя")
     private String memberStageName;
-    private Date memberDateOfBirth;
+    @NotNull(message = "Введите дату рождения")
+    private String memberDateOfBirth;
+    @NotNull(message = "Введите страну")
     private String memberCountry;
+    @NotNull(message = "Введите город")
     private String memberCity;
     private Integer memberHeight;
     private String memberDescSource;
@@ -38,11 +44,11 @@ public class Member {
         this.memberStageName = memberStageName;
     }
 
-    public Date getMemberDateOfBirth() {
+    public String getMemberDateOfBirth() {
         return memberDateOfBirth;
     }
 
-    public void setMemberDateOfBirth(Date memberDateOfBirth) {
+    public void setMemberDateOfBirth(String memberDateOfBirth) {
         this.memberDateOfBirth = memberDateOfBirth;
     }
 
@@ -92,5 +98,21 @@ public class Member {
 
     public void setGroupID(String groupID) {
         this.groupID = groupID;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberID='" + memberID + '\'' +
+                ", memberName='" + memberName + '\'' +
+                ", memberStageName='" + memberStageName + '\'' +
+                ", memberDateOfBirth='" + memberDateOfBirth + '\'' +
+                ", memberCountry='" + memberCountry + '\'' +
+                ", memberCity='" + memberCity + '\'' +
+                ", memberHeight=" + memberHeight +
+                ", memberDescSource='" + memberDescSource + '\'' +
+                ", labelID='" + labelID + '\'' +
+                ", groupID='" + groupID + '\'' +
+                '}';
     }
 }

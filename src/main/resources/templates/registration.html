@@ -8,13 +8,13 @@
 <form th:action="@{/registration}" th:method="post">
   <label>
     Введите логин:
-    <input th:type="text" th:name = "login">
-    <label style="color:red" th:text="${errorLogin}"></label>
+    <input th:type="text" th:name = "login" required>
+    <label style="color:red" th:text="${errorLogin}" ></label>
   </label><br>
 
   <label>
     Введите пароль:
-    <input th:type="password" th:id = "password" th:name = "password">
+    <input th:type="password" th:id = "password" th:name = "password" required>
     <input th:type="checkbox" th:onclick="myFunction()"> Show Password
   </label><br>
   <button th:type="submit">Зарегистрироваться</button>

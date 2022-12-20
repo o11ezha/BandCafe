@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/{groupName}/member/add(groupName=${groupName})}" enctype="multipart/form-data" th:method="post" th:object="${member}">
+
+  <label> Логин мембера: <input th:type="text" th:name="loginMember" required> </label>
+  <label style="color:red" th:text="${errorLogin}"></label> <br>
+
+  <label th:for="memberName" th:text="'Имя: '"></label>
+  <input type="text" th:field="*{memberName}" id="memberName" name="memberName" required>
+
+  <p style="color:red" th:errors="*{memberName}" th:if="${#fields.hasErrors('memberName')}" th:text="'memberName error'"></p>
+  <label style="color:red" th:text="${errorName}"></label>
+  <br>
+
+
+  <label th:for="memberStageName" th:text="'Сценическое имя: '"></label>
+  <input type="text" th:field="*{memberStageName}" id="memberStageName" name="memberStageName" required>
+
+  <p style="color:red" th:errors="*{memberStageName}" th:if="${#fields.hasErrors('memberStageName')}" th:text="'memberStageName error'"></p>
+  <label style="color:red" th:text="${errorStageName}"></label>
+  <br>
+
+
+  <label th:for="memberDateOfBirth" th:text="'День рождения:'"></label>
+  <input th:type="date" th:field="*{memberDateOfBirth}" th:id="memberDateOfBirth" required
+         th:min="2000-01-01" th:max="3000-12-31">
+  <br>
+
+  <p style="color:red" th:errors="*{memberDateOfBirth}" th:if="${#fields.hasErrors('memberDateOfBirth')}" th:text="'memberDateOfBirth error'"></p>
+  <label style="color:red" th:text="${errorDateOfBirth}"></label>
+  <br>
+
+
+  <label th:for="memberCountry" th:text="'Страна:'"></label>
+  <label>
+    <select th:field="*{memberCountry}" th:id = "memberCountry" class="form-select form-select-sm" required>
+      <option th:each="country : ${countries}"
+              th:selected = "${member.getMemberCountry() == country}"
+              th:value="${country}"
+              th:text="${country}"></option>
+    </select>
+  </label>
+
+  <p style="color:red" th:errors="*{memberCountry}" th:if="${#fields.hasErrors('memberCountry')}" th:text="'memberCountry error'"></p>
+  <label style="color:red" th:text="${errorCountry}"></label>
+  <br>
+
+
+  <label th:for="memberCity" th:text="'Город: '"></label>
+  <label>
+    <input type="text" th:field="*{memberCity}" id="memberCity" name="memberCity" required>
+  </label>
+
+  <p style="color:red" th:errors="*{memberCity}" th:if="${#fields.hasErrors('memberCity')}" th:text="'memberCity error'"></p>
+  <label style="color:red" th:text="${errorCity}"></label>
+  <br>
+
+  <label th:for="memberHeight" th:text="'Рост: '"></label>
+  <label>
+    <input type="number" th:field="*{memberHeight}" id="memberHeight" name="memberHeight">
+  </label>
+  <br>
+
+  <label th:for="labelID" th:text="'Агентство: '"></label>
+  <label>
+    <select th:field="*{labelID}" th:id = "labelID" class="form-select form-select-sm" required>
+      <option th:selected="selected" th:hidden="hidden" th:value="null">Выберите агентство: </option>
+      <option th:each="label : ${labels}"
+              th:selected = "${member.getLabelID() == label.getLabelID()}"
+              th:value="${label.getLabelID}"
+              th:text="${label.getLabelName()}"></option>
+    </select>
+  </label>
+  <p style="color:red" th:errors="*{labelID}" th:if="${#fields.hasErrors('labelID')}" th:text="'labelID error'"></p>
+  <label style="color:red" th:text="${errorLabelID}"></label>
+  <br>
+
+  <label th:for="groupID" th:text="'ID Группы: '"></label>
+  <label>
+    <input type="text" th:field="*{groupID}" th:text="${'Группа:' + groupName}" th:value="${group}" id="groupID" name="groupID" readonly required>
+  </label>
+  <p style="color:red" th:errors="*{groupID}" th:if="${#fields.hasErrors('groupID')}" th:text="'groupID error'"></p>
+  <label style="color:red" th:text="${errorGroupID}"></label>
+  <br>
+
+  <input type="file" name="filemember" required>
+  <br>
+
+  <label> <input th:type="submit" th:value="Добавить"> </label>
+</form>
+</body>
+</html>

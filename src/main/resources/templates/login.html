@@ -16,10 +16,10 @@
 <form th:action="@{/login}" th:method="post">
 
     <div>
-        <label> User Name : <input th:type="text" th:name="username"/> </label>
+        <label> User Name : <input th:type="text" th:name="username" required> </label>
     </div>
     <div>
-        <label> Password: <input th:type="password" th:id = "password" th:name="password"/> </label>
+        <label> Password: <input th:type="password" th:id = "password" th:name="password" required> </label>
         <input th:type="checkbox" th:onclick="myFunction()"> Show Password
 
     </div>

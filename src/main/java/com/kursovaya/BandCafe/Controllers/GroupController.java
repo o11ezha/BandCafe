@@ -1,23 +1,22 @@
 package com.kursovaya.BandCafe.Controllers;
 
-import com.kursovaya.BandCafe.Entities.Account;
-import com.kursovaya.BandCafe.Entities.GroupLabel;
+import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
 import com.kursovaya.BandCafe.Services.AccountService;
-import com.kursovaya.BandCafe.Services.LabelService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
+import com.kursovaya.BandCafe.Services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 
@@ -30,6 +29,9 @@ public class GroupController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    MemberService memberService;
 
     @Value("${upload.path}")
     String uploadPath;
@@ -64,6 +66,7 @@ public class GroupController {
         model.addAttribute("group", group);
         model.addAttribute("groupdesc",  sc.nextLine());
         model.addAttribute("manager", group.getGroupManager());
+        model.addAttribute("members", memberService.getMembersByGroupID(group.getGroupID()));
         return "groupView";
     }
 
@@ -75,7 +78,7 @@ public class GroupController {
     }
 
     @PostMapping("/add")
-    public String addGroup(@ModelAttribute("group") @Valid MemberGroup group,
+    public String addGroup(@ModelAttribute("group") @Validated MemberGroup group,
                            BindingResult bindingResult,
                            @RequestParam("filegroup") MultipartFile filegroup,
                            String errorGroup,
@@ -159,7 +162,7 @@ public class GroupController {
     }
 
     @PostMapping("/edit/{groupID}")
-    public String editGroup(@ModelAttribute("group") @Valid MemberGroup group,
+    public String editGroup(@ModelAttribute("group") @Validated MemberGroup group,
                             BindingResult bindingResult,
                             @PathVariable("groupID") String groupID,
                             String errorGroup,
@@ -217,10 +220,9 @@ public class GroupController {
         return "redirect:/bands";
     }
 
-    public String errors(String finalerror,
-                       String texterror, String returnPage, Model model) {
+    public String errors(String finalerror, String texterror,
+                         String returnPage, Model model) {
 
-        System.out.println("aaaaaaaaaaaaa");
             finalerror = texterror;
             model.addAttribute( '"' + finalerror + '"', finalerror);
             return '"' +  returnPage + '"';

@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Controller
 @RequestMapping("/forums")
@@ -37,4 +35,10 @@ public class ForumController {
         model.addAttribute("forumGroups", forumGroups);
         return "forums";
     }
+
+    @GetMapping("/{forumName}")
+    public String returnForum(@PathVariable String forumName, Model model) throws FileNotFoundException {
+        return "forumView";
+    }
+
 }

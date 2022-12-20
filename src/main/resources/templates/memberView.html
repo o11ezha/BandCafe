@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>
+<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a>
+<p>Имя: </p>
+<label th:text="${member.getMemberName()}"></label>
+<p>Сценическое имя: </p>
+<label th:text="${member.getMemberStageName()}"></label>
+<p>День рождения: </p>
+<label th:text="${member.getMemberDateOfBirth}"></label>
+<p>Страна: </p>
+<label th:text="${member.getMemberCountry}"></label>
+<p>Город: </p>
+<label th:text="${member.getMemberCity}"></label>
+<p>Рост: </p>
+<label th:text="${member.getMemberHeight() == null ?
+ 'Неизвестен' : member.getMemberHeight() }"></label>
+<p>Группа: </p>
+<label th:text="${memberGroup}"></label>
+<p>Лэйбл: </p>
+<label th:text="${label}"></label>
+<p>Описание мембера: </p>
+<label th:text="${memberdesc}"></label>
+
+</body>
+</html>

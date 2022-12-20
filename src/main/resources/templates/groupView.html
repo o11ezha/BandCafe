@@ -19,5 +19,11 @@
 <label th:text="${group.getGroupFandom()}"></label>
 <p>Описание группы: </p>
 <label th:text="${groupdesc}"></label>
+<p>Состав: </p>
+<a th:href="@{/{groupName}/member/add(groupName=${group.getGroupName()})}" th:text="'Добавить мембера'"></a>
+<ul th:each=" member : ${members}">
+    <li> <a th:href="@{/member/{memberStageName}
+    (memberStageName=${member.getMemberStageName()})}" th:text = "${member.getMemberStageName()}"></a></li>
+</ul>
 </body>
 </html>

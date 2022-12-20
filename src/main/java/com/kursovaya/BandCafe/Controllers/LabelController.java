@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,7 +62,7 @@ public class LabelController {
 
 
     @PostMapping("/add")
-    public String addLabelPost(@ModelAttribute @Valid GroupLabel labelgroup,
+    public String addLabelPost(@ModelAttribute @Validated GroupLabel labelgroup,
                                BindingResult bindingResult,
                                @RequestParam ("filelabeldesc") MultipartFile filelabeldesc,
                                String errorLabel,
@@ -146,7 +147,7 @@ public class LabelController {
     }
 
     @PostMapping("/edit/{labelID}")
-    public String editLabel(@ModelAttribute @Valid GroupLabel labelgroup,
+    public String editLabel(@ModelAttribute @Validated GroupLabel labelgroup,
                             BindingResult bindingResult,
                             @PathVariable("labelID") String labelID,
                             String errorLabel,
