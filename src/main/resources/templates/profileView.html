@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+</style>
+<img th:src="@{'/imgprof/'+ ${pathToImg}}" alt="Avatar" class="avatar" >
+<label th:text="${profile.getAccountLogin()}"></label>
+<p>Статус профиля:</p>
+<label th:text=" ${roleSelected} == 'member' ? 'Мембер' : 'Пользователь'"></label>
+<p>День рождения:</p>
+<label th:text=" ${roleSelected} == 'member' ? ${memberDate} : ${profile.getProfileDateOfBirth()}"></label><br>
+<label th:text="${profile.getProfileDesc()}"></label><br>
+<a th:href="@{/profile/{profileID}/edit(profileID =${profileID})}">Редактировать аккаунт</a>
+</body>
+</html>

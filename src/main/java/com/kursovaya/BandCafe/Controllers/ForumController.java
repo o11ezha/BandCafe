@@ -1,15 +1,18 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Forum;
 import com.kursovaya.BandCafe.Services.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -37,8 +40,65 @@ public class ForumController {
     }
 
     @GetMapping("/{forumName}")
-    public String returnForum(@PathVariable String forumName, Model model) throws FileNotFoundException {
+    public String returnForum(@PathVariable String forumName,
+                              Model model){
+        Forum forum = forumService.getForumByForumName(forumName);
+
+        model.addAttribute("forum", forum);
         return "forumView";
     }
 
+    static Forum forum2 = new Forum();
+
+    @GetMapping("/{forumName}/edit")
+    public String editForum(@PathVariable("forumName") String forumName, Model model) {
+        Forum forum = forumService.getForumByForumName(forumName);
+        forum2 = forum;
+        model.addAttribute("forum", forum);
+        return "editForum";
+    }
+
+    @PostMapping("/{forumName}/edit")
+    public String editForum(@ModelAttribute("forum") @Validated Forum forum,
+                            BindingResult bindingResult,
+                            @PathVariable("forumName") String forumName,
+                            String errorForum,
+                            String errorForumDesc,
+                            Model model) throws UnsupportedEncodingException {
+
+        model.addAttribute("forum", forum);
+
+        if (bindingResult.hasErrors()) {
+            return "editForum";
+        }
+
+        List<String> allForumsName = forumService.getAllForumsName();
+
+        if (forum.getForumName().equals("") || forum.getForumName() == null) {
+            errors(errorForum, "Введите название форума", "editForum", model);
+        }
+
+        if (allForumsName.contains(forum.getForumName()) && !forum.getForumName().equals(forum2.getForumName())) {
+            errorForum = "Такой форум уже существует";
+            model.addAttribute("errorForum", errorForum);
+            return "editForum";
+        }
+
+        if (forum.getForumDesc().equals("") || forum.getForumDesc() == null) {
+            errors(errorForumDesc, "Введите описание форума", "editForum", model);
+        }
+
+        forum.setForumID(forum2.getForumID());
+
+        forumService.editForum(forum);
+        return "redirect:/forums/" + URLEncoder.encode(forum.getForumName(),"UTF-8").replace("+", "%20");
+    }
+
+    public String errors(String finalerror, String texterror,
+                         String returnPage, Model model) {
+
+        finalerror = texterror;
+        model.addAttribute( '"' + finalerror + '"', finalerror);
+        return '"' +  returnPage + '"';
+    }
 }

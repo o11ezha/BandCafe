@@ -3,10 +3,8 @@ package com.kursovaya.BandCafe.Services;
 import com.kursovaya.BandCafe.Entities.Forum;
 import com.kursovaya.BandCafe.Repos.ForumRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,36 +16,35 @@ public class ForumService {
     @Autowired
     MemberGroupService memberGroupService;
 
+
+    public void editForum(Forum forum){
+        forumRepo.editForum(forum.getForumID(), forum.getForumName(), forum.getForumDesc());
+    }
+
     public List<Forum> getAllForums(){
         return forumRepo.findAll();
     }
+    public Forum getForumByForumName(String forumName){
+        return forumRepo.getForumByForumName(forumName);
+    }
 
     public List<String> getAllForumsID(){
-        List<Forum> forums = getAllForums();
-        return forums.stream().map(Forum::getForumID).toList();
+        return forumRepo.getAllForumsID();
     }
 
     public List<String> getAllForumsName(){
-        List<Forum> forums = getAllForums();
-        return forums.stream().map(Forum::getForumName).toList();
+        return forumRepo.getAllForumsName();
     }
 
     public List<String> getAllForumsDescription(){
-        List<Forum> forums = getAllForums();
-        return forums.stream().map(Forum::getForumDesc).toList();
+        return forumRepo.getAllForumsDescription();
     }
 
     public List<String> getAllForumsGroupID(){
-        List<Forum> forums = getAllForums();
-        return forums.stream().map(Forum::getGroupID).toList();
+        return forumRepo.getAllForumsGroupID();
     }
 
     public List<String> getAllForumsGroupName(){
-        List <String> groupsID = getAllForumsGroupID();
-        List<String> groupsName = new ArrayList<>();
-        for (String groupID : groupsID) {
-            groupsName.add(memberGroupService.getGroupNameByID(groupID));
-        }
-        return groupsName;
+        return forumRepo.getAllForumsGroupName();
     }
 }

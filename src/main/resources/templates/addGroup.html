@@ -29,13 +29,13 @@
 
     <label th:for="groupDebutDate" th:text="'Дата дебюта группы:'"></label>
     <input th:type="date" th:field="*{groupDebutDate}" th:id="groupDebutDate" required
-           th:min="2000-01-01" th:max="3000-12-31">
+           th:min="1000-01-01" th:max="3000-12-31">
     <label style="color:red" th:text="${errorDebut}"></label>
     <br>
 
     <label th:for="groupDisbandDate" th:text="'Дата распада группы:'"></label>
     <input th:type="date" th:field="*{groupDisbandDate}" th:id="groupDisbandDate"
-           th:min="2000-01-01" th:max="3000-12-31">
+           th:min="1000-01-01" th:max="3000-12-31">
     <br>
 
     <label th:for="groupFandom" th:text="'Название фандома: '"></label>

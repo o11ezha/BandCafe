@@ -1,11 +1,9 @@
 package com.kursovaya.BandCafe.Entities;
 
-import java.util.Date;
-
 public class Profile {
     private String profileID;
     private String profileAvatarSource;
-    private Date profileDateOdBirth;
+    private String profileDateOfBirth;
     private String profileDesc;
     private String accountLogin;
 
@@ -25,12 +23,12 @@ public class Profile {
         this.profileAvatarSource = profileAvatarSource;
     }
 
-    public Date getProfileDateOdBirth() {
-        return profileDateOdBirth;
+    public String getProfileDateOfBirth() {
+        return profileDateOfBirth;
     }
 
-    public void setProfileDateOdBirth(Date profileDateOdBirth) {
-        this.profileDateOdBirth = profileDateOdBirth;
+    public void setProfileDateOfBirth(String profileDateOfBirth) {
+        this.profileDateOfBirth = profileDateOfBirth;
     }
 
     public String getProfileDesc() {
@@ -47,5 +45,16 @@ public class Profile {
 
     public void setAccountLogin(String accountLogin) {
         this.accountLogin = accountLogin;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "profileID='" + profileID + '\'' +
+                ", profileAvatarSource='" + profileAvatarSource + '\'' +
+                ", profileDateOdBirth='" + profileDateOfBirth + '\'' +
+                ", profileDesc='" + profileDesc + '\'' +
+                ", accountLogin='" + accountLogin + '\'' +
+                '}';
     }
 }

@@ -25,7 +25,7 @@
 
   <label th:for="memberDateOfBirth" th:text="'День рождения:'"></label>
   <input th:type="date" th:field="*{memberDateOfBirth}" th:id="memberDateOfBirth" required
-         th:min="2000-01-01" th:max="3000-12-31">
+         th:min="1000-01-01" th:max="3000-12-31">
   <br>
 
   <p style="color:red" th:errors="*{memberDateOfBirth}" th:if="${#fields.hasErrors('memberDateOfBirth')}" th:text="'memberDateOfBirth error'"></p>

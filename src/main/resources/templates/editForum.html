@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/forums/{forumName}/edit(forumName=${forumName})}" th:method="post" th:object="${forum}">
+
+  <label th:for="forumName" th:text="'Название группы: '"></label>
+  <input type="text" th:field="*{forumName}" id="forumName" name="forumName" required>
+
+  <p style="color:red" th:errors="*{forumName}" th:if="${#fields.hasErrors('forumName')}" th:text="'forumName error'"></p>
+  <label style="color:red" th:text="${errorForum}"></label>
+  <br>
+
+  <label th:for="forumDesc" th:text="'Название группы: '"></label>
+  <input type="text" th:field="*{forumDesc}" id="groupName" name="forumDesc" required>
+
+  <p style="color:red" th:errors="*{forumDesc}" th:if="${#fields.hasErrors('forumDesc')}" th:text="'forumDesc error'"></p>
+  <label style="color:red" th:text="${errorForumDesc}"></label>
+  <br>
+
+  <label> <input th:type="submit" th:value="Отредактировать"> </label>
+</form>
+</body>
+</html>

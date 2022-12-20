@@ -45,6 +45,13 @@ public class MemberService {
     public List<String> getAllMembersLogins() {
         return memberRepo.getAllMembersLogins();
     }
+    public String getSpecialStageNameFromProfID(String profileID) {
+            return memberRepo.getSpecialStageNameFromProfID(profileID);
+    }
+
+    public String getSpecialDateFromProfID(String profileID) {
+            return memberRepo.getSpecialDateFromProfID(profileID);
+    }
 
     public Member getMemberByMemberStageName(String memberStageName) {
         return memberRepo.getMemberByMemberStageName(memberStageName);

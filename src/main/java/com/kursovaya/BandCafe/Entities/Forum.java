@@ -1,8 +1,12 @@
 package com.kursovaya.BandCafe.Entities;
 
+import javax.validation.constraints.NotNull;
+
 public class Forum {
     private String forumID;
+    @NotNull(message = "Имя форума не может быть пустым")
     private String forumName;
+    @NotNull(message = "Введите описание")
     private String forumDesc;
     private String groupID;
 

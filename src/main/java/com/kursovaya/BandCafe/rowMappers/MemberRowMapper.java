@@ -1,7 +1,6 @@
 package com.kursovaya.BandCafe.rowMappers;
 
 import com.kursovaya.BandCafe.Entities.Member;
-import com.kursovaya.BandCafe.Entities.MemberGroup;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

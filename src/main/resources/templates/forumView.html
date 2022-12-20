@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .column {
+        float: left;
+        width: 25%;
+        padding: 0 10px;
+    }
+
+    /* Remove extra left and right margins, due to padding */
+    .row {margin: 0 -5px;}
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<a th:href="@{/forums/{forumName}/edit(forumName=${forumName})}">Редактировать форум</a><br>
+<label th:text="${forum.getForumName()}"></label><br>
+<label th:text="${forum.getForumDesc()}"></label>
+<div th:id="cardContainer"></div>
+
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    var forumID = /*[[${forumID}]]*/ [];-->
+<!--    var forumDesc = /*[[${forumDesc}]]*/  [];-->
+<!--    var forumNames = /*[[${forumNames}]]*/  [];-->
+<!--    var forumGroups = /*[[${forumGroups}]]*/ [];-->
+<!--    /*]]>*/-->
+
+<!--    var length = forumID.length;-->
+
+<!--    console.log(forumID);-->
+<!--    console.log(forumDesc);-->
+<!--    console.log(forumNames);-->
+<!--    console.log(forumGroups);-->
+<!--    console.log(length);-->
+<!--    console.log(length === 0);-->
+
+<!--    if (length === 0) {-->
+<!--        var str = '<h1>There are no forums to display</h1>';-->
+<!--    } else {-->
+<!--        var str = '';-->
+<!--        for (var j = 0; j < length; j++) {-->
+<!--            var length2 = forumID.length;-->
+<!--            if (length2 === 0)-->
+<!--                break;-->
+<!--            str += '<div class="row">'-->
+<!--            if (length2 < 2) {-->
+<!--                str += '<div class="column">'-->
+<!--                str += '<div class="card">'-->
+<!--                str += '<h3>' + forumNames[0] + '</h3>'-->
+<!--                str += '<p>' + forumDesc[0] + '</p>'-->
+<!--                str += '<a href="/bands/' + forumGroups[0] + '">' + forumGroups[0] + '</a><br>'-->
+<!--                str += '<a href="/forums/' + forumNames[0] + '">Перейти к форуму</a>'-->
+<!--                str += '</div>'-->
+<!--                str += '</div>'-->
+<!--                forumID.splice(0);-->
+<!--                forumNames.splice(0);-->
+<!--                forumDesc.splice(0);-->
+<!--                forumGroups.splice(0);-->
+<!--            } else {-->
+<!--                for (var i = 0; i < 2; i++) {-->
+<!--                    str += '<div class="column">'-->
+<!--                    str += '<div class="card">'-->
+<!--                    str += '<h3>' + forumNames[i] + '</h3>'-->
+<!--                    str += '<p>' + forumDesc[i] + '</p>'-->
+<!--                    str += '<a href="/bands/' + forumGroups[i] + '">' + forumGroups[i] + '</a><br>'-->
+<!--                    str += '<a href="/forums/' + forumNames[i] + '">Перейти к форуму</a>'-->
+<!--                    str += '</div>'-->
+<!--                    str += '</div>'-->
+<!--                }-->
+<!--                forumID = forumID.slice(2);-->
+<!--                forumNames = forumNames.slice(2);-->
+<!--                forumDesc = forumDesc.slice(2);-->
+<!--                forumGroups = forumGroups.slice(2);-->
+
+<!--                console.log(forumID);-->
+<!--                console.log(forumDesc);-->
+<!--                console.log(forumNames);-->
+<!--                console.log(forumGroups);-->
+<!--                console.log(length);-->
+<!--            }-->
+<!--            str += '</div>';-->
+<!--        }-->
+<!--    }-->
+<!--    document.getElementById("cardContainer").innerHTML = str;-->
+<!--</script>-->
+</body>
+</html>

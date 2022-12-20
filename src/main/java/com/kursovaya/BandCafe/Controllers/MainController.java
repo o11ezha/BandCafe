@@ -2,6 +2,7 @@ package com.kursovaya.BandCafe.Controllers;
 
 
 import com.kursovaya.BandCafe.Services.AccountService;
+import com.kursovaya.BandCafe.Services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,9 @@ public class MainController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping("/login")
     public String main() {
         return "login";
@@ -29,6 +33,7 @@ public class MainController {
         model.addAttribute( "principal",principal);
         if (principal != null) {
             model.addAttribute("account", accountService.findByLogin(principal.getName()));
+            model.addAttribute("profileID", profileService.findByLogin(principal.getName()));
         }
         return "homepage";
     }

@@ -44,7 +44,6 @@ public class MemberController {
         File file = new File(uploadPath + "/MemberDesc/" + member.getMemberDescSource());
         Scanner sc = new Scanner(file);
 
-
         model.addAttribute("member", member);
         model.addAttribute("memberdesc",  sc.nextLine());
         model.addAttribute("label", label.getLabelName());
@@ -246,6 +245,11 @@ public class MemberController {
         memberService.editMember(member);
         return "redirect:/member/" + URLEncoder.encode(member.getMemberStageName(),"UTF-8") ;
     }
+    @GetMapping("/member/deletemem/{memberID}")
+    public String deleteAccount(@PathVariable("memberID") String memberID){
+        memberService.deleteMember(memberID);
+        return "redirect:/bands";
+    }
 
     public String errors(String finalerror, String texterror,
                          String returnPage, Model model) {
@@ -273,10 +277,6 @@ public class MemberController {
         model.addAttribute("groups", groups);
     }
 
-    @GetMapping("/member/deletemem/{memberID}")
-    public String deleteAccount(@PathVariable("memberID") String memberID){
-        memberService.deleteMember(memberID);
-        return "redirect:/bands";
-    }
+
 
 }

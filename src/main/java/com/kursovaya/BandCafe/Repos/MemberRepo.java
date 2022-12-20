@@ -25,8 +25,25 @@ public class MemberRepo {
     }
 
     public List<String> getAllMembersLogins() {
-        String sql = "SELECT account_login FROM profile p JOIN  member_profile mp ON p.profile_id = mp.profile_id JOIN member m ON m.member_id = mp.member_id;";
+        String sql = "SELECT account_login FROM profile p" +
+                " JOIN  member_profile mp ON p.profile_id = mp.profile_id" +
+                " JOIN member m ON m.member_id = mp.member_id;";
         return template.query(sql, (rs, rowNum) -> rs.getString("account_login"));
+    }
+
+    public String getSpecialStageNameFromProfID(String profileID) {
+        String sql = "SELECT member_stage_name FROM profile p" +
+                " JOIN  member_profile mp ON p.profile_id = mp.profile_id" +
+                " JOIN member m ON m.member_id = mp.member_id WHERE p.profile_id = :profileID;";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("profileID", profileID);
+        return template.queryForObject(sql, namedParameters, (rs, rowNum) -> rs.getString("member_stage_name"));
+    }
+    public String getSpecialDateFromProfID(String profileID) {
+        String sql = "SELECT member_date_of_birth FROM profile p" +
+                " JOIN  member_profile mp ON p.profile_id = mp.profile_id" +
+                " JOIN member m ON m.member_id = mp.member_id WHERE p.profile_id = :profileID;";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("profileID", profileID);
+        return template.queryForObject(sql, namedParameters, (rs, rowNum) -> rs.getString("member_date_of_birth"));
     }
 
     public List<String> getAllMembersStageNames() {
@@ -52,7 +69,6 @@ public class MemberRepo {
                           String memberCountry, String memberCity,
                           String memberDesc, Integer memberHeight){
         String sql = "CALL add_member(?,?,?,?,?,?,?,?,?,?)";
-        System.out.println("mamochki");
         template.getJdbcOperations().update(connection -> {
             CallableStatement cs = connection.prepareCall(sql);
             cs.setString(1, memberLogin);

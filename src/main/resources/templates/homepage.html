@@ -10,6 +10,7 @@
 </label>
 <label th:if="${principal != null}">
     <a th:href="@{'/acc/' +${account.getAccountLogin()}}">Посмотреть на свой аккаунт</a>
+    <a th:href="@{'/profile/' +${profileID}}">Посмотреть на свой Профиль</a>
 </label>
 <form th:if="${principal != null}" th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>

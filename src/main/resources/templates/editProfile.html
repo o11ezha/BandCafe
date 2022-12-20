@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/profile/{profileID}/edit(profileID=${profileID})}" enctype="multipart/form-data" th:method="post" th:object="${profile}">
+
+    <label th:for="profileDesc" th:text="'Описание профиля: '"></label>
+    <input type="text" th:field="*{profileDesc}" id="profileDesc" name="profileDesc">
+
+    <p style="color:red" th:errors="*{profileDesc}" th:if="${#fields.hasErrors('profileDesc')}" th:text="'profileDesc error'"></p>
+    <br>
+
+    <label th:for="profileDateOfBirth" th:text="'Дата рождения:'"></label>
+    <input th:type="date" th:field="*{profileDateOfBirth}" th:id="profileDateOfBirth"
+           th:min="1000-01-01" th:max="3000-12-31">
+    <br>
+
+    <input type="file" name="avatarImage">
+    <br>
+
+    <label> <input th:type="submit" th:value="Отредактировать"> </label>
+</form>
+</body>
+</html>
