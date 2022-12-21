@@ -35,6 +35,8 @@ public class AccountService {
         return managerslogins;
     }
 
+    public List<Account> findAll() { return accountRepo.getAll(); }
+    public List<Account> findSpecialRoleAccounts(Integer roleID) { return accountRepo.findSpecialRoleAccounts(roleID); }
     public Account findByLogin(String login) {
         return accountRepo.findByLogin(login);
     }
@@ -43,8 +45,8 @@ public class AccountService {
         accountRepo.registration(login, password);
     }
 
-    public void editAccount(String oldlogin, String newlogin, String newpassword, Integer newroleid){
-        accountRepo.editAccount(oldlogin, newlogin, newpassword, newroleid);
+    public void editAccount(String oldlogin, String newlogin, String newpassword){
+        accountRepo.editAccount(oldlogin, newlogin, newpassword);
     }
 
     public void deleteAccount(String login){

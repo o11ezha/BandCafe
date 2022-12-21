@@ -10,7 +10,7 @@
     <input th:type="text" th:name = "login" th:value="${account.getAccountLogin()}">
     <label style="color:red" th:text="${errorLogin}"></label>
   </label><br>
-  <label th:if="${account.getRoleID() < 3}"  th:for="roles"></label>Роль:
+<!--  <label th:if="${account.getRoleID() < 3}"  th:for="roles"></label>Роль:-->
 <!--  <label>-->
 <!--    <select th:name="role" th:id="role">-->
 <!--      <th:block th:each="role : ${accountRoles}">-->

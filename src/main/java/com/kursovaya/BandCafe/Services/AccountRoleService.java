@@ -13,6 +13,10 @@ public class AccountRoleService {
     @Autowired
     AccountRoleRepo accountRoleRepo;
 
+    public void editAccountRole(String adminLogin, String userLogin, Integer roleID){
+        accountRoleRepo.editAccountRole(adminLogin, userLogin, roleID);
+    }
+
     public String findRoleName(Integer roleid) {
         return accountRoleRepo.findRoleName(roleid).getRoleName();
     }

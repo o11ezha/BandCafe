@@ -1,7 +1,6 @@
 package com.kursovaya.BandCafe.Controllers;
 
 import com.kursovaya.BandCafe.Entities.Account;
-import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.Profile;
 import com.kursovaya.BandCafe.Services.AccountRoleService;
 import com.kursovaya.BandCafe.Services.AccountService;

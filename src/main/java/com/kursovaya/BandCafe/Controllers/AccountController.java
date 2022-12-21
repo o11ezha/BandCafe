@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AccountController {
@@ -48,6 +51,65 @@ public class AccountController {
         return ("redirect:/login");
     }
 
+    @GetMapping("/allaccountsforADMINonly")
+    public String allAccounts(Model model){
+        IdenticalPart(model);
+        return "accounts";
+    }
+
+    @PostMapping("/allaccountsforADMINonly/filter")
+    public String filter(@RequestParam String filter, Model model){
+        IdenticalPart(model);
+        Integer roleID = -1;
+        switch (filter) {
+            case "none":
+                roleID = -1;
+                break;
+            case "user":
+                roleID = 3;
+                break;
+            case "member":
+                roleID = 2;
+                break;
+            case "manager":
+                roleID = 1;
+                break;
+            case "admin":
+                roleID = 0;
+                break;
+        }
+        System.out.println(roleID);
+        if (roleID != -1) {
+            List<Account> accounts = accountService.findSpecialRoleAccounts(roleID);
+            model.addAttribute("accounts", accounts);
+        } else {
+            return "redirect:/allaccountsforADMINonly";
+        }
+        return "accounts";
+    }
+    @PostMapping("/allaccountsforADMINonly")
+    public String allAccounts(Principal principal,
+                              @RequestParam String role,
+                              @RequestParam (required = false) String accountLogin,
+                              Model model){
+        IdenticalPart(model);
+        Integer trueRoleID = -1;
+
+        switch (role){
+            case "user":
+                trueRoleID = 3;
+                break;
+            case "manager":
+                trueRoleID = 1;
+                break;
+            case default:
+                break;
+        }
+
+        if (trueRoleID != -1) accountRoleService.editAccountRole(principal.getName(), accountLogin, trueRoleID);
+        return "accounts";
+    }
+
     @GetMapping("/acc/{login}")
     public String returnAccount(@PathVariable String login, Model model){
         Account account = accountService.findByLogin(login);
@@ -65,12 +127,8 @@ public class AccountController {
 
         Account account = accountService.findByLogin(login);
         account2 = account;
-        Integer roleSelected = account.getRoleID();
-        List<AccountRole> accountRoles = accountRoleService.findAll();
 
-        model.addAttribute("roleSelected", roleSelected);
         model.addAttribute("account", account);
-        model.addAttribute("accountRoles", accountRoles);
         return "editacc";
     }
 
@@ -85,12 +143,7 @@ public class AccountController {
 
         List<String> logins = accountService.findAllLogins();
 
-        Integer roleSelected = account2.getRoleID();
-        List<AccountRole> accountRoles = accountRoleService.findAll();
-
-        model.addAttribute("roleSelected", roleSelected);
         model.addAttribute("account", account2);
-        model.addAttribute("accountRoles", accountRoles);
 
         if (!account2.getAccountLogin().equals(login) && logins.contains(login)) {
             model.addAttribute("login", login);
@@ -100,7 +153,7 @@ public class AccountController {
         }
         errorLogin = "";
 
-        accountService.editAccount(account2.getAccountLogin(), login, password, role);
+        accountService.editAccount(account2.getAccountLogin(), login, password);
         SecurityContextHolder.clearContext();
 
         return "redirect:/";
@@ -110,5 +163,14 @@ public class AccountController {
     public String deleteAccount(@PathVariable String login){
         accountService.deleteAccount(login);
         return "redirect:/login";
+    }
+
+    public void IdenticalPart(Model model){
+        List<Account> accounts = accountService.findAll();
+        List<String> accountRoles = new ArrayList<>();
+        accountRoles.add("user");
+        accountRoles.add("manager");
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("accountRoles", accountRoles);
     }
 }

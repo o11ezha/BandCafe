@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/allaccountsforADMINonly/filter}" th:method="post">
+<div>
+    <select th:name="filter" th:id="filter">
+        <option th:value="none" th:text="'Сбросить фильтр'"></option>
+        <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}"></option>
+        <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}"></option>
+        <option th:value="member" th:text="member"></option>
+        <option th:value="admin" th:text="admin"></option>
+    </select>
+    <button type="submit">Отфильтровать</button>
+</div>
+</form>
+<div th:each="account : ${accounts}">
+    <label>Логин:<label th:name = "login" th:text="${account.getAccountLogin()}"></label><br>
+        <a th:href="@{/editacc/{login}(login=${account.getAccountLogin()})}">Перейти к редактированию аккаунта</a>
+        <form th:action="@{/allaccountsforADMINonly}" th:method="post">
+        <input th:hidden="true" th:name = "accountLogin" th:value="${account.getAccountLogin()}">
+            <label>Роль:
+                <select th:name="role" th:id="role" th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}">
+                    <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}" th:selected="${account.getRoleID() == 3}"></option>
+                    <option th:hidden="hidden" th:value="'member'" th:text="'member'" th:selected="${account.getRoleID() == 2}" ></option>
+                    <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}" th:selected="${account.getRoleID() == 1}"></option>
+                    <option th:hidden="hidden" th:value="'admin'" th:text="'admin'" th:selected="${account.getRoleID() == 0}"  ></option>
+                </select>
+            </label>
+            <button th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}" th:type="submit">Сохранить</button>
+        </form>
+    </label><br>
+</div>
+</body>
+</html>

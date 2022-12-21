@@ -6,7 +6,9 @@
 </head>
 <body>
 <a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>
-<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a>
+<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a><br>
+<a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">Изменить позиции мембера</a>
+
 <p>Имя: </p>
 <label th:text="${member.getMemberName()}"></label>
 <p>Сценическое имя: </p>
@@ -24,6 +26,16 @@
 <label th:text="${memberGroup}"></label>
 <p>Лэйбл: </p>
 <label th:text="${label}"></label>
+<p>Позиции: </p>
+<div>
+    <div  th:if="${memberPositions.size() > 0}">
+    <ul th:each="position : ${memberPositions}">
+    <li th:text="${position.getPositionName()}"></li>
+    </ul>
+    </div>
+    <div th:if="${memberPositions.size() == 0}">
+        <p>Позиции не указаны</p>
+</div>
 <p>Описание мембера: </p>
 <label th:text="${memberdesc}"></label>
 

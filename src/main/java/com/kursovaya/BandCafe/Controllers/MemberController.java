@@ -3,13 +3,16 @@ package com.kursovaya.BandCafe.Controllers;
 import com.kursovaya.BandCafe.Entities.GroupLabel;
 import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
+import com.kursovaya.BandCafe.Entities.Position;
 import com.kursovaya.BandCafe.Services.LabelService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.MemberService;
+import com.kursovaya.BandCafe.Services.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +36,9 @@ public class MemberController {
     @Autowired
     MemberGroupService memberGroupService;
 
+    @Autowired
+    PositionService positionService;
+
     @Value("${upload.path}")
     String uploadPath;
 
@@ -41,6 +47,7 @@ public class MemberController {
         Member member = memberService.getMemberByMemberStageName(memberStageName);
         GroupLabel label = labelService.getLabelByLabelID(member.getLabelID());
         MemberGroup memberGroup = memberGroupService.getGroupByGroupID(member.getGroupID());
+        List<Position> memberPositions = positionService.getAllMemberPositions(member.getMemberID());
         File file = new File(uploadPath + "/MemberDesc/" + member.getMemberDescSource());
         Scanner sc = new Scanner(file);
 
@@ -48,6 +55,7 @@ public class MemberController {
         model.addAttribute("memberdesc",  sc.nextLine());
         model.addAttribute("label", label.getLabelName());
         model.addAttribute("memberGroup", memberGroup.getGroupName());
+        model.addAttribute("memberPositions", memberPositions);
 
         return "memberView";
     }
@@ -248,6 +256,50 @@ public class MemberController {
         memberService.editMember(member);
         return "redirect:/member/" + URLEncoder.encode(member.getMemberStageName(),"UTF-8") ;
     }
+
+    @GetMapping("/member/editPos/{memberID}")
+    public String editMemberPos(@PathVariable String memberID, Model model) {
+        Member member = memberService.getMemberByMemberID(memberID);
+        List<Position> positions = positionService.getAllPositions();
+        List<Integer> memberPositions = positionService.getAllMemberPositionsCodes(memberID);
+
+        model.addAttribute("member", member);
+        model.addAttribute("positions", positions);
+        model.addAttribute("memberPositions", memberPositions);
+        return "editMemberPos";
+    }
+
+    @PostMapping("/member/editPos/{memberID}")
+    public String editMemberPos(@PathVariable("memberID") String memberID,
+                                @RequestBody MultiValueMap<String, String> form,
+                                Model model) throws UnsupportedEncodingException {
+        Member member = memberService.getMemberByMemberID(memberID);
+        List<String> newPositions = new ArrayList<>();
+
+        for (String key : form.keySet()) {
+            newPositions.addAll(form.get(key));
+        }
+        newPositions.remove(newPositions.get(0));
+
+        List<Integer> memberPositions = positionService.getAllMemberPositionsCodes(memberID);
+        List<Integer>  diffOld  = memberPositions.stream().filter(element -> !newPositions.contains(element.toString())).toList();
+        List<String> diffNew = newPositions.stream().filter(element -> !memberPositions.contains(Integer.parseInt(element))).toList();
+        List<Integer> diffNewInt = new ArrayList<>();
+
+        for (String pos : diffNew) {
+            diffNewInt.add(Integer.parseInt(pos));
+        }
+
+        for (Integer pos : diffNewInt) {
+            positionService.addMemberPosition(memberID, pos);
+        }
+
+        for (Integer pos : diffOld) {
+            positionService.deleteMemberPosition(memberID, pos);
+        }
+        return "redirect:/member/" + URLEncoder.encode(member.getMemberStageName(),"UTF-8") ;
+    }
+
     @GetMapping("/member/deletemem/{memberID}")
     public String deleteAccount(@PathVariable("memberID") String memberID){
         memberService.deleteMember(memberID);

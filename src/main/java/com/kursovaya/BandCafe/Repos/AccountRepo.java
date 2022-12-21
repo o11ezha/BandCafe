@@ -3,6 +3,7 @@ package com.kursovaya.BandCafe.Repos;
 import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.rowMappers.AccountRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,8 +20,13 @@ public class AccountRepo {
     NamedParameterJdbcTemplate template;
 
     public List<Account> getAll() {
-        String sql = "SELECT * FROM account";
+        String sql = "SELECT * FROM account ORDER BY account_login;";
         return template.query(sql, new AccountRowMapper());
+    }
+    public List<Account> findSpecialRoleAccounts(Integer roleid) {
+        String sql = "SELECT * FROM account WHERE role_id = :roleid ORDER BY account_login;";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("roleid", roleid);
+        return template.query(sql, namedParameters, new AccountRowMapper());
     }
 
     public List<Account> getAllManager() {
@@ -44,14 +50,13 @@ public class AccountRepo {
         });
     }
 
-    public void editAccount(String oldlogin, String newlogin, String newpassword, Integer newroleid) {
-        String sql = "CALL update_user(?,?,?,?)";
+    public void editAccount(String oldlogin, String newlogin, String newpassword) {
+        String sql = "CALL update_user(?,?,?)";
         template.getJdbcOperations().update(connection -> {
             CallableStatement cs = connection.prepareCall(sql);
             cs.setString(1, oldlogin);
             cs.setString(2, newpassword );
             cs.setString(3, newlogin);
-            cs.setInt(4, newroleid);
             return cs;
         });
     }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/member/editPos/{memberID}(memberID=${memberID})}" th:method="post" >
+  <label th:text="'Позиция мембера:'"></label>
+     <div th:each="position : ${positions}">
+         <input type="checkbox"
+                th:name = "position"
+              th:checked="${memberPositions.contains(position.getPositionCode())}"
+              th:value="${position.getPositionCode()}"
+              th:text="${position.getPositionName}">
+     </div>
+
+    <input type="submit" value="Сохранить">
+</form>
+</body>
+</html>
