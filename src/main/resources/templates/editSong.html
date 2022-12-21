@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/bands/{groupName}/{albumID}/{songName} (groupName = ${groupName}, albumID=${albumID}, songName=${songName})}" th:method="post"  th:object="${song}">
+
+  <label th:for="songName" th:text="'Название песни: '"></label>
+  <input type="text" th:field="*{songName}" id="songName" name="songName" required>
+  <p style="color:red" th:errors="*{songName}" th:if="${#fields.hasErrors('songName')}" th:text="'songName error'"></p>
+  <label style="color:red" th:text="${errorSongName}"></label>
+  <br>
+
+  <label th:for="songDuration" th:text="'Длительность песни (в секудах): '"></label>
+  <input type="number" th:field="*{songDuration}" id="songDuration" name="songDuration" required>
+  <p style="color:red" th:errors="*{songDuration}" th:if="${#fields.hasErrors('songDuration')}" th:text="'songDuration error'"></p>
+  <label style="color:red" th:text="${errorSongDuration}"></label>
+  <br>
+
+  <label th:for="songMV" th:text="'Ссылка на клип: '"></label>
+  <input type="text" th:field="*{songMV}" id="songMV" name="songMV">
+  <br>
+
+  <label> <input th:type="submit" th:value="Добавить"> </label>
+</body>
+</html>

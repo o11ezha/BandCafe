@@ -1,10 +1,10 @@
 package com.kursovaya.BandCafe.Controllers;
 
 import com.kursovaya.BandCafe.Entities.Album;
-import com.kursovaya.BandCafe.Entities.Song;
 import com.kursovaya.BandCafe.Services.AlbumService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.SongService;
+import com.kursovaya.BandCafe.Views.SongView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -41,7 +41,9 @@ public class AlbumController {
                               @PathVariable("albumName") String albumName,
                               Model model) {
         Album album = albumService.getAlbumByAlbumName(albumName.replace("%20"," "));
-        List<Song> songs = songService.getSongsByAlbumName(albumName);
+
+        List<SongView> songs = songService.getSongsViewByAlbumName(albumName);
+        model.addAttribute("songs", songs);
 
         String pathToImg = "";
 
@@ -55,8 +57,6 @@ public class AlbumController {
 
         model.addAttribute("pathToImg", pathToImg);
         model.addAttribute("album", album);
-        model.addAttribute("songs", songs);
-
         return "albumView";
     }
 
@@ -75,7 +75,7 @@ public class AlbumController {
                            String errorAlbumName,
                            String errorAlbumDate,
                            @RequestParam("filecover") MultipartFile filecover,
-                           Model model) {
+                           Model model) throws UnsupportedEncodingException {
 
         model.addAttribute("album", album);
 
@@ -119,7 +119,7 @@ public class AlbumController {
         System.out.println(album.toString());
 
         albumService.addAlbum(album);
-        return "redirect:/bands/" + groupName;
+        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8");
     }
 
     static Album album2 = new Album();
@@ -128,7 +128,7 @@ public class AlbumController {
     public String editAlbum(@PathVariable("groupName") String groupName,
                               @PathVariable("albumID") String albumID,
                               Model model) {
-        Album album = albumService.getAlbumByAlbumID(albumID);
+        Album album = albumService.getAlbumByAlbumName(albumID);
         album2 = album;
         model.addAttribute("album", album);
         return "editAlbum";

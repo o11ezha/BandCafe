@@ -280,6 +280,4 @@ public class MemberController {
         model.addAttribute("groups", groups);
     }
 
-
-
 }

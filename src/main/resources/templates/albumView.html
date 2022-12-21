@@ -15,6 +15,18 @@
     <label th:text="${album.getAlbumReleaseDate() != null
     ?  album.getAlbumReleaseDate()
     : 'Дата выхода неизвестна'}"></label>
+    <p>Песни: </p>
+    <a th:href="@{/bands/{groupName}/{albumID}/addSong (groupName=${groupName}, albumID=${album.getAlbumID()})}">Добавить песню</a>
+    <div th:each=" song : ${songs}">
+        <label th:text="${song.getSongName()}"></label>
+        <label th:text="${song.getSongDuration()}"></label>
+        <a th:href="@{/bands/{groupName}/{albumID}/{songName} (groupName=${groupName}, albumID=${album.getAlbumID()}, songName=${song.getSongName()})}">Редактировать песню</a>
+        <a th:href="@{/bands/{groupName}/{albumID}/{songName}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songName=${song.getSongName()})}">Удалить песню</a>
+        <div th:if = "${(song.getSongMV() != '') && (song.getSongMV() != null) }">
+        <iframe  width="220" height="150"
+                th:src="${song.getSongMV()}">
+        </iframe>
+    </div>
 </div>
 </body>
 </html>

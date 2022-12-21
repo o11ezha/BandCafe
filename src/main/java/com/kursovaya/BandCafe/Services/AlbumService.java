@@ -28,10 +28,11 @@ public class AlbumService {
     }
 
     public Album getAlbumByAlbumName(String albumName) {
+
         return albumRepo.getAlbumByAlbumName(albumName);
     }
-
     public Album getAlbumByAlbumID(String albumID) {
+
         return albumRepo.getAlbumByAlbumID(albumID);
     }
 

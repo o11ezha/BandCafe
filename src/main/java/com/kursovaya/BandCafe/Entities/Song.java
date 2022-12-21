@@ -1,8 +1,12 @@
 package com.kursovaya.BandCafe.Entities;
 
+import javax.validation.constraints.NotNull;
+
 public class Song {
     private String SongID;
+    @NotNull(message = "Песня должна иметь название")
     private String songName;
+    @NotNull(message = "Песня должна иметь длительность")
     private Integer songDuration;
     private String songMV;
     private String albumID;
