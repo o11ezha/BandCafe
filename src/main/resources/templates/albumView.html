@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/bands/{groupName}/{albumID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()})}">Редактировать альбом</a>
+<a th:href="@{/bands/{groupName}/{albumID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()})}">Удалить альбом</a>
+<div>
+    <img th:src="@{'/imgcover/' + ${pathToImg}}" alt="альбом" width="200" height="200">
+    <p>Название альбома: </p>
+    <label th:text="${album.getAlbumName().replace('_', '/')}"></label>
+    <p>Дата выхода: </p>
+    <label th:text="${album.getAlbumReleaseDate() != null
+    ?  album.getAlbumReleaseDate()
+    : 'Дата выхода неизвестна'}"></label>
+</div>
+</body>
+</html>

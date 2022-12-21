@@ -20,5 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/imgprof/**")
                 .addResourceLocations("file:/" + uploadPath + "/ProfileImages/");
+        registry.addResourceHandler("/imgcover/**")
+                .addResourceLocations("file:/" + uploadPath + "/CoverImages/");
     }
 }

@@ -49,8 +49,11 @@ public class WebSecurityConfig {
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT account_login, account_password, 'true' FROM account WHERE account_login = ?")
-                .authoritiesByUsernameQuery("SELECT account_login, role_name FROM account JOIN account_role ON (account.role_id = account_role.role_id) WHERE account_login = ?")
+                .usersByUsernameQuery("SELECT account_login, account_password, 'true' " +
+                        "FROM account WHERE account_login = ?")
+                .authoritiesByUsernameQuery("SELECT account_login, role_name FROM account " +
+                        "JOIN account_role ON (account.role_id = account_role.role_id) " +
+                        "WHERE account_login = ?")
                 .passwordEncoder(getpasswordEncoder());
     }
 

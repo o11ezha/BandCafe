@@ -25,5 +25,15 @@
     <li> <a th:href="@{/member/{memberStageName}
     (memberStageName=${member.getMemberStageName()})}" th:text = "${member.getMemberStageName()}"></a></li>
 </ul>
+<a th:href="@{/bands/{groupName}/add(groupName=${group.getGroupName()})}" th:text="'Добавить альбом
+'"></a>
+<div th:if ="${albums} != null">
+    <p>Альбомы: </p>
+    <ul th:each=" album : ${albums}">
+        <li> <a th:href="@{{groupName}/{albumName}
+        (groupName=${group.getGroupName()}, albumName=${album.getAlbumName()})}"
+                th:text = "${album.getAlbumName()}"></a></li>
+    </ul>
+    </div>
 </body>
 </html>

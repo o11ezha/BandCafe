@@ -1,11 +1,14 @@
 package com.kursovaya.BandCafe.Entities;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Album {
     private String albumID;
+    @NotNull(message = "Название альбома не может быть пустым")
     private String albumName;
-    private Date albumReleaseDate;
+    @NotNull(message = "Дата релиза не может быть пустой")
+    private String albumReleaseDate;
     private String albumCover;
     private String groupOwnerID;
 
@@ -25,11 +28,11 @@ public class Album {
         this.albumName = albumName;
     }
 
-    public Date getAlbumReleaseDate() {
+    public String getAlbumReleaseDate() {
         return albumReleaseDate;
     }
 
-    public void setAlbumReleaseDate(Date albumReleaseDate) {
+    public void setAlbumReleaseDate(String albumReleaseDate) {
         this.albumReleaseDate = albumReleaseDate;
     }
 
@@ -47,5 +50,16 @@ public class Album {
 
     public void setGroupOwnerID(String groupOwnerID) {
         this.groupOwnerID = groupOwnerID;
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "albumID='" + albumID + '\'' +
+                ", albumName='" + albumName + '\'' +
+                ", albumReleaseDate='" + albumReleaseDate + '\'' +
+                ", albumCover='" + albumCover + '\'' +
+                ", groupOwnerID='" + groupOwnerID + '\'' +
+                '}';
     }
 }

@@ -18,7 +18,7 @@
 <p>Город: </p>
 <label th:text="${member.getMemberCity}"></label>
 <p>Рост: </p>
-<label th:text="${member.getMemberHeight() == null ?
+<label th:text="${(member.getMemberHeight() == null) || (member.getMemberHeight() == 0) ?
  'Неизвестен' : member.getMemberHeight() }"></label>
 <p>Группа: </p>
 <label th:text="${memberGroup}"></label>

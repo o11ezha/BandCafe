@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.security.Principal;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -58,7 +59,8 @@ public class ProfileController {
         }
         String pathToImg = "";
 
-        if (profile.getProfileAvatarSource() != null)
+        if (!Objects.equals(profile.getProfileAvatarSource(), "")
+                && (!Objects.equals(profile.getProfileAvatarSource(), null)))
             pathToImg = profile.getProfileAvatarSource();
         else pathToImg = "default.jpg";
 
@@ -69,13 +71,14 @@ public class ProfileController {
         return "profileView";
     }
 
-
+    static Profile profile2 = new Profile();
     @GetMapping("/profile/{profileID}/edit")
     public String editProfile(@PathVariable("profileID") String profileID,
                               Model model, Principal principal) {
         Account account = accountService.findByLogin(principal.getName());
         String roleSelected = accountRoleService.findRoleName(account.getRoleID()).replace("_role", "");
         Profile profile = profileService.findByProfileID(profileID);
+        profile2 = profile;
 
         model.addAttribute("account", account);
         model.addAttribute("roleSelected", roleSelected);
@@ -101,7 +104,8 @@ public class ProfileController {
             return "editProfile";
         }
 
-        if (avatarImage != null) {
+        if (!Objects.requireNonNull(avatarImage.getOriginalFilename()).equals("")
+                && !avatarImage.isEmpty()) {
             File uploadDir = new File(uploadPath + "/ProfileImages");
 
             if (!uploadDir.exists()) {
@@ -111,9 +115,6 @@ public class ProfileController {
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + avatarImage.getOriginalFilename();
 
-            System.out.println(resultFilename);
-
-
             try {
                 avatarImage.transferTo(new File(uploadDir + "/" + resultFilename));
                 profile.setProfileAvatarSource(resultFilename);
@@ -121,9 +122,12 @@ public class ProfileController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            if (profile2.getProfileAvatarSource().equals(""))
+                profile.setProfileAvatarSource("default.jpg");
+            else profile.setProfileAvatarSource(profile2.getProfileAvatarSource());
         }
 
-        System.out.println(profile.toString());
         profile.setAccountLogin(principal.getName());
 
         profileService.editProfile(profile);

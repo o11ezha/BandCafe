@@ -1,7 +1,6 @@
 package com.kursovaya.BandCafe.Repos;
 
 import com.kursovaya.BandCafe.Entities.Member;
-import com.kursovaya.BandCafe.rowMappers.MemberGroupRowMapper;
 import com.kursovaya.BandCafe.rowMappers.MemberRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

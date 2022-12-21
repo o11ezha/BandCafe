@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/bands/{groupName}/{albumID}/edit(groupName = ${groupName}, albumID=${albumID})}" th:method="post"  enctype="multipart/form-data" th:object="${album}">
+
+  <label th:for="albumName" th:text="'Название альбома: '"></label>
+  <input type="text" th:field="*{albumName}" id="albumName" name="albumName" required>
+  <p style="color:red" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}" th:text="'albumName error'"></p>
+  <label style="color:red" th:text="${errorAlbumName}"></label>
+  <br>
+
+  <label th:for="albumReleaseDate" th:text="'Дата выхода альбома:'"></label>
+  <input th:type="date" th:field="*{albumReleaseDate}" th:id="albumReleaseDate " required
+         th:min="1000-01-01" th:max="3000-12-31">
+  <br>
+
+  <p style="color:red" th:errors="*{albumReleaseDate}" th:if="${#fields.hasErrors('albumReleaseDate')}" th:text="'albumReleaseDate error'"></p>
+  <label style="color:red" th:text="${errorAlbumDate}"></label>
+  <br>
+
+  <input type="file" name="filecover">
+  <br>
+
+  <label> <input th:type="submit" th:value="Отредактировать"> </label>
+</form>
+</body>
+</html>

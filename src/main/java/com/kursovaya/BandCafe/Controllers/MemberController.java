@@ -136,7 +136,8 @@ public class MemberController {
             errors(errorLabelID, "Введите агентство мембера", "addMember", model);
         }
 
-        if (filemember != null) {
+        if (!Objects.requireNonNull(filemember.getOriginalFilename()).equals("")
+                && filemember.getOriginalFilename() != null) {
             File uploadDir = new File(uploadPath + "/MemberDesc");
 
             if (!uploadDir.exists()) {
@@ -156,12 +157,14 @@ public class MemberController {
             }
         }
 
+        if (member.getMemberHeight() == null) {
+            member.setMemberHeight(0);
+        }
+
         System.out.println(member.toString());
         System.out.println(loginMember);
 
-
-
-       memberService.addMember(member,loginMember);
+        memberService.addMember(member,loginMember);
         return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8");
     }
 

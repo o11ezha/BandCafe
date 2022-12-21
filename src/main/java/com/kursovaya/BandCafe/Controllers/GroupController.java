@@ -1,8 +1,10 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Album;
 import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
 import com.kursovaya.BandCafe.Services.AccountService;
+import com.kursovaya.BandCafe.Services.AlbumService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class GroupController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    AlbumService albumService;
+
     @Value("${upload.path}")
     String uploadPath;
 
@@ -60,8 +65,15 @@ public class GroupController {
     @GetMapping("/{groupName}")
     public String returnGroup(@PathVariable String groupName, Model model) throws FileNotFoundException {
         MemberGroup group = memberGroupService.getGroupByGroupName(groupName);
+        List<Album> albums = albumService.getAlbumsByGroupName(groupName);
         File file = new File(uploadPath + "/GroupDesc/" + group.getGroupDescSource());
         Scanner sc = new Scanner(file);
+
+        if (albums.size() > 0) {
+            model.addAttribute("albums", albums);
+        } else {
+            model.addAttribute("albums", null);
+        }
 
         model.addAttribute("group", group);
         model.addAttribute("groupdesc",  sc.nextLine());
