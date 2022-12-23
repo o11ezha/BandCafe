@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+
+</head>
+<style>
+    .dot {
+        height: 7px;
+        width: 7px;
+        margin-left: 6px;
+        margin-right: 6px;
+        margin-top: 3px;
+        background-color: blue;
+        border-radius: 50%;
+        display: inline-block
+    }
+</style>
+<body>
+<form th:action="@{/merch/{merchName}(merchName = ${merchName})}" th:method="post">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                                       th:src="@{'/imgorder/' + ${merch.getMerchDescSource()}}" alt="..."></div>
+            <div class="col-md-6">
+                <div class="small mb-1" th:text="'В наличии ' + ${merch.getMerchAmount()} + ' шт.'"></div>
+                <h1 class="display-5 fw-bolder" th:text="${merch.getMerchName()}"></h1>
+                <div class="fs-5 mb-3">
+                    <span th:text="${merch.getMerchPrice()} + ' руб.'"></span>
+                </div>
+                <p class="lead">
+                <div class="mt-1 mb-1 spec-1"><span
+                        class="dot"></span><span th:text="${memberGroup.getGroupName()}"></span></div>
+                <div class="mt-1 mb-5 spec-1"><span
+                        class="dot"></span><span th:text="${memberGroup.getGroupFandom()}"></span></div>
+                <div>
+                    <span>
+                            <input class="form-control text-center mb-3"
+                                     id="address" type="text"
+                                     placeholder="Введите адресс"
+                                     th:name="address" style="max-width: 30rem">
+                        </span>
+                </div>
+                <p class="text-justify text-truncate para mb-0"></p>
+                <div class="d-flex">
+                    <label for="inputQuantity"></label>
+                    <input class="form-control text-center me-3"
+                           id="inputQuantity" type="num"
+                           min="1" th:max="${merch.getMerchAmount()}"
+                           th:name="inputQuantity"
+                           th:value="1" style="max-width: 3rem">
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

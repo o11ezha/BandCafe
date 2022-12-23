@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    background-color: #ffe8d2;
+    font-family: 'Montserrat', sans-serif
+}
+
+.card {
+    border: none
+}
+
+.logo {
+    background-color: #eeeeeea8
+}
+
+.totals tr td {
+    font-size: 13px
+}
+
+.footer {
+    background-color: #eeeeeea8
+}
+
+.footer span {
+    font-size: 12px
+}
+
+.product-qty span {
+    font-size: 12px;
+    color: #dedbdb
+}</style>
+<body>
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="invoice p-5">
+                    <span class="font-weight-bold d-block mt-4">Привет, (ИМЯ)</span>
+                    <span>Желаешь ли ты оплатить заказ и отдать его в обработку нашей команде, мяв? :з </span>
+                    <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+                    </div>
+                    <div class="product border-bottom table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <td width="20%">
+                                    <img src="https://i.imgur.com/u11K1qd.jpg" width="90">
+                                </td>
+                                <td width="60%">
+                                    <span class="font-weight-bold">Men's Sports cap</span>
+                                    <div class="product-qty">
+                                        <span class="d-block" >
+                                            <input class="form-control text-center me-3"
+                                                   id="inputQuantity" type="num"
+                                                   min="1" th:max="${merch.getMerchAmount()}"
+                                                   th:name="inputQuantity"
+                                                   th:value="1" style="max-width: 5rem"></span>
+                                        <span>Color:Dark</span>
+                                    </div>
+                                </td>
+                                <td width="20%">
+                                    <div class="text-right">
+                                        <span class="font-weight-bold">$67.50</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-5">
+                            <table class="table table-borderless">
+                                <tbody class="totals">
+                                <tr class="border-top border-bottom">
+                                    <td>
+                                        <div class="text-left">
+
+                                            <span class="font-weight-bold">Subtotal</span>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+                                            <span class="font-weight-bold">$238.50</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                    <span>
+                            <input class="form-control text-center mb-3"
+                                   id="address" type="text"
+                                   placeholder="Введите адрес"
+                                   th:name="address" style="max-width: 30rem">
+                        </span>
+                    </div>
+                    <button class="btn btn-outline-dark flex-shrink-0 mb-2 justify-content-md-end" type="submit">
+                        Add to cart
+                    </button>
+                    <p>We will be sending shipping confirmation email when the item shipped successfully!</p>
+                    <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
+                    <span>Nike Team</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

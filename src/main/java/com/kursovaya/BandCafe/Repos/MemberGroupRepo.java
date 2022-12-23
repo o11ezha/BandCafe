@@ -28,6 +28,11 @@ public class MemberGroupRepo {
         SqlParameterSource namedParameters = new MapSqlParameterSource("groupID", groupID);
         return template.queryForObject(sql, namedParameters, String.class);
     }
+    public List<MemberGroup> getAllManagerGroups(String managerLogin){
+        String sql = "SELECT * FROM member_group WHERE group_manager = :managerLogin";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("managerLogin", managerLogin);
+        return template.query(sql, namedParameters, new MemberGroupRowMapper());
+    }
 
     public MemberGroup findGroupByGroupName(String groupName){
         String sql = "SELECT * FROM member_group WHERE group_name = :groupName";

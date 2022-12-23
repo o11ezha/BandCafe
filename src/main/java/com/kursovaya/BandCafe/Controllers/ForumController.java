@@ -75,7 +75,8 @@ public class ForumController {
         List<String> allForumsName = forumService.getAllForumsName();
 
         if (forum.getForumName().equals("") || forum.getForumName() == null) {
-            errors(errorForum, "Введите название форума", "editForum", model);
+            model.addAttribute("errorForum", "Введите название форума");
+            return "editForum";
         }
 
         if (allForumsName.contains(forum.getForumName()) && !forum.getForumName().equals(forum2.getForumName())) {
@@ -85,7 +86,8 @@ public class ForumController {
         }
 
         if (forum.getForumDesc().equals("") || forum.getForumDesc() == null) {
-            errors(errorForumDesc, "Введите описание форума", "editForum", model);
+            model.addAttribute("errorForumDesc", "Введите описание форума");
+            return "editForum";
         }
 
         forum.setForumID(forum2.getForumID());
@@ -94,11 +96,4 @@ public class ForumController {
         return "redirect:/forums/" + URLEncoder.encode(forum.getForumName(),"UTF-8").replace("+", "%20");
     }
 
-    public String errors(String finalerror, String texterror,
-                         String returnPage, Model model) {
-
-        finalerror = texterror;
-        model.addAttribute( '"' + finalerror + '"', finalerror);
-        return '"' +  returnPage + '"';
-    }
 }

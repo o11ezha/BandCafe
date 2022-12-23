@@ -9,6 +9,7 @@ public class Song {
     @NotNull(message = "Песня должна иметь длительность")
     private Integer songDuration;
     private String songMV;
+    @NotNull(message = "Песня должна иметь альбом")
     private String albumID;
 
     public String getSongID() {

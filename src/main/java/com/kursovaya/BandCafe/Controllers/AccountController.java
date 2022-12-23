@@ -63,7 +63,6 @@ public class AccountController {
         Integer roleID = -1;
         switch (filter) {
             case "none":
-                roleID = -1;
                 break;
             case "user":
                 roleID = 3;
@@ -78,7 +77,6 @@ public class AccountController {
                 roleID = 0;
                 break;
         }
-        System.out.println(roleID);
         if (roleID != -1) {
             List<Account> accounts = accountService.findSpecialRoleAccounts(roleID);
             model.addAttribute("accounts", accounts);

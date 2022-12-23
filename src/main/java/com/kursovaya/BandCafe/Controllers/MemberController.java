@@ -104,7 +104,8 @@ public class MemberController {
         List<String> memberLogins = memberService.getAllMembersLogins();
 
         if (loginMember.equals("") || loginMember == null) {
-            errors(errorLogin, "Введите аккаунт мембера", "addMember", model);
+            model.addAttribute("errorLogin", "Введите логин");
+            return "addMember";
         }
 
         if (memberLogins.contains(loginMember)){
@@ -114,34 +115,39 @@ public class MemberController {
 
 
         if (member.getMemberName().equals("") || member.getMemberName() == null) {
-            errors(errorName, "Введите имя мембера", "addMember", model);
+            model.addAttribute("errorName", "Введите имя мембера");
+            return "addMember";
         }
 
         if (member.getMemberStageName().equals("") || member.getMemberStageName() == null) {
-            errors(errorStageName, "Введите сценарическое имя мембера", "addMember", model);
+            model.addAttribute("errorStageName", "Введите ссценарическое имя мембера");
+            return "addMember";
         }
         List<String> allMembersStageNames = memberService.getAllMembersStageNames();
 
         if (allMembersStageNames.contains(member.getMemberStageName()) && !member.getMemberStageName().equals(member2.getMemberStageName())) {
-            errorStageName = "Такое сценическое имя уже существует";
-            model.addAttribute("errorStageName", errorStageName);
+            model.addAttribute("errorStageName", "Такое сценическое имя уже существует");
             return "addMember";
         }
 
         if (member.getMemberDateOfBirth().equals("") || member.getMemberDateOfBirth() == null) {
-            errors(errorDateOfBirth, "Введите день рождения мембера", "addMember", model);
+            model.addAttribute("errorDateOfBirth", "Введите дату рождения мембера");
+            return "addMember";
         }
 
         if (member.getMemberCountry().equals("") || member.getMemberCountry() == null) {
-            errors(errorCountry, "Введите страну рождения мембера", "addMember", model);
+            model.addAttribute("errorCountry", "Введите страну рождаения мембера");
+            return "addMember";
         }
 
         if (member.getMemberCity().equals("") || member.getMemberCity() == null) {
-            errors(errorCity, "Введите город рождения мембера", "addMember", model);
+            model.addAttribute("errorCity", "Введите город рождения мембера");
+            return "addMember";
         }
 
         if (member.getLabelID().equals("") || member.getLabelID() == null) {
-            errors(errorLabelID, "Введите агентство мембера", "addMember", model);
+            model.addAttribute("errorLabelID", "Введите агентство мембера");
+            return "addMember";
         }
 
         if (!Objects.requireNonNull(filemember.getOriginalFilename()).equals("")
@@ -218,39 +224,45 @@ public class MemberController {
         }
 
         if (member.getMemberName().equals("") || member.getMemberName() == null) {
-            errors(errorName, "Введите имя мембера", "editMember", model);
+            model.addAttribute("errorName", "Введите имя мембера");
+            return "editMember";
         }
 
         if (member.getMemberStageName().equals("") || member.getMemberStageName() == null) {
-            errors(errorStageName, "Введите сценарическое имя мембера", "editMember", model);
+            model.addAttribute("errorStageName", "Введите сценарическое имя мембера");
+            return "editMember";
         }
         List<String> allMembersStageNames = memberService.getAllMembersStageNames();
         System.out.println(allMembersStageNames);
 
         if (allMembersStageNames.contains(member.getMemberStageName()) && !member.getMemberStageName().equals(member2.getMemberStageName())) {
-            errorStageName = "Такое сценическое имя уже существует";
-            model.addAttribute("errorStageName", errorStageName);
+            model.addAttribute("errorStageName", "Такое сценическое имя уже существует");
             return "editMember";
         }
 
         if (member.getMemberDateOfBirth().equals("") || member.getMemberDateOfBirth() == null) {
-            errors(errorDateOfBirth, "Введите день рождения мембера", "editMember", model);
+            model.addAttribute("errorDateOfBirth", "Введите день рождения мембера");
+            return "editMember";
         }
 
         if (member.getMemberCountry().equals("") || member.getMemberCountry() == null) {
-            errors(errorCountry, "Введите страну рождения мембера", "editMember", model);
+            model.addAttribute("errorCountry", "Введите страну рождения мембера");
+            return "editMember";
         }
 
         if (member.getMemberCity().equals("") || member.getMemberCity() == null) {
-            errors(errorCity, "Введите город рождения мембера", "editMember", model);
+            model.addAttribute("errorCity", "Введите город рождения мембера");
+            return "editMember";
         }
 
         if (member.getLabelID().equals("") || member.getLabelID() == null) {
-            errors(errorLabelID, "Введите агентство мембера", "editMember", model);
+            model.addAttribute("errorLabelID", "Введите агентство мембера");
+            return "editMember";
         }
 
         if (member.getGroupID().equals("") || member.getGroupID() == null) {
-            errors(errorGroupID, "Введите агентство мембера", "editMember", model);
+            model.addAttribute("errorGroupID", "Введите группу мембера");
+            return "editMember";
         }
 
         memberService.editMember(member);
@@ -304,14 +316,6 @@ public class MemberController {
     public String deleteAccount(@PathVariable("memberID") String memberID){
         memberService.deleteMember(memberID);
         return "redirect:/bands";
-    }
-
-    public String errors(String finalerror, String texterror,
-                         String returnPage, Model model) {
-
-        finalerror = texterror;
-        model.addAttribute( '"' + finalerror + '"', finalerror);
-        return '"' +  returnPage + '"';
     }
     public void countryList(Model model){
         List<String> countries = new ArrayList<>();

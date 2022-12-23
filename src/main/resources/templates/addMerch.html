@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/merch/add}" th:method="post"  enctype="multipart/form-data" th:object="${merch}">
+
+  <label th:for="merchName" th:text="'Название товара: '"></label>
+  <input type="text" th:field="*{merchName}" id="merchName" name="merchName" required>
+  <p style="color:red" th:errors="*{merchName}" th:if="${#fields.hasErrors('merchName')}" th:text="'merchName error'"></p>
+  <label style="color:red" th:text="${errorName}"></label>
+  <br>
+
+  <label th:for="merchPrice" th:text="'Цена товара: '"></label>
+  <input data-type="currency" type="text" th:field="*{merchPrice}" id="merchPrice" name="merchPrice" pattern="^\d{0,7}\.{0,1}\d{0,}$" required>
+  <p style="color:red" th:errors="*{merchPrice}" th:if="${#fields.hasErrors('merchPrice')}" th:text="'merchPrice error'"></p>
+  <label style="color:red" th:text="${errorPrice}"></label>
+  <br>
+
+  <label th:for="merchAmount" th:text="'Количество товара: '"></label>
+  <input type="number" th:field="*{merchAmount}" id="merchAmount" name="merchAmount" pattern="^\d{0,7}$" required>
+  <p style="color:red" th:errors="*{merchAmount}" th:if="${#fields.hasErrors('merchAmount')}" th:text="'merchAmount error'"></p>
+  <label style="color:red" th:text="${errorAmount}"></label>
+  <br>
+
+  <label th:for="groupID" th:text="'Группа: '"></label>
+  <label>
+    <select th:field="*{groupID}" th:id = "groupID" class="form-select form-select-sm" required>
+      <option th:each="group : ${groups}"
+              th:value="${group.getGroupID()}"
+              th:text="${group.getGroupName()}"></option>
+    </select>
+  </label>
+  <label style="color:red" th:text="${errorGroup}"></label>
+  <br>
+
+  <input type="file" name="merchImage" required>
+  <br>
+
+  <label> <input th:type="submit" th:value="Добавить"> </label>
+</form>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    background-color: #ffe8d2;
+    font-family: 'Montserrat', sans-serif
+}
+
+.card {
+    border: none
+}
+.totals tr td {
+    font-size: 13px
+}
+
+
+.footer span {
+    font-size: 12px
+}
+
+.product-qty span {
+    font-size: 12px;
+    color: #2a5abb
+}
+</style>
+<body>
+<form th:action="@{/profile/{profileID}/orders/{orderID}(profileID = ${profileID}, orderID = ${orderID})}"
+      th:method="post">
+
+    <div class="container mt-5 mb-5">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="invoice p-5">
+                        <span class="font-weight-bold d-block mt-4" th:text="'Привет, ' + ${login} + '!'"></span>
+                        <span th:text="'Желаешь ли ты оплатить заказ и отдать его в обработку нашей команде, мяв? :з '"></span>
+                        <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+                        </div>
+                        <div class="product border-bottom table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <td width="20%" >
+                                        <img style="border-radius: .25rem"  th:src="@{'/imgorder/' + ${order.getMerchDescSource()}}" width="90">
+                                    </td>
+                                    <td width="60%">
+                                        <span class="font-weight-bold" th:text="${order.getMerchName()}"></span>
+                                        <div class="product-qty">
+                                        <span class="d-block">
+                                            <input th:hidden="hidden" th:name="amount" th:id="amount"
+                                                   th:value="${order.getOrderAmount()}">
+                                             <span th:text="'Количество: ' + ${order.getOrderAmount()}"></span><br>
+                    <span th:id="priceOne" th:value="${merch.getMerchPrice()}"
+                          th:text="'Цена за штуку: ' + ${merch.getMerchPrice()}"></span>
+                                        </div>
+                                    </td>
+                                    <td width="20%">
+                                        <div class="text-right">
+                                            <span class="font-weight-bold"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-md-5">
+                                <table class="table table-borderless">
+                                    <tbody class="totals">
+                                    <tr class="border-top border-bottom">
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="font-weight-bold">Subtotal</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                            <span id="totalPrice" th:text="${order.getTotalPrice()}"
+                                                  class="font-weight-bold"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                    <span>
+                            <input class="form-control text-center mb-3"
+                                   id="address" type="text"
+                                   placeholder="Введите адрес"
+                                   th:name="address" th:id="address"
+                                   th:value="${order.getOrderAddress()}"
+                                   style="max-width: 30rem" required>
+                        </span>
+                        </div>
+                        <button class="btn btn-outline-dark flex-shrink-0 mb-2 justify-content-md-end" type="submit">
+                            Оплатить
+                        </button>
+                        <p style="color:red" th:text="${errorMoney}"></p>
+
+                        <p>Отправим так быстро как только сможем!</p>
+                        <p class="font-weight-bold mb-0">Спасибо за заказ!</p>
+                        <span>Фламдер И ЮЮкО!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--<script>-->
+<!--  function myFunction() {-->
+<!--    var price = document.getElementById("inputQuantity").value;-->
+<!--    var gst = document.getElementById("priceOne").value;-->
+<!--    var total = price*gst;-->
+
+<!--    console.log(price);-->
+<!--    console.log(gst);-->
+<!--    console.log(total);-->
+<!--    document.getElementById("totalPrice").innerHTML = total;-->
+
+<!--  }-->
+<!--</script>-->
+</body>
+</html>

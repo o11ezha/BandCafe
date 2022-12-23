@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 @Controller
 public class SongController {
@@ -48,19 +47,21 @@ public class SongController {
         }
 
         if (song.getSongName().equals("") || song.getSongName() == null) {
-            errors(errorSongName, "Введите название песни", "addSong", model);
+            model.addAttribute("errorSongName", "Введите название песни");
+            return  "addSong";
         }
 
         if (song.getSongDuration().equals(0) || song.getSongDuration() == null) {
-            errors(errorSongDuration, "Введите длительность песни", "addSong", model);
+            model.addAttribute("errorSongDuration", "Введите длительность песни");
+            return  "addSong";
         }
 
         song.setAlbumID(albumID);
         Album album = albumService.getAlbumByAlbumID(albumID);
 
         songService.addSong(song);
-        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8") + "/"
-                 + URLEncoder.encode(album.getAlbumName(), "UTF-8");
+        return "redirect:/bands/" + groupName + "/"
+                 + album.getAlbumName();
     }
 
     static Song song2 = new Song();
@@ -91,11 +92,13 @@ public class SongController {
         }
 
         if (song.getSongName().equals("") || song.getSongName() == null) {
-            errors(errorSongName, "Введите название песни", "editSong", model);
+            model.addAttribute("errorSongName", "Введите название песни");
+            return  "editSong";
         }
 
         if (song.getSongDuration().equals(0) || song.getSongDuration() == null) {
-            errors(errorSongDuration, "Введите длительность песни", "editSong", model);
+            model.addAttribute("errorSongDuration", "Введите длительность песни");
+            return  "editSong";
         }
 
         song.setSongID(song2.getSongID());
@@ -103,28 +106,20 @@ public class SongController {
 
         songService.editSong(song);
 
-        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8") + "/"
-                + URLEncoder.encode(album.getAlbumName(), "UTF-8");
+        return "redirect:/bands/" + groupName + "/"
+                + album.getAlbumName();
     }
 
-    @GetMapping("bands/{groupName}/{albumID}/{songName}/delete")
+    @GetMapping("bands/{groupName}/{albumID}/{songID}/delete")
     public String deleteSong(@PathVariable("groupName") String groupName,
                              @PathVariable("albumID") String albumID,
-                             @PathVariable("songName") String songName,
+                             @PathVariable("songID") String songID,
                              Model model) throws UnsupportedEncodingException {
-        Song song = songService.getSongByName(songName);
 
-        songService.deleteSong(song.getSongID());
+        songService.deleteSong(songID);
         Album album = albumService.getAlbumByAlbumID(albumID);
-        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8") + "/"
-                + URLEncoder.encode(album.getAlbumName(), "UTF-8");
+        return "redirect:/bands/" + groupName + "/"
+                + album.getAlbumName();
     }
 
-    public String errors(String finalerror, String texterror,
-                         String returnPage, Model model) {
-
-        finalerror = texterror;
-        model.addAttribute( '"' + finalerror + '"', finalerror);
-        return '"' +  returnPage + '"';
-    }
 }

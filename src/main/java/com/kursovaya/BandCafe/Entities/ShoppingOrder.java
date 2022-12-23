@@ -6,12 +6,21 @@ import java.util.Date;
 
 public class ShoppingOrder {
     public String orderID;
-    public Date orderAddDate;
+    public String orderAddDate;
     public Integer orderStatus;
+    public Boolean orderConfrim;
     public String orderAddress;
     public Integer orderAmount;
-    public String ShoppingCardID;
+    public String ShoppingCartID;
     public String merchID;
+
+    public Boolean getOrderConfrim() {
+        return orderConfrim;
+    }
+
+    public void setOrderConfrim(Boolean orderConfrim) {
+        this.orderConfrim = orderConfrim;
+    }
 
     public String getOrderID() {
         return orderID;
@@ -21,11 +30,11 @@ public class ShoppingOrder {
         this.orderID = orderID;
     }
 
-    public Date getOrderAddDate() {
+    public String getOrderAddDate() {
         return orderAddDate;
     }
 
-    public void setOrderAddDate(Date orderAddDate) {
+    public void setOrderAddDate(String orderAddDate) {
         this.orderAddDate = orderAddDate;
     }
 
@@ -53,12 +62,12 @@ public class ShoppingOrder {
         this.orderAmount = orderAmount;
     }
 
-    public String getShoppingCardID() {
-        return ShoppingCardID;
+    public String getShoppingCartID() {
+        return ShoppingCartID;
     }
 
-    public void setShoppingCardID(String shoppingCardID) {
-        ShoppingCardID = shoppingCardID;
+    public void setShoppingCartID(String shoppingCartID) {
+        ShoppingCartID = shoppingCartID;
     }
 
     public String getMerchID() {

@@ -109,23 +109,26 @@ public class GroupController {
         List<String> allGroupsFandoms = memberGroupService.getAllGroupsFandomName();
 
         if (group.getGroupName().equals("") || group.getGroupName() == null) {
-            errors(errorGroup, "Введите название группы", "addGroup", model);
+            model.addAttribute("errorGroup", "Введите название группы");
+            return "addGroup";
         }
 
         if (allGroupNames.contains(group.getGroupName())){
-            errorGroup = "Такая группа уже существует";
-            model.addAttribute("errorGroup", errorGroup);
+            model.addAttribute("errorGroup", "Такая группа уже существует");
             return "addGroup";
         }
 
         if (group.getGroupCountry().equals("") || group.getGroupCountry() == null) {
-            errors(errorCountry, "Введите страну группы", "addGroup", model);
+            model.addAttribute("errorCountry", "Введите страну группы");
+            return "addGroup";
         }
         if (group.getGroupDebutDate().equals("") || group.getGroupDebutDate() == null) {
-            errors(errorDebut,"Введите дату дебюта группы", "addGroup", model);
+            model.addAttribute("errorDebut", "Введите дату дебюта группы");
+            return "addGroup";
         }
         if (group.getGroupFandom().equals("") || group.getGroupFandom() == null) {
-            errors(errorFandom,"Введите название фандома группы", "addGroup", model);
+            model.addAttribute("errorFandom", "Введите название фэндома группы");
+            return "addGroup";
         }
 
         if (allGroupsFandoms.contains(group.getGroupFandom())){
@@ -204,27 +207,28 @@ public class GroupController {
         List<String> allGroupsFandoms = memberGroupService.getAllGroupsFandomName();
 
         if (group.getGroupName().equals("") || group.getGroupName() == null) {
-            errors(errorGroup, "Введите название группы", "editGroup", model);
+            model.addAttribute("errorGroup", "Введите название группы");
+            return "editGroup";
         }
 
         if (allGroupNames.contains(group.getGroupName()) && !group.getGroupName().equals(group2.getGroupName())) {
-            errorGroup = "Такая группа уже существует";
-            model.addAttribute("errorGroup", errorGroup);
+            model.addAttribute("errorGroup", "Такая группа уже существует");
             return "editGroup";
         }
 
         if (group.getGroupFandom().equals("") || group.getGroupFandom() == null) {
-            errors(errorFandom, "Введите название фандома группы", "editGroup", model);
+            model.addAttribute("errorFandom", "Введите название фандома группы");
+            return "editGroup";
         }
 
         if (allGroupsFandoms.contains(group.getGroupFandom()) && !group.getGroupFandom().equals(group2.getGroupFandom())) {
-            errorFandom = "Такой фандом уже существует";
-            model.addAttribute("errorFandom", errorFandom);
+            model.addAttribute("errorFandom", "Такой фандом уже существует");
             return "editGroup";
         }
 
         if (group.getGroupManager().equals("") || group.getGroupManager() == null) {
-            errors(errorManager, "Выберите менеджера", "editGroup", model);
+            model.addAttribute("errorManager", "Выберите менеджера");
+            return "editGroup";
         }
 
         memberGroupService.editGroup(group);
@@ -232,13 +236,6 @@ public class GroupController {
         return "redirect:/bands";
     }
 
-    public String errors(String finalerror, String texterror,
-                         String returnPage, Model model) {
-
-            finalerror = texterror;
-            model.addAttribute( '"' + finalerror + '"', finalerror);
-            return '"' +  returnPage + '"';
-    }
     public void countryList(Model model){
         List<String> countries = new ArrayList<>();
 

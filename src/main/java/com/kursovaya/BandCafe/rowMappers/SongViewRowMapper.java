@@ -15,6 +15,7 @@ public class SongViewRowMapper implements RowMapper<SongView> {
         songView.setGroupName(rs.getString("group_name"));
         songView.setAlbumName(rs.getString("album_name"));
         songView.setAlbumReleaseDate(rs.getString("album_release_date"));
+        songView.setSongID(rs.getString("song_id"));
         songView.setSongName(rs.getString("song_name"));
         songView.setSongDuration(rs.getString("song_duration_format"));
         songView.setSongMV(rs.getString("song_mv"));

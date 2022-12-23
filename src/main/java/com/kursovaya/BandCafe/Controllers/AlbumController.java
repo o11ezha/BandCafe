@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -84,11 +85,13 @@ public class AlbumController {
         }
 
         if (album.getAlbumName().equals("") || album.getAlbumName() == null) {
-            errors(errorAlbumName, "Введите название альбома", "addAlbum", model);
+            model.addAttribute("errorAlbumName", "Введите название альбома");
+            return "addAlbum";
         }
 
         if (album.getAlbumReleaseDate().equals("") || album.getAlbumReleaseDate() == null) {
-            errors(errorAlbumDate, "Ввыберите дату релиза альбома", "addAlbum", model);
+            model.addAttribute("errorAlbumDate", "Введите дату релиза альбома");
+            return "addAlbum";
         }
 
         if (!Objects.requireNonNull(filecover.getOriginalFilename()).equals("")) {
@@ -150,11 +153,13 @@ public class AlbumController {
         }
 
         if (album.getAlbumName().equals("") || album.getAlbumName() == null) {
-            errors(errorAlbumName, "Введите название альбома", "editAlbum", model);
+            model.addAttribute("errorAlbumName", "Введите название альбома");
+            return "editAlbum";
         }
 
         if (album.getAlbumReleaseDate().equals("") || album.getAlbumReleaseDate() == null) {
-            errors(errorAlbumDate, "Ввыберите дату релиза альбома", "editAlbum", model);
+            model.addAttribute("errorAlbumDate", "Ввыберите дату релиза альбома");
+            return "editAlbum";
         }
 
         if(!Objects.requireNonNull(filecover.getOriginalFilename()).equals("")
@@ -185,7 +190,7 @@ public class AlbumController {
         album.setAlbumID(albumID);
         albumService.editAlbum(album);
 
-        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8")  + "/" + URLEncoder.encode(album.getAlbumName(), "UTF-8");
+        return "redirect:/bands/" + groupName  + "/" + album.getAlbumName();
     }
 
     @GetMapping("bands/{groupName}/{albumID}/delete")
@@ -194,15 +199,6 @@ public class AlbumController {
                             Model model) throws UnsupportedEncodingException {
 
         albumService.deleteAlbum(albumID);
-        return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8");
-    }
-
-
-    public String errors(String finalerror, String texterror,
-                         String returnPage, Model model) {
-
-        finalerror = texterror;
-        model.addAttribute( '"' + finalerror + '"', finalerror);
-        return '"' +  returnPage + '"';
+        return "redirect:/bands/" + URLEncoder.encode(groupName, StandardCharsets.UTF_8);
     }
 }

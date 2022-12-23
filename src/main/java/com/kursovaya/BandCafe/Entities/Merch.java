@@ -1,12 +1,25 @@
 package com.kursovaya.BandCafe.Entities;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+
 public class Merch {
     private String merchID;
+    @NotNull (message = "Имя товара не может быть пустым")
     private String merchName;
-    private Integer merchPrice;
+    @NotNull (message = "Цена товара не может быть пустой")
+    @Range(min = 1, max = 1000000, message = "Цена товара должна быть больше 0")
+    private BigDecimal merchPrice;
     private Boolean merchStatus;
+    @NotNull (message = "Количество товара не может быть пустым")
+    @Range(min = 1, max = 1000, message = "Количество товара должно быть от 1 до 1000")
     private Integer merchAmount;
     private String merchDescSource;
+    @NotNull (message = "Группа, которой принадлежит товар, не может быть пустой")
     private String groupID;
 
     public String getMerchID() {
@@ -25,11 +38,11 @@ public class Merch {
         this.merchName = merchName;
     }
 
-    public Integer getMerchPrice() {
+    public BigDecimal getMerchPrice() {
         return merchPrice;
     }
 
-    public void setMerchPrice(Integer merchPrice) {
+    public void setMerchPrice(BigDecimal merchPrice) {
         this.merchPrice = merchPrice;
     }
 
@@ -63,5 +76,18 @@ public class Merch {
 
     public void setGroupID(String groupID) {
         this.groupID = groupID;
+    }
+
+    @Override
+    public String toString() {
+        return "Merch{" +
+                "merchID='" + merchID + '\'' +
+                ", merchName='" + merchName + '\'' +
+                ", merchPrice=" + merchPrice +
+                ", merchStatus=" + merchStatus +
+                ", merchAmount=" + merchAmount +
+                ", merchDescSource='" + merchDescSource + '\'' +
+                ", groupID='" + groupID + '\'' +
+                '}';
     }
 }

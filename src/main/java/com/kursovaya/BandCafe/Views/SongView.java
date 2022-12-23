@@ -5,9 +5,18 @@ public class SongView {
     private String groupName;
     private String albumName;
     private String albumReleaseDate;
+    private String songID;
     private String songName;
     private String songDuration;
     private String songMV;
+
+    public String getSongID() {
+        return songID;
+    }
+
+    public void setSongID(String songID) {
+        this.songID = songID;
+    }
 
     public String getGroupName() {
         return groupName;

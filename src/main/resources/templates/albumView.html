@@ -21,7 +21,7 @@
         <label th:text="${song.getSongName()}"></label>
         <label th:text="${song.getSongDuration()}"></label>
         <a th:href="@{/bands/{groupName}/{albumID}/{songName} (groupName=${groupName}, albumID=${album.getAlbumID()}, songName=${song.getSongName()})}">Редактировать песню</a>
-        <a th:href="@{/bands/{groupName}/{albumID}/{songName}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songName=${song.getSongName()})}">Удалить песню</a>
+        <a th:href="@{/bands/{groupName}/{albumID}/{songID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">Удалить песню</a>
         <div th:if = "${(song.getSongMV() != '') && (song.getSongMV() != null) }">
         <iframe  width="220" height="150"
                 th:src="${song.getSongMV()}">

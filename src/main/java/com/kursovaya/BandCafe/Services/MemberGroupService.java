@@ -58,6 +58,9 @@ public class MemberGroupService {
     public MemberGroup getGroupByGroupID(String groupID) {
         return memberGroupRepo.findGroupByGroupID(groupID);
     }
+    public List<MemberGroup> getAllManagerGroups(String mangerLogin) {
+        return memberGroupRepo.getAllManagerGroups(mangerLogin);
+    }
 
     public String getGroupNameByID(String groupID){
         return memberGroupRepo.getGroupNameByID(groupID);

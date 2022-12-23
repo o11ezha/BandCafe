@@ -1,9 +1,10 @@
 package com.kursovaya.BandCafe.Entities;
 
+import java.math.BigDecimal;
+
 public class ShoppingCart {
     private String shoppingCartID;
-    private Boolean confirmPayment;
-    private Integer userMoney;
+    private BigDecimal userMoney;
     private String accountLogin;
 
     public String getShoppingCartID() {
@@ -14,19 +15,11 @@ public class ShoppingCart {
         this.shoppingCartID = shoppingCartID;
     }
 
-    public Boolean getConfirmPayment() {
-        return confirmPayment;
-    }
-
-    public void setConfirmPayment(Boolean confirmPayment) {
-        this.confirmPayment = confirmPayment;
-    }
-
-    public Integer getUserMoney() {
+    public BigDecimal getUserMoney() {
         return userMoney;
     }
 
-    public void setUserMoney(Integer userMoney) {
+    public void setUserMoney(BigDecimal userMoney) {
         this.userMoney = userMoney;
     }
 
