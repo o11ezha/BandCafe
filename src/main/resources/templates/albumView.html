@@ -5,8 +5,10 @@
     <title>Title</title>
 </head>
 <body>
+<div th:if="${account.getRoleID < 2}">
 <a th:href="@{/bands/{groupName}/{albumID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()})}">Редактировать альбом</a>
 <a th:href="@{/bands/{groupName}/{albumID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()})}">Удалить альбом</a>
+</div>
 <div>
     <img th:src="@{'/imgcover/' + ${pathToImg}}" alt="альбом" width="200" height="200">
     <p>Название альбома: </p>
@@ -20,9 +22,11 @@
     <div th:each=" song : ${songs}">
         <label th:text="${song.getSongName()}"></label>
         <label th:text="${song.getSongDuration()}"></label>
-        <a th:href="@{/bands/{groupName}/{albumID}/{songName} (groupName=${groupName}, albumID=${album.getAlbumID()}, songName=${song.getSongName()})}">Редактировать песню</a>
+        <div th:if="${account.getRoleID < 2}">
+        <a th:href="@{/bands/{groupName}/{albumID}/{songID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">Редактировать песню</a>
         <a th:href="@{/bands/{groupName}/{albumID}/{songID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">Удалить песню</a>
         <div th:if = "${(song.getSongMV() != '') && (song.getSongMV() != null) }">
+        </div>
         <iframe  width="220" height="150"
                 th:src="${song.getSongMV()}">
         </iframe>

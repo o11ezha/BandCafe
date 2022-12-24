@@ -4,29 +4,150 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    body {
+        background-color: #ffd8f0;
+    }
+
+    header {
+        background-color: #ffffff;
+        color: #cc0971;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 15vh;
+        box-shadow: 2px 2px 10px rgba(103, 28, 28, 0.3);
+    }
+
+    h1 {
+        letter-spacing: 1.5vw;
+        font-family: 'system-ui';
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 75vh;
+        width: 100%;
+        background: no-repeat center center;
+        background-size: cover;
+    }
+
+    .form_class {
+        width: 500px;
+        padding: 40px;
+        border-radius: 8px;
+        background-color: white;
+        font-family: 'system-ui';
+        box-shadow: 2px 2px 10px rgba(103, 28, 28, 0.3);
+    }
+
+    .form_div {
+        text-transform: none;
+    }
+
+    .form_div > label {
+        color: #cc0971;
+        letter-spacing: 3px;
+        font-size: 1rem;
+    }
+
+    .info_div {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .info_div {
+        color: #cc0971;
+        letter-spacing: 1px;
+    }
+
+    .field_class {
+        width: 100%;
+        border-radius: 6px;
+        border-style: solid;
+        border-width: 1px;
+        padding: 5px 0px;
+        text-indent: 6px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-family: 'system-ui';
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    .submit_class {
+        border-style: none;
+        border-radius: 5px;
+        color: #9a0650;
+        background-color: #FFE6D4;
+        padding: 8px 20px;
+        font-family: 'system-ui';
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    footer {
+        height: 10vh;
+        background-color: #ffffff;
+        color:  #cc0971;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: -2px -2px 10px rgb(103, 28, 28, 0.3);
+    }
+
+    footer > p {
+        text-align: center;
+        font-family: 'system-ui';
+        letter-spacing: 3px;
+    }
+
+    footer > p > a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }</style>
 <body>
-<div th:if="${#request.getParameter('error') == 'true'}"
-     style="color:red;margin:10px 0px;">
-    Login Failed<br/>
-    Reason:
-    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"></span>
-</div>
+<header>
+    <h1>Asian Bands Cafe DEMO</h1>
+</header>
+<main>
 
-<form th:action="@{/login}" th:method="post">
-
-    <div>
-        <label> User Name : <input th:type="text" th:name="username" required> </label>
-    </div>
-    <div>
-        <label> Password: <input th:type="password" th:id = "password" th:name="password" required> </label>
-        <input th:type="checkbox" th:onclick="myFunction()"> Show Password
-
-    </div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<a th:href="@{/registration}">Регистрация</a><br>
-
+    <form id="login_form" class="form_class" th:action="@{/login}" method="post">
+        <div class="form_div">
+            <label>Login:</label>
+            <input class="field_class" name="username" type="text" placeholder="Введите свой логин" autofocus required>
+            <label>Password:</label>
+            <input id="password" class="field_class" name="password" type="password" placeholder="И пароль, пожавста >:з" required>
+            <input type="checkbox"  th:onclick="myFunction()"><label> Show Password</label>
+            <div th:if="${#request.getParameter('error') == 'true'}"
+                 style="color:red;margin:10px 0px;">Login Failed<br/>
+                Reason:
+                <label th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+                       th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"></label></div>
+            <button class="submit_class" type="submit" form="login_form">Войти</button>
+        </div>
+        <div class="info_div">
+            <p>Вас ещё нет в нашем замечательном кафе? <a th:href="@{/registration}">>Зарегистрируйтесь!</a></p>
+        </div>
+    </form>
+</main>
+<footer>
+    <p>© 2022 Asian Bands Cafe DEMO</p>
+</footer>
 <script>
     function myFunction() {
         var x = document.getElementById("password");

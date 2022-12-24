@@ -8,6 +8,7 @@ import com.kursovaya.BandCafe.Services.MerchService;
 import com.kursovaya.BandCafe.Views.MerchView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,7 @@ public class MerchController {
     }
 
     @GetMapping("/manageMerch")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String returnAllMerch(Principal principal, Model model){
         List<MerchView> merchAll = merchService.getAllMerchFromView();
         List<String> merchIDs = merchService.getMerchIDsByManagerLogin(principal.getName());
@@ -73,6 +75,7 @@ public class MerchController {
     }
 
     @GetMapping("/merch/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addMerch(Principal principal, Model model){
         List<MemberGroup> groups = memberGroupService.getAllManagerGroups(principal.getName());
         model.addAttribute("groups", groups);
@@ -81,6 +84,7 @@ public class MerchController {
     }
 
     @PostMapping("/merch/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addMerch(@ModelAttribute("merch") @Validated Merch merch,
                            BindingResult bindingResult,
                            @RequestParam("merchImage") MultipartFile merchImage,
@@ -173,6 +177,7 @@ public class MerchController {
     static Merch merch2 = new Merch();
 
     @GetMapping("/merch/edit/{merchID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMerch(@PathVariable("merchID") String merchID, Principal principal, Model model){
         Merch merch = merchService.getMerchByID(merchID);
         merch2 = merch;
@@ -184,6 +189,7 @@ public class MerchController {
     }
 
     @PostMapping("/merch/edit/{merchID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMerch(@ModelAttribute("merch") @Validated Merch merch,
                             BindingResult bindingResult,
                             String errorName,

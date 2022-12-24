@@ -3,104 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <style>
-    * {
-        box-sizing: border-box;
-    }
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
 
     body {
-        font-family: Arial, Helvetica, sans-serif;
+        background-color: #99ee93;
+        font-family: "Montserrat", Sans-serif;
+        font-size: 14px;
+        color: #ffffff
     }
 
-    .column {
+    .home-testimonial-bottom {
+        background-color: #f8f8f8;
+        border-radius: 3%;
+        transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+        margin-top: 20px;
+        margin-bottom: 0px;
+        position: relative;
+        top: 190px
+    }
+
+    .home-testimonial h3 {
+        color: var(--orange);
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        text-transform: uppercase
+    }
+
+    .home-testimonial h2 {
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: 700
+    }
+
+    .testimonial-inner {
+        position: relative;
+        top: -174px
+    }
+
+    .testimonial-pos {
+        position: relative;
+        top: 24px
+    }
+
+    .testimonial-inner .tour-desc {
+        border-radius: 5px;
+        padding: 40px;
+        box-shadow: 2px 0px 10px 0 rgba(51, 64, 128, 0.2);
+    }
+
+    .color-grey-3 {
+        font-family: "Montserrat", Sans-serif;
+        font-size: 20px;
+        color: #006e0f
+    }
+
+    .testimonial-inner img.tm-people {
+        width: 60px;
+        height: 60px;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        max-width: none
+    }
+
+    .link-name {
+        font-family: "Montserrat", Sans-serif;
+        font-size: 14px;
+        color: #3f8504
+    }
+
+    .topnav {
+        background-color: #128537;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+
+
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
         float: left;
-        width: 25%;
-        padding: 0 10px;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
     }
 
-    /* Remove extra left and right margins, due to padding */
-    .row {margin: 0 -5px;}
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #b3ee83;
+        color: black;
     }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #dce23a;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
+
 </style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center testimonial-pos">
+        <div class="col-md-12 d-flex justify-content-center">
+            <h2>Know more about you fav group (\(*o*(\)</h2>
+        </div>
+    </div>
+    <section class="home-testimonial-bottom">
+        <div class="container testimonial-inner">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 style-3">
+                    <div th:each="group1 : ${groups1}">
+                        <div class="tour-item ">
+                            <div class="tour-desc bg-white">
+                                <div class="tour-text color-grey-3 text-center"
+                                     th:text="${group1.getGroupFandom()}"></div>
+                                <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
+                                                                                          th:src="@{'/MainImages/' + 'groupicon.jpg'}"
+                                                                                          alt=""></div>
+                                <div class="link-name d-flex justify-content-center"
+                                     th:text="${group1.getGroupName()}"></div>
+                                <div class="d-grid gap-2 col-6 mx-auto ">
+                                    <a th:href="@{/bands/{groupName}(groupName = ${group1.getGroupName()})}">
+                                        <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Know
+                                            more!
+                                        </button>
+                                    </a>
+                                    <div th:if="${account.getRoleID() < 2}">
+                                        <a th:href="@{/bands//edit/{groupID}(groupID = ${group1.getGroupID()})}">
+                                            <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Edit
+                                                Group
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
 
-<div th:id="cardContainer"></div>
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var groupsID = /*[[${groupsID}]]*/ [];
-    var groupDesc = /*[[${groupDesc}]]*/  [];
-    var groupNames = /*[[${groupNames}]]*/  [];
-    var groupFandoms = /*[[${groupFandoms}]]*/ [];
-    /*]]>*/
 
-    var length = groupsID.length;
-
-    console.log(groupsID);
-    console.log(groupDesc);
-    console.log(groupNames);
-    console.log(groupFandoms);
-    console.log(length);
-    console.log(length === 0);
-
-    if (length === 0) {
-        var str = '<h1>There are no groups to display</h1>';
-    } else {
-        var str = '';
-        for (var j = 0; j < length; j++) {
-            var length2 = groupsID.length;
-            if (length2 === 0)
-                break;
-            str += '<div class="row">'
-            if (length2 < 2) {
-                str += '<div class="column">'
-                str += '<div class="card">'
-                str += '<h3>' + groupNames[0] + '</h3>'
-                str += '<p>' + groupDesc[0] + '</p>'
-                str += '<p>' + groupFandoms[0] + '</p>'
-                str += '<a href="/bands/' + groupNames[0] + '">Перейти к группе</a><br>'
-                str += '</div>'
-                str += '</div>'
-                groupsID.splice(0);
-                groupNames.splice(0);
-                groupDesc.splice(0);
-                groupFandoms.splice(0);
-            } else {
-                for (var i = 0; i < 2; i++) {
-                    str += '<div class="column">'
-                    str += '<div class="card">'
-                    str += '<h3>' + groupNames[i] + '</h3>'
-                    str += '<p>' + groupDesc[i] + '</p>'
-                    str += '<p>' + groupFandoms[i] + '</p>'
-                    str += '<a href="/bands/' + groupNames[i] + '">Перейти к группе</a><br>'
-                    str += '</div>'
-                    str += '</div>'
-                }
-                groupsID = groupsID.slice(2);
-                groupNames = groupNames.slice(2);
-                groupDesc = groupDesc.slice(2);
-                groupFandoms = groupFandoms.slice(2);
-
-                console.log(groupsID);
-                console.log(groupDesc);
-                console.log(groupNames);
-                console.log(groupFandoms);
-                console.log(length);
-            }
-            str += '</div>';
-        }
-    }
-    document.getElementById("cardContainer").innerHTML = str;
-</script>
+                <div class="col-md-4 style-3">
+                    <div th:each="group2 : ${groups2}">
+                        <div class="tour-item ">
+                            <div class="tour-desc bg-white">
+                                <div class="tour-text color-grey-3 text-center"
+                                     th:text="${group2.getGroupFandom()}"></div>
+                                <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
+                                                                                          th:src="@{'/MainImages/' + 'groupicon.jpg'}"
+                                                                                          alt=""></div>
+                                <div class="link-name d-flex justify-content-center  ml-1"
+                                     th:text="${group2.getGroupName()}"></div>
+                                <div class="d-grid gap-2 col-6 mx-auto ">
+                                    <a th:href="@{/bands/{groupName}(groupName = ${group2.getGroupName()})}">
+                                        <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Know
+                                            more!
+                                        </button>
+                                    </a>
+                                    <div th:if="${account.getRoleID() < 2}">
+                                        <a th:href="@{/bands//edit/{groupID}(groupID = ${group2.getGroupID()})}">
+                                            <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Edit
+                                                Group
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 </body>
-
-
 </html>

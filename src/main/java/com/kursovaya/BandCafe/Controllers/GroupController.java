@@ -1,5 +1,6 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.Album;
 import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
@@ -9,6 +10,7 @@ import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,32 +44,35 @@ public class GroupController {
     String uploadPath;
 
     @GetMapping("")
-    public String getGroups(Model model) throws FileNotFoundException {
-        List<String> groupsID = memberGroupService.getAllGroupsID();
-        List<String> groupDesc = memberGroupService.getAllGroupsDescriptionSource();
-        List<String> Desc = new ArrayList<>();
-        List<String> groupNames = memberGroupService.getAllGroupsName();
-        List<String> groupFandoms = memberGroupService.getAllGroupsFandomName();
+    public String getGroups(Principal principal, Model model) throws FileNotFoundException {
+        List<MemberGroup> groups = memberGroupService.getAllGroups();
+        List<MemberGroup> groups1 = new ArrayList<>();
+        List<MemberGroup> groups2 = new ArrayList<>();
 
-        for (String desc : groupDesc) {
-            File file = new File(uploadPath + "/GroupDesc/" + desc);
-            Scanner sc = new Scanner(file);
-            Desc.add(sc.nextLine());
+        for (int i = 0; i < groups.size(); i++) {
+            if (i % 2 == 0) {
+                groups1.add(groups.get(i));
+            } else {
+                groups2.add(groups.get(i));
+            }
         }
 
-        model.addAttribute("groupsID", groupsID);
-        model.addAttribute("groupDesc", Desc);
-        model.addAttribute("groupNames", groupNames);
-        model.addAttribute("groupFandoms", groupFandoms);
+        Account account = accountService.findByLogin(principal.getName());
+
+        model.addAttribute("groups1", groups1);
+        model.addAttribute("groups2", groups2);
+        model.addAttribute("account", account);
         return "groups";
     }
 
     @GetMapping("/{groupName}")
-    public String returnGroup(@PathVariable String groupName, Model model) throws FileNotFoundException {
+    public String returnGroup(@PathVariable String groupName,Principal principal, Model model) throws FileNotFoundException {
         MemberGroup group = memberGroupService.getGroupByGroupName(groupName);
         List<Album> albums = albumService.getAlbumsByGroupName(groupName);
         File file = new File(uploadPath + "/GroupDesc/" + group.getGroupDescSource());
         Scanner sc = new Scanner(file);
+        Account account = accountService.findByLogin(principal.getName());
+
 
         if (albums.size() > 0) {
             model.addAttribute("albums", albums);
@@ -76,6 +81,7 @@ public class GroupController {
         }
 
         model.addAttribute("group", group);
+        model.addAttribute("account", account);
         model.addAttribute("groupdesc",  sc.nextLine());
         model.addAttribute("manager", group.getGroupManager());
         model.addAttribute("members", memberService.getMembersByGroupID(group.getGroupID()));
@@ -83,6 +89,7 @@ public class GroupController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addGroup(Model model) {
         countryList(model);
         model.addAttribute("group", new MemberGroup());
@@ -90,6 +97,7 @@ public class GroupController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addGroup(@ModelAttribute("group") @Validated MemberGroup group,
                            BindingResult bindingResult,
                            @RequestParam("filegroup") MultipartFile filegroup,
@@ -137,7 +145,7 @@ public class GroupController {
             return "addGroup";
         }
 
-        if (filegroup != null){
+        if (Objects.requireNonNull(filegroup.getOriginalFilename()).equals("") && filegroup.getOriginalFilename() == null) {
             File uploadDir = new File(uploadPath + "/GroupDesc");
 
             if (!uploadDir.exists()) {
@@ -167,6 +175,7 @@ public class GroupController {
 
     static MemberGroup group2 = new MemberGroup();
     @GetMapping("/edit/{groupID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editGroup(@PathVariable String groupID, Model model) {
         MemberGroup group = memberGroupService.getGroupByGroupID(groupID);
         group2 = group;
@@ -177,6 +186,7 @@ public class GroupController {
     }
 
     @PostMapping("/edit/{groupID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editGroup(@ModelAttribute("group") @Validated MemberGroup group,
                             BindingResult bindingResult,
                             @PathVariable("groupID") String groupID,

@@ -4,6 +4,7 @@ import com.kursovaya.BandCafe.Entities.GroupLabel;
 import com.kursovaya.BandCafe.Services.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,6 +55,7 @@ public class LabelController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addLabel(Model model){
         countryList(model);
         model.addAttribute("labelgroup",new GroupLabel());
@@ -62,6 +64,7 @@ public class LabelController {
 
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addLabelPost(@ModelAttribute @Validated GroupLabel labelgroup,
                                BindingResult bindingResult,
                                @RequestParam ("filelabeldesc") MultipartFile filelabeldesc,
@@ -136,6 +139,7 @@ public class LabelController {
     static GroupLabel label2 = new GroupLabel();
 
     @GetMapping("/edit/{labelID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editLabel(@PathVariable("labelID") String labelID, Model model){
         GroupLabel label = labelService.getLabelByLabelID(labelID);
         String selectedCountry = label.getLabelCountry();
@@ -147,6 +151,7 @@ public class LabelController {
     }
 
     @PostMapping("/edit/{labelID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editLabel(@ModelAttribute @Validated GroupLabel labelgroup,
                             BindingResult bindingResult,
                             @PathVariable("labelID") String labelID,

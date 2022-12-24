@@ -17,10 +17,11 @@
 </head>
 <body>
 <style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
     body {
-        background: #ffffff
+        background: linear-gradient(to bottom, #ffffff,  #f68eb1);
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
-
 
     .product-image {
         width: 100%
@@ -32,7 +33,7 @@
         margin-left: 6px;
         margin-right: 6px;
         margin-top: 3px;
-        background-color: blue;
+        background-color: #f68eb1;
         border-radius: 50%;
         display: inline-block
     }
@@ -56,20 +57,59 @@
         transition: 0.3s;
     }
 
+    .btn-primary {
+        border-radius: 12px;
+        border: 2px solid #f68eb1;
+        background-color:  #f68eb1;}
+
     .p-2:hover {
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     }
 
-    .btn-outline-primary {
-        color: #007bff;
-        background-color: transparent;
-        background-image: none;
-        border-color: #007bff;
-        margin-top: 5px;
-        margin-right: 5px;
+    .topnav {
+        background-color: #821134;
+        overflow: hidden;
 
     }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #fa96b5;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #e23a6e;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
+
 </style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+        <a th:href="@{'/forums'}">Forums</a>
+        <a th:href="@{'/bands'}">Groups</a>
+        <a th:href="@{'/labels'}">Labels</a>
+        <a th:href="@{'/merch'}">Merch</a>
+</div>
+
 <div class="container mt-5 mb-5">
     <div th:each="merch : ${merchAll}">
         <div th:if="${merch.getMerchStatus}">
@@ -89,7 +129,7 @@
                         </div>
                         <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                             <div class="d-flex flex-row align-items-center">
-                                <h4 class="mr-1" th:text="${merch.getMerchPrice()} + ' руб.'"></h4>
+                                <h4 class="mr-1" th:text="${merch.getMerchPrice()} + ' rub.'"></h4>
                             </div>
                             <div class="d-flex flex-column mt-4">
                                 <a th:href="@{'/merch/' + ${merch.getMerchName()}}">

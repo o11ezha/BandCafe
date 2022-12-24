@@ -5,7 +5,7 @@ import java.util.Date;
 public class Post {
     private String postID;
     private String postText;
-    private Date postDate;
+    private String postDate;
     private String postImageSource;
     private String forumID;
     private String authorLogin;
@@ -28,11 +28,11 @@ public class Post {
         this.postText = postText;
     }
 
-    public Date getPostDate() {
+    public String getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(String postDate) {
         this.postDate = postDate;
     }
 

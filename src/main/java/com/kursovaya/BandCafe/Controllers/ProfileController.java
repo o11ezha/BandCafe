@@ -122,9 +122,11 @@ public class ProfileController {
                 e.printStackTrace();
             }
         } else {
-            if (profile2.getProfileAvatarSource().equals(""))
-                profile.setProfileAvatarSource("default.jpg");
-            else profile.setProfileAvatarSource(profile2.getProfileAvatarSource());
+            if (profile2.getProfileAvatarSource() != null){
+                if (profile2.getProfileAvatarSource().equals(""))
+                    profile.setProfileAvatarSource("default.jpg");
+                else profile.setProfileAvatarSource(profile2.getProfileAvatarSource());
+            } else profile.setProfileAvatarSource("default.jpg");
         }
 
         profile.setAccountLogin(principal.getName());

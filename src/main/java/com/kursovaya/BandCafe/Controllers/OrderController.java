@@ -1,26 +1,24 @@
 package com.kursovaya.BandCafe.Controllers;
 
-import com.kursovaya.BandCafe.Entities.*;
+import com.kursovaya.BandCafe.Entities.MemberGroup;
+import com.kursovaya.BandCafe.Entities.Merch;
+import com.kursovaya.BandCafe.Entities.ShoppingCart;
+import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.MerchService;
 import com.kursovaya.BandCafe.Services.OrderService;
 import com.kursovaya.BandCafe.Services.ShoppingCartService;
 import com.kursovaya.BandCafe.Views.OrderView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.relational.core.sql.In;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.net.Proxy;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Controller
 public class OrderController {
@@ -33,6 +31,9 @@ public class OrderController {
 
     @Autowired
     MerchService merchService;
+
+    @Autowired
+    MemberGroupService memberGroupService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -50,6 +51,7 @@ public class OrderController {
     }
 
     @GetMapping("/manageOrders")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String returnAllOrders(Principal principal,
                                   Model model) {
         List<String> ordersIDs = orderService.getOrdersByManagerLogin(principal.getName());
@@ -64,6 +66,7 @@ public class OrderController {
     }
 
     @PostMapping("/manageOrders")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String updateStatus(@RequestParam("orderID") String orderIDD,
                                @RequestParam("status") String status,
                                Principal principal,
@@ -155,26 +158,43 @@ public class OrderController {
                                   @RequestParam Integer inputQuantity,
                                   @RequestParam String address,
                                   Principal principal,
+                                  String errorAmount,
+                                  String errorAddress,
                                   Model model) {
         String trueName = merchName.replace("%20", " ")
                 .replace("+", " ");
         Merch merch = merchService.getMerchByName(trueName);
+        MemberGroup memberGroup = memberGroupService.getGroupByGroupID(merch.getGroupID());
         model.addAttribute("merch", merch);
+        model.addAttribute("memberGroup", memberGroup);
+
+        System.out.println(principal.getName());
+        System.out.println(merch.getMerchID());
+        System.out.println(inputQuantity);
+        System.out.println(address);
 
         if (inputQuantity == null || inputQuantity < 1) {
-            return "redirect:/merch/" + trueName;
+            model.addAttribute("errorAmount", "Укажите количество верно з:");
+            return "merchView";
         }
 
         if (inputQuantity > merch.getMerchAmount()) {
-            return "redirect:/merch/" + trueName;
+            model.addAttribute("errorAmount", "К сожалению, у нас меньше товара, чем вы хотите купить");
+            return "merchView";
         }
 
         if (address == null || address.equals("")) {
-            return "redirect:/merch/" + trueName;
+            model.addAttribute("errorAddress", "Укажите адрес доставки");
+            return "merchView";
         }
 
+        System.out.println(principal.getName());
+        System.out.println(merch.getMerchID());
+        System.out.println(inputQuantity);
+        System.out.println(address);
+
         orderService.addOrder(principal.getName(), merch.getMerchID(), inputQuantity, address);
-        return "redirect:/merch/" + trueName;
+        return "redirect:/merch";
     }
 
     @GetMapping("/profile/{profileID}/orders/{orderID}/delete")

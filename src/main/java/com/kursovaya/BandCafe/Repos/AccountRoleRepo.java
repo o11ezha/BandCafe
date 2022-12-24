@@ -1,10 +1,8 @@
 package com.kursovaya.BandCafe.Repos;
 
 import com.kursovaya.BandCafe.Entities.AccountRole;
-import com.kursovaya.BandCafe.Repos.AccountRepo;
 import com.kursovaya.BandCafe.rowMappers.AccountRoleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;

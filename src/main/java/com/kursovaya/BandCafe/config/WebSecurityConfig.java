@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers( "/registration","/", " /login").permitAll()
+                        .antMatchers( "/registration","/bacs", "/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

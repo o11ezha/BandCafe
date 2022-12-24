@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+<div th:if="${account.getRoleID() < 2}">
 <a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>
 <a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a><br>
 <a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">Изменить позиции мембера</a>
+</div>
 
 <p>Имя: </p>
 <label th:text="${member.getMemberName()}"></label>

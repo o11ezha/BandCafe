@@ -1,15 +1,10 @@
 package com.kursovaya.BandCafe.Controllers;
 
-import com.kursovaya.BandCafe.Entities.GroupLabel;
-import com.kursovaya.BandCafe.Entities.Member;
-import com.kursovaya.BandCafe.Entities.MemberGroup;
-import com.kursovaya.BandCafe.Entities.Position;
-import com.kursovaya.BandCafe.Services.LabelService;
-import com.kursovaya.BandCafe.Services.MemberGroupService;
-import com.kursovaya.BandCafe.Services.MemberService;
-import com.kursovaya.BandCafe.Services.PositionService;
+import com.kursovaya.BandCafe.Entities.*;
+import com.kursovaya.BandCafe.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -22,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -39,28 +35,34 @@ public class MemberController {
     @Autowired
     PositionService positionService;
 
+    @Autowired
+    AccountService accountService;
+
     @Value("${upload.path}")
     String uploadPath;
 
     @GetMapping("/member/{memberStageName}")
-    public String returnMember(@PathVariable String memberStageName, Model model) throws FileNotFoundException {
+    public String returnMember(@PathVariable String memberStageName, Principal principal, Model model) throws FileNotFoundException {
         Member member = memberService.getMemberByMemberStageName(memberStageName);
         GroupLabel label = labelService.getLabelByLabelID(member.getLabelID());
         MemberGroup memberGroup = memberGroupService.getGroupByGroupID(member.getGroupID());
         List<Position> memberPositions = positionService.getAllMemberPositions(member.getMemberID());
         File file = new File(uploadPath + "/MemberDesc/" + member.getMemberDescSource());
         Scanner sc = new Scanner(file);
+        Account account = accountService.findByLogin(principal.getName());
 
         model.addAttribute("member", member);
         model.addAttribute("memberdesc",  sc.nextLine());
         model.addAttribute("label", label.getLabelName());
         model.addAttribute("memberGroup", memberGroup.getGroupName());
         model.addAttribute("memberPositions", memberPositions);
+        model.addAttribute("account", account);
 
         return "memberView";
     }
 
     @GetMapping("{groupName}/member/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addMember(@PathVariable("groupName") String groupName, Model model){
         countryList(model);
         Member member = new Member();
@@ -73,6 +75,7 @@ public class MemberController {
     }
 
     @PostMapping("{groupName}/member/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addMember(@PathVariable("groupName") String groupName,
                             @Validated Member member,
                             BindingResult bindingResult,
@@ -185,6 +188,7 @@ public class MemberController {
     static Member member2 = new Member();
 
     @GetMapping("/member/edit/{memberID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMember(@PathVariable String memberID, Model model) {
         Member member = memberService.getMemberByMemberID(memberID);
         member2 = member;
@@ -195,6 +199,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/edit/{memberID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMember(@ModelAttribute("member") @Validated Member member,
                              BindingResult bindingResult,
                              @PathVariable ("memberID") String memberID,
@@ -270,6 +275,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/editPos/{memberID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMemberPos(@PathVariable String memberID, Model model) {
         Member member = memberService.getMemberByMemberID(memberID);
         List<Position> positions = positionService.getAllPositions();
@@ -282,6 +288,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/editPos/{memberID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editMemberPos(@PathVariable("memberID") String memberID,
                                 @RequestBody MultiValueMap<String, String> form,
                                 Model model) throws UnsupportedEncodingException {
@@ -313,6 +320,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/deletemem/{memberID}")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String deleteAccount(@PathVariable("memberID") String memberID){
         memberService.deleteMember(memberID);
         return "redirect:/bands";

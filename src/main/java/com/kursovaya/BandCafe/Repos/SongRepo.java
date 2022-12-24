@@ -25,6 +25,12 @@ public class SongRepo {
         return template.queryForObject(sql, sqlParameterSource, new SongRowMapper());
     }
 
+    public Song getSongBySongID(String songID) {
+        String sql = "SELECT * FROM song WHERE song_id = :songID";
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("songID", songID);
+        return template.queryForObject(sql, sqlParameterSource, new SongRowMapper());
+    }
+
     public List<Song> getSongsByAlbumName(String albumName) {
         String sql = "SELECT * FROM song s JOIN album a ON s.album_id = a.album_id WHERE a.album_name = :albumName";
         SqlParameterSource namedParameters = new MapSqlParameterSource("albumName", albumName);

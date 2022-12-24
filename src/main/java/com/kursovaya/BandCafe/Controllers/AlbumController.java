@@ -1,12 +1,15 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.Album;
+import com.kursovaya.BandCafe.Services.AccountService;
 import com.kursovaya.BandCafe.Services.AlbumService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.SongService;
 import com.kursovaya.BandCafe.Views.SongView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -34,14 +38,20 @@ public class AlbumController {
     @Autowired
     MemberGroupService memberGroupService;
 
+    @Autowired
+    AccountService accountService;
+
     @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("bands/{groupName}/{albumName}")
     public String returnAlbum(@PathVariable("groupName") String groupName,
                               @PathVariable("albumName") String albumName,
+                              Principal principal,
                               Model model) {
         Album album = albumService.getAlbumByAlbumName(albumName.replace("%20"," "));
+        Account account = accountService.findByLogin(principal.getName());
+        model.addAttribute("account", account);
 
         List<SongView> songs = songService.getSongsViewByAlbumName(albumName);
         model.addAttribute("songs", songs);
@@ -62,6 +72,7 @@ public class AlbumController {
     }
 
     @GetMapping("bands/{groupName}/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addAlbum(@PathVariable("groupName") String groupName,
                             Model model) {
         Album album = new Album();
@@ -70,6 +81,7 @@ public class AlbumController {
     }
 
     @PostMapping("bands/{groupName}/add")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addAlbum(@PathVariable("groupName") String groupName,
                            @Validated Album album,
                            BindingResult bindingResult,
@@ -128,6 +140,7 @@ public class AlbumController {
     static Album album2 = new Album();
 
     @GetMapping("bands/{groupName}/{albumID}/edit")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editAlbum(@PathVariable("groupName") String groupName,
                               @PathVariable("albumID") String albumID,
                               Model model) {
@@ -138,6 +151,7 @@ public class AlbumController {
     }
 
     @PostMapping("bands/{groupName}/{albumID}/edit")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editAlbum(@ModelAttribute("album") Album album,
                             BindingResult bindingResult,
                             String errorAlbumName,
@@ -194,6 +208,7 @@ public class AlbumController {
     }
 
     @GetMapping("bands/{groupName}/{albumID}/delete")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String deleteAlbum(@PathVariable("groupName") String groupName,
                             @PathVariable("albumID") String albumID,
                             Model model) throws UnsupportedEncodingException {

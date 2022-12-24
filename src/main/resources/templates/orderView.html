@@ -10,6 +10,8 @@
 </head>
 <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+@import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
 body {
     background-color: #ffe8d2;
     font-family: 'Montserrat', sans-serif
@@ -18,6 +20,7 @@ body {
 .card {
     border: none
 }
+
 .totals tr td {
     font-size: 13px
 }
@@ -31,8 +34,55 @@ body {
     font-size: 12px;
     color: #2a5abb
 }
+
+.topnav {
+    background-color: #821134;
+    overflow: hidden;
+    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+}
+
+/* Style the links inside the navigation bar */
+
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    font-weight: 700;
+    background-color: #fa96b5;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #e23a6e;
+    font-weight: 700;
+    color: white;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+
 </style>
 <body>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+
 <form th:action="@{/profile/{profileID}/orders/{orderID}(profileID = ${profileID}, orderID = ${orderID})}"
       th:method="post">
 
@@ -50,8 +100,9 @@ body {
                             <table class="table table-borderless">
                                 <tbody>
                                 <tr>
-                                    <td width="20%" >
-                                        <img style="border-radius: .25rem"  th:src="@{'/imgorder/' + ${order.getMerchDescSource()}}" width="90">
+                                    <td width="20%">
+                                        <img style="border-radius: .25rem"
+                                             th:src="@{'/imgorder/' + ${order.getMerchDescSource()}}" width="90">
                                     </td>
                                     <td width="60%">
                                         <span class="font-weight-bold" th:text="${order.getMerchName()}"></span>

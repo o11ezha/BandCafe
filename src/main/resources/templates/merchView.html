@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:t="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,6 +17,11 @@
 
 </head>
 <style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    body{
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
     .dot {
         height: 7px;
         width: 7px;
@@ -27,18 +32,61 @@
         border-radius: 50%;
         display: inline-block
     }
+
+    .topnav {
+        background-color: #821134;
+        overflow: hidden;
+
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #fa96b5;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #e23a6e;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
 </style>
 <body>
+
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
 <form th:action="@{/merch/{merchName}(merchName = ${merchName})}" th:method="post">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                                        th:src="@{'/imgorder/' + ${merch.getMerchDescSource()}}" alt="..."></div>
             <div class="col-md-6">
-                <div class="small mb-1" th:text="'В наличии ' + ${merch.getMerchAmount()} + ' шт.'"></div>
+                <div class="small mb-1" th:text="'In stock: ' + ${merch.getMerchAmount()} + ' items'"></div>
                 <h1 class="display-5 fw-bolder" th:text="${merch.getMerchName()}"></h1>
                 <div class="fs-5 mb-3">
-                    <span th:text="${merch.getMerchPrice()} + ' руб.'"></span>
+                    <span th:text="${merch.getMerchPrice()} + ' rub.'"></span>
                 </div>
                 <p class="lead">
                 <div class="mt-1 mb-1 spec-1"><span
@@ -51,6 +99,9 @@
                                      id="address" type="text"
                                      placeholder="Введите адресс"
                                      th:name="address" style="max-width: 30rem">
+                    <label style="color:red" th:text="${errorAddress}"></label>
+
+
                         </span>
                 </div>
                 <p class="text-justify text-truncate para mb-0"></p>
@@ -61,6 +112,7 @@
                            min="1" th:max="${merch.getMerchAmount()}"
                            th:name="inputQuantity"
                            th:value="1" style="max-width: 3rem">
+                    <label style="color:red" th:text="${errorAmount}"></label>
                     <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                         Add to cart
                     </button>

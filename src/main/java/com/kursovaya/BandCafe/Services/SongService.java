@@ -30,6 +30,9 @@ public class SongService {
     public Song getSongByName(String songName) {
         return songRepo.getSongByName(songName);
     }
+    public Song getSongBySongID(String songName) {
+        return songRepo.getSongBySongID(songName);
+    }
     public List<Song> getSongsByAlbumName(String albumName) {
         return songRepo.getSongsByAlbumName(albumName);
     }

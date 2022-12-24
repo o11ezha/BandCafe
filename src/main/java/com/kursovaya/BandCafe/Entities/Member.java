@@ -1,20 +1,24 @@
 package com.kursovaya.BandCafe.Entities;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.validation.constraints.Pattern;
 
 public class Member {
     private String memberID;
     @NotNull(message = "Введите имя")
+    @Pattern(regexp = "[A-Za-zА-Яа-яЁё]+", message = "Имя должно состоять только из букв")
     private String memberName;
     @NotNull(message = "Введите сценическое имя")
     private String memberStageName;
     @NotNull(message = "Введите дату рождения")
+    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "Дата должна быть в формате ГГГГ-ММ-ДД")
     private String memberDateOfBirth;
     @NotNull(message = "Введите страну")
+    @Pattern(regexp = "[A-Za-zА-Яа-яЁё]+", message = "Страна должна состоять только из букв")
     private String memberCountry;
     @NotNull(message = "Введите город")
     private String memberCity;
+    @Pattern(regexp = "[0-9+]+", message = "Номер телефона должен состоять только из цифр")
     private Integer memberHeight;
     private String memberDescSource;
     private String labelID;

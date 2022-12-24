@@ -3,103 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <style>
-  * {
-    box-sizing: border-box;
-  }
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
 
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .column {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
-  }
-
-  /* Remove extra left and right margins, due to padding */
-  .row {margin: 0 -5px;}
-
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-</style>
-
-<div th:id="cardContainer"></div>
-
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  var forumID = /*[[${forumID}]]*/ [];
-  var forumDesc = /*[[${forumDesc}]]*/  [];
-  var forumNames = /*[[${forumNames}]]*/  [];
-  var forumGroups = /*[[${forumGroups}]]*/ [];
-  /*]]>*/
-
-  var length = forumID.length;
-
-  console.log(forumID);
-  console.log(forumDesc);
-  console.log(forumNames);
-  console.log(forumGroups);
-  console.log(length);
-  console.log(length === 0);
-
-  if (length === 0) {
-    var str = '<h1>There are no forums to display</h1>';
-  } else {
-    var str = '';
-    for (var j = 0; j < length; j++) {
-      var length2 = forumID.length;
-      if (length2 === 0)
-        break;
-      str += '<div class="row">'
-      if (length2 < 2) {
-          str += '<div class="column">'
-          str += '<div class="card">'
-          str += '<h3>' + forumNames[0] + '</h3>'
-          str += '<p>' + forumDesc[0] + '</p>'
-          str += '<a href="/bands/' + forumGroups[0] + '">' + forumGroups[0] + '</a><br>'
-          str += '<a href="/forums/' + forumNames[0] + '">Перейти к форуму</a>'
-          str += '</div>'
-          str += '</div>'
-        forumID.splice(0);
-        forumNames.splice(0);
-        forumDesc.splice(0);
-        forumGroups.splice(0);
-      } else {
-        for (var i = 0; i < 2; i++) {
-          str += '<div class="column">'
-          str += '<div class="card">'
-          str += '<h3>' + forumNames[i] + '</h3>'
-          str += '<p>' + forumDesc[i] + '</p>'
-          str += '<a href="/bands/' + forumGroups[i] + '">' + forumGroups[i] + '</a><br>'
-          str += '<a href="/forums/' + forumNames[i] + '">Перейти к форуму</a>'
-          str += '</div>'
-          str += '</div>'
-        }
-        forumID = forumID.slice(2);
-        forumNames = forumNames.slice(2);
-        forumDesc = forumDesc.slice(2);
-        forumGroups = forumGroups.slice(2);
-
-        console.log(forumID);
-        console.log(forumDesc);
-        console.log(forumNames);
-        console.log(forumGroups);
-        console.log(length);
-      }
-      str += '</div>';
+    body {
+        background-color: #93e2ee;
+        font-family: "Montserrat", Sans-serif;
+        font-size: 14px;
+        color: #ffffff
     }
-  }
-  document.getElementById("cardContainer").innerHTML = str;
-</script>
+
+    .home-testimonial-bottom {
+        background-color: #f8f8f8;
+        border-radius: 3%;
+        transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+        margin-top: 20px;
+        margin-bottom: 0px;
+        position: relative;
+        top: 190px
+    }
+
+    .home-testimonial h3 {
+        color: var(--orange);
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        text-transform: uppercase
+    }
+
+    .home-testimonial h2 {
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: 700
+    }
+
+    .testimonial-inner {
+        position: relative;
+        top: -174px
+    }
+
+    .testimonial-pos {
+        position: relative;
+        top: 24px
+    }
+
+    .testimonial-inner .tour-desc {
+        border-radius: 5px;
+        padding: 40px;
+        box-shadow: 2px 0px 10px 0 rgba(51, 64, 128, 0.2);
+    }
+
+    .color-grey-3 {
+        font-family: "Montserrat", Sans-serif;
+        font-size: 20px;
+        color: #00266e
+    }
+
+    .testimonial-inner img.tm-people {
+        width: 60px;
+        height: 60px;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        max-width: none
+    }
+
+    .link-name {
+        font-family: "Montserrat", Sans-serif;
+        font-size: 14px;
+        color: #00266e
+    }
+
+    .topnav {
+        background-color: #713acc;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+
+
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #9e83ee;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #3a8ee2;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
+
+</style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center testimonial-pos">
+        <div class="col-md-12 d-flex justify-content-center">
+            <h2>Talk to Idols with Ultra Love <3</h2>
+        </div>
+    </div>
+    <section class="home-testimonial-bottom">
+        <div class="container testimonial-inner">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 style-3">
+                    <div th:each="forum1 : ${forums1}">
+                        <div class="tour-item ">
+                            <div class="tour-desc bg-white">
+                                <div class="tour-text color-grey-3 text-center"
+                                     th:text="${forum1.getForumDesc()}"></div>
+                                <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
+                                                                                          th:src="@{'/MainImages/' + 'forumicon.jpg'}"
+                                                                                          alt=""></div>
+                                <div class="link-name d-flex justify-content-center"
+                                     th:text="${forum1.getForumName()}"></div>
+                                <div class="d-grid gap-2 col-6 mx-auto ">
+                                    <a th:href="@{/forums/{forumName}(forumName = ${forum1.getForumName()})}">
+                                        <button class="btn btn-outline-info  justify-content-center pt-2 pb-2">Go to
+                                            Forum!
+                                        </button>
+                                    </a>
+                                    <div th:if="${account.getRoleID() < 2}">
+                                        <a th:href="@{/forums/{forumName}/edit(forumName = ${forum1.getForumName()})}">
+                                            <button class="btn btn-outline-info  justify-content-center pt-2 pb-2">Edit
+                                                Forum
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 style-3">
+                    <div th:each="forum2 : ${forums2}">
+                        <div class="tour-item ">
+                            <div class="tour-desc bg-white">
+                                <div class="tour-text color-grey-3 text-center"
+                                     th:text="${forum2.getForumDesc()}"></div>
+                                <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
+                                                                                          th:src="@{'/MainImages/' + 'forumicon.jpg'}"
+                                                                                          alt=""></div>
+
+                                <div class="link-name d-flex justify-content-center  ml-1"
+                                     th:text="${forum2.getForumName()}"></div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <a th:href="@{/forums/{forumName}(forumName = ${forum2.getForumName()})}">
+                                        <button class="btn btn-outline-info justify-content-center pt-2 pb-2">Go to
+                                            Forum!
+                                        </button>
+                                    </a>
+                                    <div th:if="${account.getRoleID() < 2}">
+                                        <a th:href="@{/forums/{forumName}/edit(forumName = ${forum2.getForumName()})}">
+                                            <button class="btn btn-outline-info  justify-content-center pt-2 pb-2">Edit
+                                                Forum
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 </body>
-
-
 </html>

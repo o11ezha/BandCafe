@@ -5,6 +5,7 @@ import com.kursovaya.BandCafe.Entities.Song;
 import com.kursovaya.BandCafe.Services.AlbumService;
 import com.kursovaya.BandCafe.Services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class SongController {
     AlbumService albumService;
 
     @GetMapping("/bands/{groupName}/{albumID}/addSong")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addSong(@PathVariable("groupName") String groupName,
                            @PathVariable("albumID") String albumID,
                            Model model) {
@@ -34,6 +36,7 @@ public class SongController {
     }
 
     @PostMapping("/bands/{groupName}/{albumID}/addSong")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addSong(@ModelAttribute("song") Song song,
                            BindingResult bindingResult,
                            @PathVariable("groupName") String groupName,
@@ -66,23 +69,26 @@ public class SongController {
 
     static Song song2 = new Song();
 
-    @GetMapping("bands/{groupName}/{albumID}/{songName}")
+    @GetMapping("bands/{groupName}/{albumID}/{songID}/edit")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String editSong(@PathVariable("groupName") String groupName,
                            @PathVariable("albumID") String albumID,
-                           @PathVariable("songName") String songName,
+                           @PathVariable("songID") String songID,
                            Model model) {
-        Song song = songService.getSongByName(songName);
+        Song song = songService.getSongBySongID(songID);
         song2 = song;
         model.addAttribute("song", song);
         return "editSong";
     }
 
-    @PostMapping("bands/{groupName}/{albumID}/{songName}")
+    @PostMapping("bands/{groupName}/{albumID}/{songID}/edit")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
+
     public String editSong(@ModelAttribute("song") Song song,
             BindingResult bindingResult,
             @PathVariable("groupName") String groupName,
                            @PathVariable("albumID") String albumID,
-                           @PathVariable("songName") String songName,
+                           @PathVariable("songID") String songID,
                            String errorSongName,
                            String errorSongDuration,
                            Model model) throws UnsupportedEncodingException {
@@ -111,6 +117,7 @@ public class SongController {
     }
 
     @GetMapping("bands/{groupName}/{albumID}/{songID}/delete")
+    @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String deleteSong(@PathVariable("groupName") String groupName,
                              @PathVariable("albumID") String albumID,
                              @PathVariable("songID") String songID,
@@ -118,8 +125,7 @@ public class SongController {
 
         songService.deleteSong(songID);
         Album album = albumService.getAlbumByAlbumID(albumID);
-        return "redirect:/bands/" + groupName + "/"
-                + album.getAlbumName();
+        return "redirect:/bands/" + groupName + "/"+ album.getAlbumName();
     }
 
 }

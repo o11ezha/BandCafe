@@ -5,21 +5,144 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/registration}" th:method="post">
-  <label>
-    Введите логин:
-    <input th:type="text" th:name = "login" required>
-    <label style="color:red" th:text="${errorLogin}" ></label>
-  </label><br>
+<style>
+  * {
+    padding: 0px;
+    margin: 0px;
+  }
 
-  <label>
-    Введите пароль:
-    <input th:type="password" th:id = "password" th:name = "password" required>
-    <input th:type="checkbox" th:onclick="myFunction()"> Show Password
-  </label><br>
-  <button th:type="submit">Зарегистрироваться</button>
-</form>
+  body {
+    background-color: #e2ffd8;
+  }
 
+  header {
+    background-color: #ffffff;
+    color: #a8cc09;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15vh;
+    box-shadow: 2px 2px 10px rgba(69, 103, 28, 0.3);
+  }
+
+  h1 {
+    letter-spacing: 1.5vw;
+    font-family: 'system-ui';
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    width: 100%;
+    background: no-repeat center center;
+    background-size: cover;
+  }
+
+  .form_class {
+    width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: white;
+    font-family: 'system-ui';
+    box-shadow: 2px 2px 10px rgba(69, 103, 28, 0.3);
+  }
+
+  .form_div {
+    text-transform: none;
+  }
+
+  .form_div > label {
+    color: #a8cc09;
+    letter-spacing: 3px;
+    font-size: 1rem;
+  }
+
+  .info_div {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .info_div {
+    color: #a8cc09;
+    letter-spacing: 1px;
+  }
+
+  .field_class {
+    width: 100%;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px 0px;
+    text-indent: 6px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: 'system-ui';
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  .submit_class {
+    border-style: none;
+    color: #7f9a06;
+    border-radius: 5px;
+    background-color: #d4fff4;
+    padding: 8px 20px;
+    font-family: 'system-ui';
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  footer {
+    height: 10vh;
+    background-color: #ffffff;
+    color:  #a8cc09;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: -2px -2px 10px rgb(69, 103, 28, 0.3);
+  }
+
+  footer > p {
+    text-align: center;
+    font-family: 'system-ui';
+    letter-spacing: 3px;
+  }
+
+  footer > p > a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }</style>
+<header>
+  <h1>Asian Bands Cafe DEMO</h1>
+</header>
+<main>
+  <form id="login_form" class="form_class" th:action="@{/registration}"  method="post">
+    <div class="form_div">
+      <label>Your own new unique login: </label>
+      <input class="field_class" name="login" type="text" placeholder="Введите свой логин" autofocus required>
+      <label style="color:red" th:text="${errorLogin}" ></label>
+      <label>Password:</label>
+      <input id="password" class="field_class" name="password" type="password" placeholder="И пароль не забудьте!" required>
+      <input type="checkbox"  th:onclick="myFunction()"><label> Show Password</label>
+      <button class="submit_class" type="submit" form="login_form">Зарегистрироваться</button>
+    </div>
+    <div class="info_div">
+      <p>Уже есть в нашем замечательном кафе? <a th:href="@{/login}">>Войдите!</a></p>
+    </div>
+  </form>
+</main>
+<footer>
+  <p>© 2022 Asian Bands Cafe DEMO</p>
+</footer>
 <script>
   function myFunction() {
     var x = document.getElementById("password");

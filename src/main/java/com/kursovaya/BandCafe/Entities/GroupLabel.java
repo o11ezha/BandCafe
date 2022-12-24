@@ -1,6 +1,7 @@
 package com.kursovaya.BandCafe.Entities;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 
 public class GroupLabel {

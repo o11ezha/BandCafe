@@ -2,9 +2,12 @@ package com.kursovaya.BandCafe.Controllers;
 
 import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.AccountRole;
+import com.kursovaya.BandCafe.Entities.Profile;
 import com.kursovaya.BandCafe.Services.AccountRoleService;
 import com.kursovaya.BandCafe.Services.AccountService;
+import com.kursovaya.BandCafe.Services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +30,9 @@ public class AccountController {
 
     @Autowired
     AccountRoleService accountRoleService;
+
+    @Autowired
+    ProfileService profileService;
 
     @GetMapping("/registration")
     public String addingAccount(){
@@ -52,12 +58,14 @@ public class AccountController {
     }
 
     @GetMapping("/allaccountsforADMINonly")
+    @PreAuthorize("hasAuthority('admin_role')")
     public String allAccounts(Model model){
         IdenticalPart(model);
         return "accounts";
     }
 
     @PostMapping("/allaccountsforADMINonly/filter")
+    @PreAuthorize("hasAuthority('admin_role')")
     public String filter(@RequestParam String filter, Model model){
         IdenticalPart(model);
         Integer roleID = -1;
@@ -86,6 +94,7 @@ public class AccountController {
         return "accounts";
     }
     @PostMapping("/allaccountsforADMINonly")
+    @PreAuthorize("hasAuthority('admin_role')")
     public String allAccounts(Principal principal,
                               @RequestParam String role,
                               @RequestParam (required = false) String accountLogin,
@@ -112,8 +121,10 @@ public class AccountController {
     public String returnAccount(@PathVariable String login, Model model){
         Account account = accountService.findByLogin(login);
         String roleSelected = accountRoleService.findRoleName(account.getRoleID());
+        Profile profile1 = profileService.findProfileByAccountLogin(login);
         model.addAttribute("account", account);
         model.addAttribute("roleSelected", roleSelected);
+        model.addAttribute("profile1", profile1);
         return "accountView";
     }
 

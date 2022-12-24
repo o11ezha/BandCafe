@@ -2,6 +2,8 @@ package com.kursovaya.BandCafe.Entities;
 
 import org.springframework.data.relational.core.sql.In;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class ShoppingOrder {
@@ -9,7 +11,11 @@ public class ShoppingOrder {
     public String orderAddDate;
     public Integer orderStatus;
     public Boolean orderConfrim;
+    @NotNull(message = "Введите адрес доставки")
+    @Pattern(regexp = "[А-Яа-я0-9\\s\\-,.():;'\"]+", message = "Адрес доставки должен содержать только буквы, цифры и знаки препинания")
     public String orderAddress;
+    @NotNull(message = "Введите количество заказываемых вещей ")
+    @Pattern(regexp = "[0-9]+", message = "Количество должно быть целым числом")
     public Integer orderAmount;
     public String ShoppingCartID;
     public String merchID;
