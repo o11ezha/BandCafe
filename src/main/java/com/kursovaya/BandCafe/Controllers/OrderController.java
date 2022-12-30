@@ -1,12 +1,10 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
 import com.kursovaya.BandCafe.Entities.Merch;
 import com.kursovaya.BandCafe.Entities.ShoppingCart;
-import com.kursovaya.BandCafe.Services.MemberGroupService;
-import com.kursovaya.BandCafe.Services.MerchService;
-import com.kursovaya.BandCafe.Services.OrderService;
-import com.kursovaya.BandCafe.Services.ShoppingCartService;
+import com.kursovaya.BandCafe.Services.*;
 import com.kursovaya.BandCafe.Views.OrderView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +31,9 @@ public class OrderController {
     MerchService merchService;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     MemberGroupService memberGroupService;
 
     @Value("${upload.path}")
@@ -44,8 +45,10 @@ public class OrderController {
                                Model model) {
         ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByLogin(principal.getName());
         List<OrderView> orders = orderService.getOrdersByProfileID(principal.getName());
+        Account account = accountService.findByLogin(principal.getName());
 
         model.addAttribute("orders", orders);
+        model.addAttribute("account", account);
         model.addAttribute("shoppingCart", shoppingCart);
         return "shoppingCartView";
     }
@@ -107,10 +110,12 @@ public class OrderController {
                          Principal principal,
                          Model model) {
         OrderView order = orderService.getOrdersByOrderID(orderID);
+        Account account = accountService.findByLogin(principal.getName());
         order2 = order;
         Merch merch = merchService.getMerchByID(order.getMerchID());
         model.addAttribute("order", order);
         model.addAttribute("merch", merch);
+        model.addAttribute("account", account);
         model.addAttribute("login", principal.getName());
 
         return "orderView";
@@ -126,6 +131,9 @@ public class OrderController {
                               String errorAddress,
                               String errorMoney,
                               Model model) {
+        Account account = accountService.findByLogin(principal.getName());
+        model.addAttribute("account", account);
+
         ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByLogin(principal.getName());
 
         Merch merch = merchService.getMerchByID(order2.getMerchID());

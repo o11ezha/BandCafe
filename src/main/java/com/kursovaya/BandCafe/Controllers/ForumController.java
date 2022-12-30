@@ -74,6 +74,7 @@ public class ForumController {
         List<String> profileLogins = new ArrayList<>();
         List<String> profileAvatars = new ArrayList<>();
         List<String> memberProfileIDs = profileService.getAllMembersProfiles(forum.getForumID());
+        Account account = accountService.findByLogin(principal.getName());
 
 
         List<String> categories = postService.getAllCategories();
@@ -89,6 +90,7 @@ public class ForumController {
         model.addAttribute("posts2", posts2);
         model.addAttribute("categories", categories);
         model.addAttribute("login", principal.getName());
+        model.addAttribute("account", account);
         model.addAttribute("profile", profile);
         model.addAttribute("profileLogins", profileLogins);
         model.addAttribute("profileAvatars", profileAvatars);

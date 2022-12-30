@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="AllFormsCSS.css"/>
+    <link rel="stylesheet" th:href="@{'/css/' + 'AllFormsCSS.css'}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -44,7 +44,7 @@
 }
 
 .labels {
-    font-size: 15px
+    font-size: 11px
 }
 
 .add-experience:hover {
@@ -52,13 +52,14 @@
     color: #fff;
     cursor: pointer;
     border: solid 1px #BA68C8
-}</style>
+}
+</style>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
+                    <h4 class="text-right">Добавить альбом</h4>
                 </div>
                 <form th:action="@{/bands/{groupName}/add(groupName = ${groupName})}" th:method="post"
                       enctype="multipart/form-data" th:object="${album}">
@@ -69,12 +70,11 @@
                     <p style="color:red" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}"
                        th:text="'albumName error'"></p>
                     <label class="labels" style="color:red" th:text="${errorAlbumName}"></label>
-                    <br>
 
                     <label class="labels" th:for="albumReleaseDate" >Дата выхода альбома:</label>
                     <input class="form-control" th:type="date" th:field="*{albumReleaseDate}" th:id="albumReleaseDate " required
                            th:min="1000-01-01" th:max="3000-12-31">
-                    <br>
+
                     <p style="color:red" th:errors="*{albumReleaseDate}"
                        th:if="${#fields.hasErrors('albumReleaseDate')}" th:text="'albumReleaseDate error'"></p>
                     <label  style="color:red" th:text="${errorAlbumDate}"></label>

@@ -3,27 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/css/' + 'AllFormsCSS.css'}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<form th:action="@{/bands/{groupName}/{albumID}/addSong(groupName = ${groupName}, albumID=${albumID})}" th:method="post"  th:object="${song}">
+<style>
+    body {
+        background: rgb(99, 39, 120)
+    }
 
-  <label th:for="songName" th:text="'Название песни: '"></label>
-  <input type="text" th:field="*{songName}" id="songName" name="songName" required>
-  <p style="color:red" th:errors="*{songName}" th:if="${#fields.hasErrors('songName')}" th:text="'songName error'"></p>
-  <label style="color:red" th:text="${errorSongName}"></label>
-  <br>
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
 
-  <label th:for="songDuration" th:text="'Длительность песни (в секудах): '"></label>
-  <input type="number" th:field="*{songDuration}" id="songDuration" name="songDuration" required>
-  <p style="color:red" th:errors="*{songDuration}" th:if="${#fields.hasErrors('songDuration')}" th:text="'songDuration error'"></p>
-  <label style="color:red" th:text="${errorSongDuration}"></label>
-  <br>
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
 
-  <label th:for="songMV" th:text="'Ссылка на клип: '"></label>
-  <input type="text" th:field="*{songMV}" id="songMV" name="songMV">
-  <br>
+    .profile-button:hover {
+        background: #682773
+    }
 
-  <label> <input th:type="submit" th:value="Добавить"> </label>
-</form>
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .labels {
+        font-size: 11px
+    }
+</style>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Добавить песню</h4>
+                </div>
+                <form th:action="@{/bands/{groupName}/{albumID}/addSong(groupName = ${groupName}, albumID=${albumID})}"
+                      th:method="post" th:object="${song}">
+
+                    <label class="labels" th:for="songName" th:text="'Название песни: '"></label>
+                    <input class="form-control" type="text" th:field="*{songName}" id="songName" name="songName" required>
+                    <p style="color:red" th:errors="*{songName}" th:if="${#fields.hasErrors('songName')}"
+                       th:text="'songName error'"></p>
+                    <label style="color:red" th:text="${errorSongName}"></label>
+
+                    <label class="labels" th:for="songDuration" th:text="'Длительность песни (в секудах): '"></label>
+                    <input class="form-control" type="number" th:field="*{songDuration}" id="songDuration" name="songDuration" required>
+                    <p style="color:red" th:errors="*{songDuration}" th:if="${#fields.hasErrors('songDuration')}"
+                       th:text="'songDuration error'"></p>
+                    <label style="color:red" th:text="${errorSongDuration}"></label>
+
+                    <label class="labels" th:for="songMV" th:text="'Ссылка на клип: '"></label>
+                    <input class="form-control" type="text" th:field="*{songMV}" id="songMV" name="songMV">
+                    <br>
+
+                    <label> <input class="btn btn-primary profile-button" th:type="submit" th:value="Добавить"> </label>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<a th:href="@{/labels/add}">Добавить новое агентство</a>
+<div th:if="${account.getRoleID() < 2}">
+    <a th:href="@{/labels/add}">Добавить новое агентство</a>
+</div>
 <table>
     <tr>
         <th>Название агенства</th>
@@ -25,8 +27,11 @@
         <td th:text="${label.getLabelMainAddress()}"></td>
         <td th:text="${label.getLabelDate()} == null ? 'Нет данных' : ${label.getLabelDate()}"></td>
         <td th:type="text" name="Description"></td>
+        <div th:if="${account.getRoleID() < 2}">
+
         <td><a th:href="@{/labels/{labelID}(labelID=${label.getLabelName()})}">Перейти к агентству</a></td>
         <td><a th:href="@{/labels/edit/{labelID}(labelID=${label.getLabelID()})}">Перейти к редактировнию лэйбла</a></td>
+        </div>
     </tr>
 </table>
 <script th:inline="javascript">

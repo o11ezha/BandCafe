@@ -43,6 +43,7 @@ public class ProfileController {
         Account account = accountService.findByLogin(principal.getName());
         String roleSelected = accountRoleService.findRoleName(account.getRoleID()).replace("_role", "");
         Profile profile = profileService.findByProfileID(profileID);
+        model.addAttribute("account", account);
 
         System.out.println(profile.toString());
 

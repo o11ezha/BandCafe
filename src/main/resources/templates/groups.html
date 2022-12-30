@@ -123,8 +123,14 @@
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
     <a th:href="@{'/forums'}">Forums</a>
-    <a th:href="@{'/bands'}">Groups</a>
-    <a th:href="@{'/labels'}">Labels</a>
+    <div th:if="${account.getRoleID() < 2}">
+        <a th:href="@{'/bands'}">Groups</a>
+        <a th:href="@{'/labels'}">Labels</a>
+    </div>
+    <div th:unless="${account.getRoleID() <2}">
+    <a href="#">WIP~</a>
+    <a href="#">WIP~</a>
+    </div>
     <a th:href="@{'/merch'}">Merch</a>
 </div>
 <div class="container-fluid">
@@ -154,7 +160,7 @@
                                         </button>
                                     </a>
                                     <div th:if="${account.getRoleID() < 2}">
-                                        <a th:href="@{/bands//edit/{groupID}(groupID = ${group1.getGroupID()})}">
+                                        <a th:href="@{/bands/edit/{groupID}(groupID = ${group1.getGroupID()})}">
                                             <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Edit
                                                 Group
                                             </button>

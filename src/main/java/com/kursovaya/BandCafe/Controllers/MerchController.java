@@ -1,8 +1,10 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.Member;
 import com.kursovaya.BandCafe.Entities.MemberGroup;
 import com.kursovaya.BandCafe.Entities.Merch;
+import com.kursovaya.BandCafe.Services.AccountService;
 import com.kursovaya.BandCafe.Services.MemberGroupService;
 import com.kursovaya.BandCafe.Services.MerchService;
 import com.kursovaya.BandCafe.Views.MerchView;
@@ -35,12 +37,18 @@ public class MerchController {
     @Autowired
     MemberGroupService memberGroupService;
 
+    @Autowired
+    AccountService accountService;
+
     @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("/merch")
-    public String returnMerch(Model model){
+    public String returnMerch(Principal principal, Model model){
         List<MerchView> merchAll = merchService.getAllMerchFromView();
+        Account account = accountService.findByLogin(principal.getName());
+
+        model.addAttribute("account", account);
 
         model.addAttribute("merchAll", merchAll);
         return "merch";
@@ -63,13 +71,15 @@ public class MerchController {
     }
 
     @GetMapping("/merch/{merchName}")
-    public String returnMerchItem(@PathVariable String merchName, Model model){
+    public String returnMerchItem(@PathVariable String merchName, Principal principal, Model model){
         String trueName = merchName.replace("%20", " ")
                 .replace("+", " ");
-        System.out.println(trueName);
+
+        Account account = accountService.findByLogin(principal.getName());
         Merch merch = merchService.getMerchByName(trueName);
         MemberGroup memberGroup = memberGroupService.getGroupByGroupID(merch.getGroupID());
         model.addAttribute("merch", merch);
+        model.addAttribute("account", account);
         model.addAttribute("memberGroup", memberGroup);
         return "merchView";
     }

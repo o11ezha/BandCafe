@@ -1,6 +1,8 @@
 package com.kursovaya.BandCafe.Controllers;
 
+import com.kursovaya.BandCafe.Entities.Account;
 import com.kursovaya.BandCafe.Entities.GroupLabel;
+import com.kursovaya.BandCafe.Services.AccountService;
 import com.kursovaya.BandCafe.Services.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -24,14 +27,18 @@ public class LabelController {
     @Autowired
     LabelService labelService;
 
+    @Autowired
+    AccountService accountService;
+
     @Value("${upload.path}")
     String uploadPath;
 
     @GetMapping()
-    public String getLabels(Model model) throws FileNotFoundException {
+    public String getLabels(Principal principal, Model model) throws FileNotFoundException {
 
         List<GroupLabel> labels = labelService.findAll();
         List<String> labelsDescs = new ArrayList<>();
+        Account account = accountService.findByLogin(principal.getName());
 
         for (GroupLabel label : labels) {
             File file = new File(uploadPath + "/LabelDesc/" + label.getLabelDescSource());
@@ -39,6 +46,7 @@ public class LabelController {
             labelsDescs.add(sc.nextLine());
         }
         model.addAttribute("labels", labels);
+        model.addAttribute("account", account);
         model.addAttribute("labelsDescs", labelsDescs);
         return "labels";
     }
