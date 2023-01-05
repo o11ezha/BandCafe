@@ -128,15 +128,8 @@
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
     <a th:href="@{'/forums'}">Forums</a>
-    <div th:if="${account.getRoleID() < 2}">
     <a th:href="@{'/bands'}">Groups</a>
     <a th:href="@{'/labels'}">Labels</a>
-    </div>
-    <div th:unless="${account.getRoleID() <2}">
-
-    <a href="#">WIP~</a>
-    <a href="#">WIP~</a>
-    </div>
     <a th:href="@{'/merch'}">Merch</a>
 </div>
 
@@ -146,7 +139,7 @@
 
         <div class="top-container">
 
-            <img th:src="@{'/imgprof/'+ ${profile1.getProfileAvatarSource()}}" class="img-fluid profile-image" width="70">
+            <img th:src="@{'/imgprof/'+ ${pathToImg}}" class="img-fluid profile-image" width="70">
 
             <div class="ml-3">
                 <h5 class="name" th:text="${account.getAccountLogin()}"></h5>

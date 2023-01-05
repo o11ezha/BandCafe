@@ -3,94 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/css/' + 'AllFormsCSS.css'}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<form th:action="@{/member/edit/{memberID}(memberID=${memberID})}" th:method="post" th:object="${member}">
+<style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    body {
+        background: rgb(99, 39, 120)
+    }
 
-  <label th:for="memberName" th:text="'Имя: '"></label>
-  <input type="text" th:field="*{memberName}" id="memberName" name="memberName" required>
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
 
-  <p style="color:red" th:errors="*{memberName}" th:if="${#fields.hasErrors('memberName')}" th:text="'memberName error'"></p>
-  <label style="color:red" th:text="${errorName}"></label>
-  <br>
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
 
+    .profile-button:hover {
+        background: #682773
+    }
 
-  <label th:for="memberStageName" th:text="'Сценическое имя: '"></label>
-  <input type="text" th:field="*{memberStageName}" id="memberStageName" name="memberStageName" required>
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
 
-  <p style="color:red" th:errors="*{memberStageName}" th:if="${#fields.hasErrors('memberStageName')}" th:text="'memberStageName error'"></p>
-  <label style="color:red" th:text="${errorStageName}"></label>
-  <br>
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
 
-
-  <label th:for="memberDateOfBirth" th:text="'День рождения:'"></label>
-  <input th:type="date" th:field="*{memberDateOfBirth}" th:id="memberDateOfBirth" required
-         th:min="1000-01-01" th:max="3000-12-31">
-  <br>
-
-  <p style="color:red" th:errors="*{memberDateOfBirth}" th:if="${#fields.hasErrors('memberDateOfBirth')}" th:text="'memberDateOfBirth error'"></p>
-  <label style="color:red" th:text="${errorDateOfBirth}"></label>
-  <br>
-
-
-  <label th:for="memberCountry" th:text="'Страна:'"></label>
-  <label>
-    <select th:field="*{memberCountry}" th:id = "memberCountry" class="form-select form-select-sm" required>
-      <option th:each="country : ${countries}"
-              th:selected = "${member.getMemberCountry() == country}"
-              th:value="${country}"
-              th:text="${country}"></option>
-    </select>
-  </label>
-
-  <p style="color:red" th:errors="*{memberCountry}" th:if="${#fields.hasErrors('memberCountry')}" th:text="'memberCountry error'"></p>
-  <label style="color:red" th:text="${errorCountry}"></label>
-  <br>
+    .labels {
+        font-size: 11px
+    }
+    .topnav {
+        background-color: #128537;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
 
 
-  <label th:for="memberCity" th:text="'Город: '"></label>
-  <label>
-    <input type="text" th:field="*{memberCity}" id="memberCity" name="memberCity" required>
-  </label>
+    }
 
-  <p style="color:red" th:errors="*{memberCity}" th:if="${#fields.hasErrors('memberCity')}" th:text="'memberCity error'"></p>
-  <label style="color:red" th:text="${errorCity}"></label>
-  <br>
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
 
-  <label th:for="memberHeight" th:text="'Рост: '"></label>
-  <label>
-    <input type="number" th:field="*{memberHeight}" id="memberHeight" name="memberHeight">
-  </label>
-  <br>
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #b3ee83;
+        color: black;
+    }
 
-  <label th:for="labelID" th:text="'Агентство: '"></label>
-  <label>
-    <select th:field="*{labelID}" th:id = "labelID" class="form-select form-select-sm" required>
-      <option th:each="label : ${labels}"
-              th:selected = "${member.getLabelID() == label.getLabelID()}"
-              th:value="${label.getLabelID}"
-              th:text="${label.getLabelName()}"></option>
-    </select>
-  </label>
-  <p style="color:red" th:errors="*{labelID}" th:if="${#fields.hasErrors('labelID')}" th:text="'labelID error'"></p>
-  <label style="color:red" th:text="${errorLabelID}"></label>
-  <br>
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #dce23a;
+        font-weight: 700;
+        color: white;
+    }
 
-  <label th:for="groupID" th:text="'Группа: '"></label>
-  <label>
-    <select th:field="*{groupID}" th:id = "groupID" class="form-select form-select-sm" required>
-      <option th:each="group : ${groups}"
-              th:selected = "${member.getGroupID() == group.getGroupID()}"
-              th:value="${group.getGroupID()}"
-              th:text="${group.getGroupName()}"></option>
-    </select>
-  </label>
-  <p style="color:red" th:errors="*{groupID}" th:if="${#fields.hasErrors('groupID')}" th:text="'groupID error'"></p>
-  <label style="color:red" th:text="${errorGroupID}"></label>
-  <br>
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
 
-  <label> <input th:type="submit" th:value="Отредактировать"> </label>
-</form>
+</style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Изменить альбом</h4>
+                </div>
+                <form th:action="@{/member/edit/{memberID}(memberID=${memberID})}" th:method="post"
+                      th:object="${member}">
 
+                    <label class="labels" th:for="memberName" th:text="'Имя: '"></label>
+                    <input class="form-control" type="text" th:field="*{memberName}" id="memberName" name="memberName"
+                           required>
+
+                    <p style="color:red" th:errors="*{memberName}" th:if="${#fields.hasErrors('memberName')}"
+                       th:text="'memberName error'"></p>
+                    <label style="color:red" th:text="${errorName}"></label>
+
+                    <label class="labels" th:for="memberStageName" th:text="'Сценическое имя: '"></label>
+                    <input class="form-control" type="text" th:field="*{memberStageName}" id="memberStageName"
+                           name="memberStageName"
+                           required>
+
+                    <p style="color:red" th:errors="*{memberStageName}" th:if="${#fields.hasErrors('memberStageName')}"
+                       th:text="'memberStageName error'"></p>
+                    <label style="color:red" th:text="${errorStageName}"></label>
+
+
+                    <label class="labels" th:for="memberDateOfBirth" th:text="'День рождения:'"></label>
+                    <input class="form-control" th:type="date" th:field="*{memberDateOfBirth}" th:id="memberDateOfBirth"
+                           required
+                           th:min="1000-01-01" th:max="3000-12-31">
+
+                    <p style="color:red" th:errors="*{memberDateOfBirth}"
+                       th:if="${#fields.hasErrors('memberDateOfBirth')}" th:text="'memberDateOfBirth error'"></p>
+                    <label style="color:red" th:text="${errorDateOfBirth}"></label>
+
+
+                    <label class="labels" th:for="memberCountry" th:text="'Страна:'"></label><br>
+                    <label>
+                        <select th:field="*{memberCountry}" th:id="memberCountry" class="form-select form-select-sm"
+                                required>
+                            <option th:each="country : ${countries}"
+                                    th:selected="${member.getMemberCountry() == country}"
+                                    th:value="${country}"
+                                    th:text="${country}"></option>
+                        </select>
+                    </label>
+
+                    <p style="color:red" th:errors="*{memberCountry}" th:if="${#fields.hasErrors('memberCountry')}"
+                       th:text="'memberCountry error'"></p>
+                    <label style="color:red" th:text="${errorCountry}"></label>
+                    <br>
+
+
+                    <label class="labels" th:for="memberCity" th:text="'Город: '"></label>
+                    <input class="form-control" type="text" th:field="*{memberCity}" id="memberCity" name="memberCity"
+                           required>
+
+                    <p style="color:red" th:errors="*{memberCity}" th:if="${#fields.hasErrors('memberCity')}"
+                       th:text="'memberCity error'"></p>
+                    <label style="color:red" th:text="${errorCity}"></label>
+
+                    <label class="labels" th:for="memberHeight" th:text="'Рост: '"></label>
+                    <input class="form-control" type="number" th:field="*{memberHeight}" id="memberHeight"
+                           name="memberHeight">
+
+                    <label class="labels" th:for="labelID" th:text="'Агентство: '"></label><br>
+                    <label>
+                        <select th:field="*{labelID}" th:id="labelID" class="form-select form-select-sm" required>
+                            <option th:each="label : ${labels}"
+                                    th:selected="${member.getLabelID() == label.getLabelID()}"
+                                    th:value="${label.getLabelID}"
+                                    th:text="${label.getLabelName()}"></option>
+                        </select>
+                    </label>
+                    <p style="color:red" th:errors="*{labelID}" th:if="${#fields.hasErrors('labelID')}"
+                       th:text="'labelID error'"></p>
+                    <label style="color:red" th:text="${errorLabelID}"></label>
+                    <br>
+
+                    <label class="labels" th:for="groupID" th:text="'Группа: '"></label><br>
+                    <label>
+                        <select th:field="*{groupID}" th:id="groupID" class="form-select form-select-sm" required>
+                            <option th:each="group : ${groups}"
+                                    th:selected="${member.getGroupID() == group.getGroupID()}"
+                                    th:value="${group.getGroupID()}"
+                                    th:text="${group.getGroupName()}"></option>
+                        </select>
+                    </label>
+                    <p style="color:red" th:errors="*{groupID}" th:if="${#fields.hasErrors('groupID')}"
+                       th:text="'groupID error'"></p>
+                    <label style="color:red" th:text="${errorGroupID}"></label>
+                    <br>
+                    <br>
+                    <br>
+
+                    <label> <input class="btn btn-primary profile-button" th:type="submit" th:value="Отредактировать">
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -3,26 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/css/' + 'AllFormsCSS.css'}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<form th:action="@{/editacc/{login}(login=${login})}" th:method="post">
-  <label>Логин:
-    <input th:type="text" th:name = "login" th:value="${account.getAccountLogin()}">
-    <label style="color:red" th:text="${errorLogin}"></label>
-  </label><br>
-<!--  <label th:if="${account.getRoleID() < 3}"  th:for="roles"></label>Роль:-->
-<!--  <label>-->
-<!--    <select th:name="role" th:id="role">-->
-<!--      <th:block th:each="role : ${accountRoles}">-->
-<!--        <option th:value="${role.getRoleID()}" th:text="${role.getRoleName().replace('_role', '')}" th:selected="${role.getRoleID() == roleSelected}"></option>-->
-<!--      </th:block>-->
-<!--    </select>-->
-<!--  </label><br>-->
+<style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    body {
+        background: rgb(99, 39, 120)
+    }
 
-  <label>Пароль:
-    <input th:type="text" th:name = "password">
-  </label><br>
-  <button th:type="submit">Сохранить</button>
-</form>
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+    .profile-button:hover {
+        background: #682773
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .labels {
+        font-size: 11px
+    }
+    .topnav {
+        background-color: #ad880d;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+
+
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #fada96;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #e2ad3a;
+        font-weight: 700;
+        color: white;
+    }
+</style>
+
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Изменить аккаунт</h4>
+                </div>
+                <form th:action="@{/editacc/{login}(login=${login})}" th:method="post">
+                    <label class="labels" th:text="'Логин:'"></label>
+                        <input class="form-control" th:type="text" th:name="login" th:value="${account.getAccountLogin()}">
+                        <label style="color:red" th:text="${errorLogin}"></label>
+                    <label class="labels" th:text="'Пароль:'"></label>
+                        <input class="form-control" th:type="text" th:name="password">
+                    <br>
+                    <br>
+                    <button  class="btn btn-primary profile-button" th:type="submit">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

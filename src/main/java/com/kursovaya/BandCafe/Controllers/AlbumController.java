@@ -144,7 +144,7 @@ public class AlbumController {
     public String editAlbum(@PathVariable("groupName") String groupName,
                               @PathVariable("albumID") String albumID,
                               Model model) {
-        Album album = albumService.getAlbumByAlbumName(albumID);
+        Album album = albumService.getAlbumByAlbumID(albumID);
         album2 = album;
         model.addAttribute("album", album);
         return "editAlbum";

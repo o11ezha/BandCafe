@@ -21,6 +21,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class AccountController {
@@ -122,6 +123,15 @@ public class AccountController {
         Account account = accountService.findByLogin(login);
         String roleSelected = accountRoleService.findRoleName(account.getRoleID());
         Profile profile1 = profileService.findProfileByAccountLogin(login);
+
+        String pathToImg = "";
+
+        if (!Objects.equals(profile1.getProfileAvatarSource(), "")
+                && (!Objects.equals(profile1.getProfileAvatarSource(), null)))
+            pathToImg = profile1.getProfileAvatarSource();
+        else pathToImg = "default.jpg";
+
+        model.addAttribute("pathToImg", pathToImg);
         model.addAttribute("account", account);
         model.addAttribute("roleSelected", roleSelected);
         model.addAttribute("profile1", profile1);

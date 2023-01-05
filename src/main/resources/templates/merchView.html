@@ -16,9 +16,11 @@
             crossorigin="anonymous"></script>
 
 </head>
+<body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
-    body{
+
+    body {
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
@@ -36,10 +38,12 @@
     .topnav {
         background-color: #821134;
         overflow: hidden;
-
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
     /* Style the links inside the navigation bar */
+
+
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -68,19 +72,11 @@
         float: right;
     }
 </style>
-<body>
-
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
     <a th:href="@{'/forums'}">Forums</a>
-    <div th:if="${account.getRoleID() < 2}">
-        <a th:href="@{'/bands'}">Groups</a>
-        <a th:href="@{'/labels'}">Labels</a>
-    </div>
-    <div th:unless="${account.getRoleID() <2}">
-    <a href="#">WIP~</a>
-    <a href="#">WIP~</a>
-    </div>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
     <a th:href="@{'/merch'}">Merch</a>
 </div>
 <form th:action="@{/merch/{merchName}(merchName = ${merchName})}" th:method="post">
@@ -102,9 +98,9 @@
                 <div>
                     <span>
                             <input class="form-control text-center mb-3"
-                                     id="address" type="text"
-                                     placeholder="Введите адресс"
-                                     th:name="address" style="max-width: 30rem">
+                                   id="address" type="text"
+                                   placeholder="Введите адресс"
+                                   th:name="address" style="max-width: 30rem">
                     <label style="color:red" th:text="${errorAddress}"></label>
 
 

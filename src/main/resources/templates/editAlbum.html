@@ -3,29 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/css/' + 'AllFormsCSS.css'}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<form th:action="@{/bands/{groupName}/{albumID}/edit(groupName = ${groupName}, albumID=${albumID})}" th:method="post"  enctype="multipart/form-data" th:object="${album}">
+<style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    body {
+        background: rgb(99, 39, 120)
+    }
 
-  <label th:for="albumName" th:text="'Название альбома: '"></label>
-  <input type="text" th:field="*{albumName}" id="albumName" name="albumName" required>
-  <p style="color:red" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}" th:text="'albumName error'"></p>
-  <label style="color:red" th:text="${errorAlbumName}"></label>
-  <br>
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
 
-  <label th:for="albumReleaseDate" th:text="'Дата выхода альбома:'"></label>
-  <input th:type="date" th:field="*{albumReleaseDate}" th:id="albumReleaseDate " required
-         th:min="1000-01-01" th:max="3000-12-31">
-  <br>
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
 
-  <p style="color:red" th:errors="*{albumReleaseDate}" th:if="${#fields.hasErrors('albumReleaseDate')}" th:text="'albumReleaseDate error'"></p>
-  <label style="color:red" th:text="${errorAlbumDate}"></label>
-  <br>
+    .profile-button:hover {
+        background: #682773
+    }
 
-  <input type="file" name="filecover">
-  <br>
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
 
-  <label> <input th:type="submit" th:value="Отредактировать"> </label>
-</form>
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .labels {
+        font-size: 11px
+    }
+    .topnav {
+        background-color: #128537;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #b3ee83;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #dce23a;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Right-aligned section inside the top navigation */
+    .topnav-right {
+        float: right;
+    }
+
+</style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Изменить альбом</h4>
+                </div>
+                <form th:action="@{/bands/{groupName}/{albumID}/edit(groupName = ${groupName}, albumID=${albumID})}"
+                      th:method="post" enctype="multipart/form-data" th:object="${album}">
+
+                    <label class="labels" th:for="albumName" th:text="'Название альбома: '"></label>
+                    <input class="form-control" type="text" th:field="*{albumName}" id="albumName" name="albumName" required>
+                    <p style="color:red" th:errors="*{albumName}" th:if="${#fields.hasErrors('albumName')}"
+                       th:text="'albumName error'"></p>
+                    <label style="color:red" th:text="${errorAlbumName}"></label>
+
+                    <label class="labels" th:for="albumReleaseDate" th:text="'Дата выхода альбома:'"></label>
+                    <input class="form-control" th:type="date" th:field="*{albumReleaseDate}" th:id="albumReleaseDate " required
+                           th:min="1000-01-01" th:max="3000-12-31">
+
+                    <p style="color:red" th:errors="*{albumReleaseDate}"
+                       th:if="${#fields.hasErrors('albumReleaseDate')}" th:text="'albumReleaseDate error'"></p>
+                    <label style="color:red" th:text="${errorAlbumDate}"></label>
+
+                    <input class="form-control" type="file" name="filecover">
+                    <br>
+                    <br>
+
+                    <label> <input  class="btn btn-primary profile-button" th:type="submit" th:value="Отредактировать"> </label>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

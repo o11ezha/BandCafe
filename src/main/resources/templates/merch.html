@@ -105,14 +105,8 @@
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
         <a th:href="@{'/forums'}">Forums</a>
-    <div th:if="${account.getRoleID() < 2}">
         <a th:href="@{'/bands'}">Groups</a>
         <a th:href="@{'/labels'}">Labels</a>
-    </div>
-    <div th:unless="${account.getRoleID() <2}">
-    <a href="#">WIP~</a>
-    <a href="#">WIP~</a>
-    </div>
         <a th:href="@{'/merch'}">Merch</a>
 </div>
 
