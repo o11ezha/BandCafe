@@ -51,17 +51,6 @@ public class LabelController {
         return "labels";
     }
 
-    @GetMapping("/{labelName}")
-    public String returnLabel(@PathVariable String labelName, Model model) throws FileNotFoundException {
-        GroupLabel label = labelService.getLabelByLabelName(labelName);
-        File file = new File(uploadPath + "/LabelDesc/" + label.getLabelDescSource());
-        Scanner sc = new Scanner(file);
-
-        model.addAttribute("labelgroup", label);
-        model.addAttribute("labeldesc",  sc.nextLine());
-        return "labelView";
-    }
-
     @GetMapping("/add")
     @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
     public String addLabel(Model model){
@@ -216,6 +205,5 @@ public class LabelController {
         for (String country : Locale.getISOCountries())
         {countries.add(new Locale("", country).getDisplayCountry());}
         model.addAttribute("countries", countries);
-
     }
 }

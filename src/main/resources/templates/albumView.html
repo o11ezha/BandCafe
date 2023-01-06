@@ -3,33 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
+
+    body {
+        background-color: #ef8a8a;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+
+    }
+
+    .breadcrumb a {
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 1000px;
+        padding: 20px;
+
+    }
+
+    .col-12 {
+        border-radius: 10px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .d-flex a {
+        text-decoration: none;
+        color: #686868;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .topnav {
+        background-color: #851212;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #ee8383;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #e2403a;
+        font-weight: 700;
+        color: white;
+    }
+
+</style>
 <body>
-<div th:if="${account.getRoleID < 2}">
-<a th:href="@{/bands/{groupName}/{albumID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()})}">Редактировать альбом</a>
-<a th:href="@{/bands/{groupName}/{albumID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()})}">Удалить альбом</a>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
 </div>
-<div>
-    <img th:src="@{'/imgcover/' + ${pathToImg}}" alt="альбом" width="200" height="200">
-    <p>Название альбома: </p>
-    <label th:text="${album.getAlbumName().replace('_', '/')}"></label>
-    <p>Дата выхода: </p>
-    <label th:text="${album.getAlbumReleaseDate() != null
-    ?  album.getAlbumReleaseDate()
-    : 'Дата выхода неизвестна'}"></label>
-    <p>Песни: </p>
-    <a th:href="@{/bands/{groupName}/{albumID}/addSong (groupName=${groupName}, albumID=${album.getAlbumID()})}">Добавить песню</a>
-    <div th:each=" song : ${songs}">
-        <label th:text="${song.getSongName()}"></label>
-        <label th:text="${song.getSongDuration()}"></label>
-        <div th:if="${account.getRoleID < 2}">
-        <a th:href="@{/bands/{groupName}/{albumID}/{songID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">Редактировать песню</a>
-        <a th:href="@{/bands/{groupName}/{albumID}/{songID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">Удалить песню</a>
-        <div th:if = "${(song.getSongMV() != '') && (song.getSongMV() != null) }">
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-12 bg-white p-0 px-3 py-3 mb-3">
+                    <div class="d-flex flex-column align-items-center">
+                        <img class="photo" th:src="@{'/imgcover/' + ${pathToImg}}" alt="album">
+                        <p class="fw-bold h4 mt-3" th:text="${album.getAlbumName().replace('_', '/')}"></p>
+                        <p class="text-muted" th:text="${album.getAlbumReleaseDate() != null
+                            ?  album.getAlbumReleaseDate()
+                            : 'Дата выхода неизвестна'}"></p>
+                        <p class="text-muted mb-3" th:text="${groupdesc}"></p>
+                        <div class="d-flex">
+                            <div th:if="${account.getRoleID() < 2}">
+                                <a th:href="@{/bands/{groupName}/{albumID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()})}">
+                                    <div class="btn btn-outline-danger message">Edit album</div>
+                                </a>
+
+                                <a th:href="@{/bands/{groupName}/{albumID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()})}">
+                                    <div class="btn btn-outline-danger message">Delete album</div>
+                                </a>
+
+                                <a th:href="@{/bands/{groupName}/{albumID}/addSong (groupName=${groupName}, albumID=${album.getAlbumID()})}">
+                                    <div class="btn btn-outline-danger message">Add song</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <iframe  width="220" height="150"
-                th:src="${song.getSongMV()}">
-        </iframe>
+        <div class="col-md-7 ps-md-4">
+            <div class="row">
+                <div th:if="${songs} != null">
+                    <p>Songs:</p>
+                    <div class="col-12 bg-white px-3 mb-3 pb-3">
+                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each=" song : ${songs}">
+                            <p style="padding-right: 10px" th:text="${song.getSongName()}"></p>
+                            <p style="padding-right: 10px" th:text="${song.getSongDuration()}"></p>
+                            <div th:if="${(song.getSongMV() != '') && (song.getSongMV() != null) }">
+                                <iframe style="padding-right: 10px" width="220" height="150"
+                                        th:src="${song.getSongMV()}">
+                                </iframe>
+                            </div>
+                            <div th:if="${account.getRoleID() < 2}">
+                                <a th:href="@{/bands/{groupName}/{albumID}/{songID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">
+                                    <div class="btn btn-outline-danger message mb-3">Edit song</div>
+                                </a>
+
+                                <a th:href="@{/bands/{groupName}/{albumID}/{songID}/delete (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">
+                                    <div class="btn btn-outline-danger message">Delete song</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

@@ -5,47 +5,182 @@
     <title>Title</title>
 </head>
 <body>
-<div th:if="${account.getRoleID() < 2}">
-    <a th:href="@{/labels/add}">Добавить новое агентство</a>
-</div>
-<table>
-    <tr>
-        <th>Название агенства</th>
-        <th>Директор агенства</th>
-        <th>Страна, в которой расположено главное здание агенства</th>
-        <th>Город, в котором расположено главное здание агенства</th>
-        <th>Адрес главного агенства</th>
-        <th>Дата основания агенства</th>
-        <th>Описание агентства</th>
-        <th>Ссылка</th>
-    </tr>
-    <tr th:each="label : ${labels}">
-        <td th:text="${label.getLabelName()}"></td>
-        <td th:text="${label.getLabelDirector()} == null ? 'Нет данных' : ${label.getLabelDirector()}"></td>
-        <td th:text="${label.getLabelCountry()}"></td>
-        <td th:text="${label.getLabelCity()}"></td>
-        <td th:text="${label.getLabelMainAddress()}"></td>
-        <td th:text="${label.getLabelDate()} == null ? 'Нет данных' : ${label.getLabelDate()}"></td>
-        <td th:type="text" name="Description"></td>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
+    body {
+        background-color: #B3E5FC;
+    }
+
+
+    .card-1 {
+
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .topnav {
+        background-color: #ad880d;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+
+
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #fada96;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #e2ad3a;
+        font-weight: 700;
+        color: white;
+    }
+
+    .topnav-right {
+        float: right;
+    }
+</style>
+<body>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+    <div class="topnav-right">
         <div th:if="${account.getRoleID() < 2}">
-
-        <td><a th:href="@{/labels/{labelID}(labelID=${label.getLabelName()})}">Перейти к агентству</a></td>
-        <td><a th:href="@{/labels/edit/{labelID}(labelID=${label.getLabelID()})}">Перейти к редактировнию лэйбла</a></td>
+            <a th:href="@{/labels/add}">Add new label</a>
         </div>
-    </tr>
-</table>
-<script th:inline="javascript">
-        /*<![CDATA[*/
-        var labelsDescs = /*[[${labelsDescs}]]*/ [];
-        /*]]>*/
-        var str = '';
+    </div>
+</div>
+<div class="container mt-5">
+    <table class="table table-borderless table-responsive card-1 p-4">
+        <thead>
+        <tr class="border-bottom">
+            <th>
+                <span class="ml-2">Название агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Директор агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Страна, в которой расположено главное здание агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Город, в котором расположено главное здание агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Адрес главного агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Дата основания агентства</span>
+            </th>
+            <th>
+                <span class="ml-2">Описание агентства</span>
+            </th>
+            <div th:if="${account.getRoleID() < 2}">
+                <th>
+                    <span class="ml-4">Действия</span>
+                </th>
+            </div>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="border-bottom" th:each="label : ${labels}">
+            <td>
+                <div class="p-2">
+                    <span class="d-block font-weight-bold" th:text="${label.getLabelName()}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
+                    <span th:text="${label.getLabelDirector()} == null ? 'Нет данных' : ${label.getLabelDirector()}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
+                    <span th:text="${label.getLabelCountry()}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
+                    <span th:text="${label.getLabelCity()}"></span>
+                </div>
+            </td>
 
-        var x = document.getElementsByName("Description");
-        for (var i = 0; i < x.length; i++) {
-            console.log(x[i]);
-            console.log(labelsDescs[i]);
-            x[i].textContent = labelsDescs[i];
-        }
+            <td>
+                <div class="p-2">
+                    <span th:text="${label.getLabelMainAddress()}"></span>
+                </div>
+            </td>
+
+            <td>
+                <div class="p-2">
+                    <span th:text="${label.getLabelDate()} == null ? 'Нет данных' : ${label.getLabelDate()}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
+                    <span class="d-block font-weight-bold" th:type="text" name="Description"></span>
+                </div>
+            </td>
+
+            <td>
+                <div class="p-2 icons">
+                    <div th:if="${account.getRoleID() < 2}">
+                        <a th:href="@{/labels/edit/{labelID}(labelID=${label.getLabelID()})}">
+                            <button class="btn btn-outline-primary btn-big" type="button">
+                                Перейти к редактировнию лэйбла
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var labelsDescs = /*[[${labelsDescs}]]*/ [];
+    /*]]>*/
+    var str = '';
+
+    var x = document.getElementsByName("Description");
+    for (var i = 0; i < x.length; i++) {
+        console.log(x[i]);
+        console.log(labelsDescs[i]);
+        x[i].textContent = labelsDescs[i];
+    }
 </script>
 </body>
 </html>

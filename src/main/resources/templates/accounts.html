@@ -3,36 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body>
-<form th:action="@{/allaccountsforADMINonly/filter}" th:method="post">
-<div>
-    <select th:name="filter" th:id="filter">
-        <option th:value="none" th:text="'Сбросить фильтр'"></option>
-        <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}"></option>
-        <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}"></option>
-        <option th:value="member" th:text="member"></option>
-        <option th:value="admin" th:text="admin"></option>
-    </select>
-    <button type="submit">Отфильтровать</button>
+<style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    body {
+    background-color: #2c1a9f;
+}
+
+.card-1 {
+
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.topnav {
+    background-color: #291182;
+    overflow: hidden;
+    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+}
+
+/* Style the links inside the navigation bar */
+
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    font-weight: 700;
+    background-color: #969bfa;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #3a5ce2;
+    font-weight: 700;
+    color: white;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+</style>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
 </div>
-</form>
-<div th:each="account : ${accounts}">
-    <label>Логин:<label th:name = "login" th:text="${account.getAccountLogin()}"></label><br>
-        <a th:href="@{/editacc/{login}(login=${account.getAccountLogin()})}">Перейти к редактированию аккаунта</a>
-        <form th:action="@{/allaccountsforADMINonly}" th:method="post">
-        <input th:hidden="true" th:name = "accountLogin" th:value="${account.getAccountLogin()}">
-            <label>Роль:
-                <select th:name="role" th:id="role" th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}">
-                    <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}" th:selected="${account.getRoleID() == 3}"></option>
-                    <option th:hidden="hidden" th:value="'member'" th:text="'member'" th:selected="${account.getRoleID() == 2}" ></option>
-                    <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}" th:selected="${account.getRoleID() == 1}"></option>
-                    <option th:hidden="hidden" th:value="'admin'" th:text="'admin'" th:selected="${account.getRoleID() == 0}"  ></option>
+<div class="container mt-5">
+    <form th:action="@{/allaccountsforADMINonly/filter}" th:method="post">
+        <div class="row">
+            <div class="col-8">
+                <select class="form-select form-select-sm" th:name="filter" th:id="filter">
+                    <option th:value="none" th:text="'Сбросить фильтр'"></option>
+                    <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}"></option>
+                    <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}"></option>
+                    <option th:value="member" th:text="member"></option>
+                    <option th:value="admin" th:text="admin"></option>
                 </select>
-            </label>
-            <button th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}" th:type="submit">Сохранить</button>
-        </form>
-    </label><br>
+            </div>
+            <div class="col-4 mb-2">
+                <button class="btn btn-outline-primary btn-sm" style="background: #ffffff" type="submit">Отфильтровать</button>
+            </div>
+        </div>
+
+    </form>
+
+    <table class="table table-borderless table-responsive card-1 p-4">
+        <thead>
+        <tr class="border-bottom">
+            <th>
+                <span class="ml-2">Логин</span>
+            </th>
+            <th>
+                <span class="ml-2">Роль</span>
+            </th>
+            <th>
+                <span class="ml-2">Ссылка</span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="border-bottom" th:each="account : ${accounts}">
+            <td>
+                <div class="p-2">
+                    <span class="d-block font-weight-bold" th:name="login"
+                          th:text="${account.getAccountLogin()}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
+                    <form th:action="@{/allaccountsforADMINonly}" th:method="post">
+                        <input th:hidden="true" th:name="accountLogin" th:value="${account.getAccountLogin()}">
+                        <select th:name="role" th:id="role"
+                                th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}"
+                                class="form-select form-select-sm">
+                            <option th:value="${accountRoles.get(0)}" th:text="${accountRoles.get(0)}"
+                                    th:selected="${account.getRoleID() == 3}"></option>
+                            <option th:hidden="hidden" th:value="'member'" th:text="'member'"
+                                    th:selected="${account.getRoleID() == 2}"></option>
+                            <option th:value="${accountRoles.get(1)}" th:text="${accountRoles.get(1)}"
+                                    th:selected="${account.getRoleID() == 1}"></option>
+                            <option th:hidden="hidden" th:value="'admin'" th:text="'admin'"
+                                    th:selected="${account.getRoleID() == 0}"></option>
+                        </select> <br>
+                        <button class="btn btn-outline-primary"
+                                th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}"
+                                th:type="submit">Сохранить
+                        </button>
+                    </form>
+                </div>
+            </td>
+
+            <td>
+                <div class="p-2">
+                    <a th:href="@{/editacc/{login}(login=${account.getAccountLogin()})}">
+                        <button class="btn btn-outline-primary" type="button">
+                            Перейти к редактированию аккаунта
+                        </button>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

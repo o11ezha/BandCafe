@@ -3,42 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
+
+    body {
+        background-color: #8aefe3;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+
+    }
+
+    .breadcrumb a {
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 1000px;
+        padding: 20px;
+
+    }
+
+    .col-12 {
+        border-radius: 10px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .d-flex a {
+        text-decoration: none;
+        color: #686868;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .topnav {
+        background-color: #128578;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #83eea8;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #3ae288;
+        font-weight: 700;
+        color: white;
+    }
+
+</style>
 <body>
-<div th:if="${account.getRoleID() < 2}">
-<a th:href="@{/bands/edit/{groupID}(groupID=${group.getGroupID()})}">Редактировать группу</a>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
 </div>
-<p>Название группы: </p>
-<label th:text="${group.getGroupName()}"></label>
-<p>Страна: </p>
-<label th:text="${group.getGroupCountry()}"></label>
-<p>Дебют: </p>
-<label th:text="${group.getGroupDebutDate()}"></label>
-<p>Статус: </p>
-<label th:text="${group.getGroupDisbandDate() == null ?
- 'Активна' : 'Распалась: ' + group.getGroupDisbandDate() }"></label>
-<p>Фандом: </p>
-<label th:text="${group.getGroupFandom()}"></label>
-<p>Описание группы: </p>
-<label th:text="${groupdesc}"></label>
-<p>Состав: </p>
-<div th:if="${account.getRoleID() < 2}">
-<a th:href="@{/{groupName}/member/add(groupName=${group.getGroupName()})}">Добавить мембера</a>
-</div>
-<ul th:each=" member : ${members}">
-    <li> <a th:href="@{/member/{memberStageName}
-    (memberStageName=${member.getMemberStageName()})}" th:text = "${member.getMemberStageName()}"></a></li>
-</ul>
-<div th:if="${account.getRoleID() < 2}">
-<a th:href="@{/bands/{groupName}/add(groupName=${group.getGroupName()})}" >Добавить альбом</a>
-</div>
-<div th:if ="${albums} != null">
-    <p>Альбомы: </p>
-    <ul th:each=" album : ${albums}">
-        <li> <a th:href="@{{groupName}/{albumName}
-        (groupName=${group.getGroupName()}, albumName=${album.getAlbumName()})}"
-                th:text = "${album.getAlbumName()}"></a></li>
-    </ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-12 bg-white p-0 px-3 py-3 mb-3">
+                    <div class="d-flex flex-column align-items-center">
+                        <!--                        <img class="photo"-->
+                        <!--                             src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"-->
+                        <!--                             alt="">-->
+                        <p class="fw-bold h4 mt-3" th:text="${group.getGroupName()}"></p>
+                        <p class="text-muted" th:text="${group.getGroupDisbandDate() == null ? 'Активна' : 'Распалась: '
+                        + group.getGroupDisbandDate()}"></p>
+                        <p class="text-muted mb-3" th:text="${groupdesc}"></p>
+                        <div class="d-flex ">
+                            <div th:if="${account.getRoleID() < 2}">
+                                <a th:href="@{/bands/edit/{groupID}(groupID=${group.getGroupID()})}">
+                                    <div class="btn btn-outline-primary message">Edit group</div>
+                                </a>
+
+                                <a th:href="@{/{groupName}/member/add(groupName=${group.getGroupName()})}">
+                                    <div class="btn btn-outline-primary message">Add member</div>
+                                </a>
+
+                                <a th:href="@{/bands/{groupName}/add(groupName=${group.getGroupName()})}">
+                                    <div class="btn btn-outline-primary message">Add album</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 bg-white p-0 px-2 pb-3 mb-3">
+                    <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                        <p>Country:</p>
+                        <p class="py-2 text-muted" th:text="${group.getGroupCountry()}"></p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                        <p>Debut Date:</p>
+                        <p class="py-2 text-muted" th:text="${group.getGroupDebutDate()}"></p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                        <p>Fandom:</p>
+                        <p class="py-2 text-muted" th:text="${group.getGroupFandom()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 ps-md-4">
+            <div class="row">
+                <div th:if="${members} != null">
+                    <p>Members:</p>
+                    <div class="col-12 bg-white px-3 mb-3 pb-3" >
+                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each=" member : ${members}">
+                            <a th:href="@{/member/{memberStageName}(memberStageName=${member.getMemberStageName()})}">
+                                <p class="py-2" th:text="${member.getMemberStageName()}"></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${albums} != null">
+                    <p>Albums:</p>
+                    <div class="col-12 bg-white px-3 mb-3 pb-3" >
+                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each=" album : ${albums}">
+                            <a th:href="@{{groupName}/{albumName}(groupName=${group.getGroupName()}, albumName=${album.getAlbumName()})}">
+                                <p class="py-2" th:text="${album.getAlbumName()}"></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+
+<!--    <p>Название группы: </p>-->
+<!--<label th:text="${group.getGroupName()}"></label>-->
+<!--<p>Страна: </p>-->
+<!--<label th:text="${group.getGroupCountry()}"></label>-->
+<!--<p>Дебют: </p>-->
+<!--<label th:text="${group.getGroupDebutDate()}"></label>-->
+<!--<p>Статус: </p>-->
+<!--<label th:text="${group.getGroupDisbandDate() == null ?-->
+<!-- 'Активна' : 'Распалась: ' + group.getGroupDisbandDate() }"></label>-->
+<!--<p>Фандом: </p>-->
+<!--<label th:text="${group.getGroupFandom()}"></label>-->
+<!--<p>Описание группы: </p>-->
+<!--<label th:text="${groupdesc}"></label>-->
+
+<!--<p>Состав: </p>-->
+<!--<ul th:each=" member : ${members}">-->
+<!--    <li><a th:href="@{/member/{memberStageName}-->
+<!--    (memberStageName=${member.getMemberStageName()})}" th:text="${member.getMemberStageName()}"></a></li>-->
+<!--</ul>-->
+
+<!--<div th:if="${albums} != null">-->
+<!--    <p>Альбомы: </p>-->
+<!--    <ul th:each=" album : ${albums}">-->
+<!--        <li><a th:href="@{{groupName}/{albumName}-->
+<!--        (groupName=${group.getGroupName()}, albumName=${album.getAlbumName()})}"-->
+<!--               th:text="${album.getAlbumName()}"></a></li>-->
+<!--    </ul>-->
+<!--</div>-->
+
 </body>
 </html>

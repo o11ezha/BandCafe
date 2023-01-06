@@ -3,43 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
+
+    body {
+        background-color: #b78aef;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+
+    }
+
+    .breadcrumb a {
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 1000px;
+        padding: 20px;
+
+    }
+
+    .col-12 {
+        border-radius: 10px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .d-flex a {
+        text-decoration: none;
+        color: #686868;
+    }
+
+    .topnav {
+        background-color: #461285;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #c7adf8;
+        color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #4b3ae2;
+        font-weight: 700;
+        color: white;
+    }
+
+</style>
 <body>
-<div th:if="${account.getRoleID() < 2}">
-<a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>
-<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a><br>
-<a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">Изменить позиции мембера</a>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-12 bg-white p-0 px-3 py-3 mb-3">
+                    <div class="d-flex flex-column align-items-center">
+                        <p class="fw-bold h4 mt-3" th:text="${member.getMemberStageName()}"></p>
+                        <p class="text-muted" th:text="${member.getMemberName()}"></p>
+                        <p class="text-muted mb-3" th:text="${memberGroup}"></p>
+                        <p class="text-muted mb-3" th:text="${memberdesc}"></p>
+
+                        <div class="d-flex">
+                            <div th:if="${account.getRoleID() < 2}">
+                                <a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">
+                                    <div class="btn btn-outline-dark message">Edit</div>
+                                </a>
+
+                                <a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">
+                                    <div class="btn btn-outline-dark message">Delete</div>
+                                </a>
+
+                                <a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">
+                                    <div class="btn btn-outline-dark message">Edit positions</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 ps-md-4">
+            <div class="col-12 bg-white p-0 px-2 pb-3 mb-3">
+                <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                    <p>Country:</p>
+                    <p class="py-2 text-muted" th:text="${member.getMemberCountry}"></p>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                    <p>City:</p>
+                    <p class="py-2 text-muted" th:text="${member.getMemberCity}"></p>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                    <p>Birthday:</p>
+                    <p class="py-2 text-muted" th:text="${member.getMemberDateOfBirth}"></p>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                    <p>Height:</p>
+                    <p class="py-2 text-muted" th:text="${(member.getMemberHeight() == null) || (member.getMemberHeight() == 0) ?
+                    'No info' : member.getMemberHeight() + ' cm' }"></p>
+                </div>
+
+                <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                    <p>Label:</p>
+                    <p class="py-2 text-muted" th:text="${label}"></p>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div th:if="${memberPositions.size() > 0}">
+                    <p>Songs:</p>
+                    <div class="col-12 bg-white px-3 mb-3 pb-3">
+                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each="position : ${memberPositions}">
+                            <p style="padding-right: 10px" th:text="${position.getPositionName()}"></p>
+                        </div>
+                        <div th:if="${memberPositions.size() == 0}">
+                            <p>No info about positions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p>Имя: </p>
-<label th:text="${member.getMemberName()}"></label>
-<p>Сценическое имя: </p>
-<label th:text="${member.getMemberStageName()}"></label>
-<p>День рождения: </p>
-<label th:text="${member.getMemberDateOfBirth}"></label>
-<p>Страна: </p>
-<label th:text="${member.getMemberCountry}"></label>
-<p>Город: </p>
-<label th:text="${member.getMemberCity}"></label>
-<p>Рост: </p>
-<label th:text="${(member.getMemberHeight() == null) || (member.getMemberHeight() == 0) ?
- 'Неизвестен' : member.getMemberHeight() }"></label>
-<p>Группа: </p>
-<label th:text="${memberGroup}"></label>
-<p>Лэйбл: </p>
-<label th:text="${label}"></label>
-<p>Позиции: </p>
-<div>
-    <div  th:if="${memberPositions.size() > 0}">
-    <ul th:each="position : ${memberPositions}">
-    <li th:text="${position.getPositionName()}"></li>
-    </ul>
-    </div>
-    <div th:if="${memberPositions.size() == 0}">
-        <p>Позиции не указаны</p>
-</div>
-<p>Описание мембера: </p>
-<label th:text="${memberdesc}"></label>
+
+<!--<div th:if="${account.getRoleID() < 2}">-->
+<!--<a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>-->
+<!--<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a><br>-->
+<!--<a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">Изменить позиции мембера</a>-->
+<!--</div>-->
+
+<!--<p>Имя: </p>-->
+<!--<label th:text="${member.getMemberName()}"></label>-->
+<!--<p>Сценическое имя: </p>-->
+<!--<label th:text="${member.getMemberStageName()}"></label>-->
+<!--<p>День рождения: </p>-->
+<!--<label th:text="${member.getMemberDateOfBirth}"></label>-->
+<!--<p>Страна: </p>-->
+<!--<label th:text="${member.getMemberCountry}"></label>-->
+<!--<p>Город: </p>-->
+<!--<label th:text="${member.getMemberCity}"></label>-->
+<!--<p>Рост: </p>-->
+<!--<label th:text="${(member.getMemberHeight() == null) || (member.getMemberHeight() == 0) ?-->
+<!-- 'Неизвестен' : member.getMemberHeight() }"></label>-->
+<!--<p>Группа: </p>-->
+<!--<label th:text="${memberGroup}"></label>-->
+<!--<p>Лэйбл: </p>-->
+<!--<label th:text="${label}"></label>-->
+<!--<p>Позиции: </p>-->
+<!--<div>-->
+<!--    <div  th:if="${memberPositions.size() > 0}">-->
+<!--        <ul th:each="position : ${memberPositions}">-->
+<!--            <li th:text="${position.getPositionName()}"></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div th:if="${memberPositions.size() == 0}">-->
+<!--        <p>Позиции не указаны</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<p>Описание мембера: </p>-->
+<!--<label th:text="${memberdesc}"></label>-->
 
 </body>
 </html>

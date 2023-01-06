@@ -15,24 +15,18 @@
             <a class="active" th:href="@{'/'}">Relax</a>
             <div th:if="${principal != null}">
                 <a th:href="@{'/forums'}">Forums</a>
-                <div th:if="${account.getRoleID() < 2}">
-                    <a th:href="@{'/bands'}">Groups</a>
-                    <a th:href="@{'/labels'}">Labels</a>
-                </div>
-                <div th:unless="${account.getRoleID() <2}">
-                <a href="#">WIP~</a>
-                <a href="#">WIP~</a>
-                </div>
+                <a th:href="@{'/bands'}">Groups</a>
+                <a th:href="@{'/labels'}">Labels</a>
                 <a th:href="@{'/merch'}">Merch</a>
             </div>
-                <div class="topnav-right">
-                    <div th:if="${principal != null}">
+            <div class="topnav-right">
+                <div th:if="${principal != null}">
                     <a th:href="@{'/acc/' +${account.getAccountLogin()}}">Account</a>
                     <a th:href="@{'/profile/' +${profileID}}">Profile</a>
-                    </div>
-            </div>
+                </div>
             <div th:if="${principal == null}">Please, sign in
                 <a th:href="@{'/login'}">Sign in</a>
+            </div>
             </div>
         </div>
 
@@ -52,36 +46,40 @@
             <section class="st-panel" id="st-panel-1">
                 <div class="st-deco" data-icon="&#xf069;"></div>
                 <h2>Serendipity</h2>
-                <p>Banksy adipisicing eiusmod banh mi sed. Squid stumptown est odd future nisi, commodo mlkshk pop-up adipisicing retro.</p>
+                <p>Plan to the extent that feels right to you at a particular time in your life,
+                    but always be open to serendipity.</p>
             </section>
 
             <section class="st-panel st-color" id="st-panel-2">
                 <div class="st-deco" data-icon="&#xf118;"></div>
                 <h2>Happiness</h2>
-                <p>Art party readymade beard labore cosby sweater culpa. Art party whatever incididunt, scenester umami polaroid tofu.</p>
+                <p>Happiness is not something you postpone for the future; it is something you design for the present.</p>
             </section>
 
             <section class="st-panel" id="st-panel-3">
                 <div class="st-deco" data-icon="&#xf0f4;"></div>
                 <h2>Tranquillity</h2>
-                <p>Sint aute occaecat id vice. Post-ironic fap pork belly next level godard, id fanny pack williamsburg forage truffaut.</p>
+                <p>You should feel beautiful and you should feel safe. What you surround yourself with should
+                    bring you peace of mind and peace of spirit.</p>
             </section>
 
             <section class="st-panel st-color" id="st-panel-4">
                 <div class="st-deco" data-icon="&#xf06c;"></div>
                 <h2>Positivity</h2>
-                <p>Mixtape fap leggings art party, butcher authentic farm-to-table you probably haven't heard of them do labore cosby sweater.</p>
+                <p>MWhen you are joyful, when you say yes to life and have fun and project positivity all around you,
+                    you become a sun in the center of every constellation, and people want to be near you.</p>
             </section>
 
             <section class="st-panel" id="st-panel-5">
                 <div class="st-deco" data-icon="&#xf004;"></div>
                 <h2>Passion</h2>
-                <p>Fixie ad odd future polaroid dreamcatcher, nesciunt carles bicycle rights accusamus mcsweeney's mumblecore nulla irony.</p>
+                <p>Every great dream begins with a dreamer. Always remember, you have within you the strength,
+                    the patience, and the passion to reach for the stars to change the world.</p>
             </section>
 
-        </div><!-- // st-scroll -->
+        </div>
 
-    </div><!-- // st-container -->
+    </div>
 
 </div>
 
