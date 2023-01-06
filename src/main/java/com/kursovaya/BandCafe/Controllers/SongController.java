@@ -83,7 +83,6 @@ public class SongController {
 
     @PostMapping("bands/{groupName}/{albumID}/{songID}/edit")
     @PreAuthorize("hasAnyAuthority('admin_role', 'manager_role')")
-
     public String editSong(@ModelAttribute("song") Song song,
             BindingResult bindingResult,
             @PathVariable("groupName") String groupName,
@@ -108,7 +107,7 @@ public class SongController {
         }
 
         song.setSongID(song2.getSongID());
-        Album album = albumService.getAlbumByAlbumName(albumID);
+        Album album = albumService.getAlbumByAlbumID(albumID);
 
         songService.editSong(song);
 

@@ -47,14 +47,4 @@ public class Profile {
         this.accountLogin = accountLogin;
     }
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "profileID='" + profileID + '\'' +
-                ", profileAvatarSource='" + profileAvatarSource + '\'' +
-                ", profileDateOdBirth='" + profileDateOfBirth + '\'' +
-                ", profileDesc='" + profileDesc + '\'' +
-                ", accountLogin='" + accountLogin + '\'' +
-                '}';
-    }
 }

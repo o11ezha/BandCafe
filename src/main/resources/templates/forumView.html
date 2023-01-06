@@ -119,13 +119,14 @@
                                                  width="50">
                                             <div class="d-flex flex-column ml-2">
                                                 <span class="font-weight-bold"
-                                                      th:text="${post.getAuthorLogin()}"></span>
+                                                      th:text="${post.getAuthorLogin() != null ? post.getAuthorLogin() : 'deleted user'}"></span>
                                                 <small class="text-primary"
                                                        th:text="${post.getCategoryID() != 0 ? categories.get(post.getCategoryID()) : ''}"></small>
                                             </div>
                                         </div>
                                         <div class="d-flex flex-row mt-1 ellipsis">
                                             <small class="mr-2" th:text="${post.getPostDate()}"></small>
+                                            <div th:if="${post.getAuthorLogin() != null}">
                                             <label th:if="${login == post.getAuthorLogin()}">
                                                 <a th:href="@{/forums/{forumName}/{postID}/delete (forumName=${forumName}, postID=${post.getPostID()})}">
                                                     <small class="mr-2">
@@ -133,7 +134,7 @@
                                                     </small>
                                                 </a>
                                             </label>
-
+                                            </div>
                                         </div>
                                     </div>
                                     <div th:if="${post.getPostImageSource() != null}">
@@ -149,12 +150,19 @@
                                             <div th:if="${post2.getReplyPostID == post.getPostID()}">
                                                 <div class="comments">
                                                     <div class="d-flex flex-row mb-2">
+                                                        <div th:if="${post2.getAuthorLogin() != null}">
                                                         <div class="td" id="p-c-i"><img
                                                                 th:src="@{'/imgprof/' + ${profileAvatars.get(profileLogins.indexOf(post2.getAuthorLogin()))}}"
                                                                 alt="Profile pic"></div>
+                                                        </div>
+                                                        <div th:if="${post2.getAuthorLogin() == null}">
+                                                            <div class="td" id="p-c-i"><img
+                                                                    th:src="@{'/imgprof/' + 'default.jpg'}"
+                                                                    alt="Profile pic"></div>
+                                                        </div>
 
                                                         <div class="d-flex flex-column ml-2"><span class="name"
-                                                                                                   th:text="${post2.getAuthorLogin()}"></span>
+                                                                                                   th:text="${post2.getAuthorLogin()  != null ? post2.getAuthorLogin() : 'deleted user'}"></span>
 
                                                             <div class="td" id="c-inp">
                                                                 <div th:if="${post2.getPostImageSource() != null}">
@@ -165,11 +173,9 @@
                                                                 </div>
                                                                 <small class="comment-text"
                                                                        th:text="${post2.getPostText()}"></small>
-                                                                <div class="d-flex flex-row align-items-center status">
-                                                                    <a th:href="@{/forums/{forumName}/{postID}/edit(forumName=${forumName}, postID=${post2.getPostID()})}">
-                                                                        <small th:if="${login == post2.getAuthorLogin()}">Редактировать</small></a>
+                                                                <div class="d-flex flex-row align-items-center status" th:if="${post2.getAuthorLogin() != null}">
                                                                     <a th:href="@{/forums/{forumName}/{postID}/delete(forumName=${forumName}, postID=${post2.getPostID()})}">
-                                                                        <small th:if="${login == post2.getAuthorLogin()}">Удалить </small>
+                                                                        <small th:if="${login == post2.getAuthorLogin()}">Delete</small>
                                                                     </a> <small
                                                                         th:text="${post2.getPostDate()}"></small>
                                                                 </div>

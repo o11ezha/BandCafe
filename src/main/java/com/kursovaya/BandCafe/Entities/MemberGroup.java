@@ -78,17 +78,4 @@ public class MemberGroup {
         this.groupManager = groupManager;
     }
 
-    @Override
-    public String toString() {
-        return "MemberGroup{" +
-                "groupID='" + groupID + '\'' +
-                ", groupName='" + groupName + '\'' +
-                ", groupCountry='" + groupCountry + '\'' +
-                ", groupDebutDate='" + groupDebutDate + '\'' +
-                ", groupDisbandDate='" + groupDisbandDate + '\'' +
-                ", groupFandom='" + groupFandom + '\'' +
-                ", groupDescSource='" + groupDescSource + '\'' +
-                ", groupManager='" + groupManager + '\'' +
-                '}';
-    }
 }

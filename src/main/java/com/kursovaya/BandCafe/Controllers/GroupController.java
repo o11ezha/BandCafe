@@ -67,7 +67,7 @@ public class GroupController {
 
     @GetMapping("/{groupName}")
     public String returnGroup(@PathVariable String groupName,Principal principal, Model model) throws FileNotFoundException {
-        MemberGroup group = memberGroupService.getGroupByGroupName(groupName);
+        MemberGroup group = memberGroupService.getGroupByGroupName(groupName.replace("%20"," ").replace("%27","'").replace("+"," "));
         List<Album> albums = albumService.getAlbumsByGroupName(groupName);
         File file = new File(uploadPath + "/GroupDesc/" + group.getGroupDescSource());
         Scanner sc = new Scanner(file);
@@ -145,7 +145,7 @@ public class GroupController {
             return "addGroup";
         }
 
-        if (Objects.requireNonNull(filegroup.getOriginalFilename()).equals("") && filegroup.getOriginalFilename() == null) {
+        if (!(Objects.requireNonNull(filegroup.getOriginalFilename()).equals("")) && !(filegroup.getOriginalFilename() == null)) {
             File uploadDir = new File(uploadPath + "/GroupDesc");
 
             if (!uploadDir.exists()) {

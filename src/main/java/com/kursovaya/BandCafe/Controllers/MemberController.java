@@ -43,7 +43,7 @@ public class MemberController {
 
     @GetMapping("/member/{memberStageName}")
     public String returnMember(@PathVariable String memberStageName, Principal principal, Model model) throws FileNotFoundException {
-        Member member = memberService.getMemberByMemberStageName(memberStageName);
+        Member member = memberService.getMemberByMemberStageName(memberStageName.replace("+", " ").replace("%20", " "));
         GroupLabel label = labelService.getLabelByLabelID(member.getLabelID());
         MemberGroup memberGroup = memberGroupService.getGroupByGroupID(member.getGroupID());
         List<Position> memberPositions = positionService.getAllMemberPositions(member.getMemberID());

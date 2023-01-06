@@ -76,16 +76,4 @@ public class Merch {
         this.groupID = groupID;
     }
 
-    @Override
-    public String toString() {
-        return "Merch{" +
-                "merchID='" + merchID + '\'' +
-                ", merchName='" + merchName + '\'' +
-                ", merchPrice=" + merchPrice +
-                ", merchStatus=" + merchStatus +
-                ", merchAmount=" + merchAmount +
-                ", merchDescSource='" + merchDescSource + '\'' +
-                ", groupID='" + groupID + '\'' +
-                '}';
-    }
 }

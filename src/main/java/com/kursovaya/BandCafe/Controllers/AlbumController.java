@@ -172,7 +172,7 @@ public class AlbumController {
             return "editAlbum";
         }
 
-        if(!Objects.requireNonNull(filecover.getOriginalFilename()).equals("")
+        if (!Objects.requireNonNull(filecover.getOriginalFilename()).equals("")
                 && !filecover.isEmpty()) {
             File uploadDir = new File(uploadPath + "/CoverImages");
 

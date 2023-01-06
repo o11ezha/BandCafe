@@ -52,15 +52,4 @@ public class Album {
     public void setGroupOwnerID(String groupOwnerID) {
         this.groupOwnerID = groupOwnerID;
     }
-
-    @Override
-    public String toString() {
-        return "Album{" +
-                "albumID='" + albumID + '\'' +
-                ", albumName='" + albumName + '\'' +
-                ", albumReleaseDate='" + albumReleaseDate + '\'' +
-                ", albumCover='" + albumCover + '\'' +
-                ", groupOwnerID='" + groupOwnerID + '\'' +
-                '}';
-    }
 }

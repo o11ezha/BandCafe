@@ -86,7 +86,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Изменить песню</h4>
                 </div>
-                <form th:action="@{/bands/{groupName}/{albumID}/{songName} (groupName = ${groupName}, albumID=${albumID}, songName=${songName})}"
+                <form th:action="@{/bands/{groupName}/{albumID}/{songID}/edit (groupName = ${groupName}, albumID=${albumID}, songID=${songID})}"
                       th:method="post" th:object="${song}">
 
                     <label class="labels" th:for="songName" th:text="'Название песни: '"></label>

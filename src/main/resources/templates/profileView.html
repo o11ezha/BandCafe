@@ -100,8 +100,10 @@
             <div class="px-4 py-3"><h5 class="mb-0">About</h5>
                 <div class="p-4 rounded shadow-sm bg-light">
                     <p class="font-italic mb-0" th:text="${profile.getProfileDesc()}"></p>
+                    <div th:if="${profile.getProfileDateOfBirth() != null || roleSelected == 'member'}">
                     <p class="font-italic mb-0"
-                       th:text=" ${roleSelected} == 'member' ? ${memberDate} : ${profile.getProfileDateOfBirth()}"></p>
+                       th:text=" ${roleSelected} == 'member' ? '* ' + ${memberDate} : '* ' + ${profile.getProfileDateOfBirth()}"></p>
+                </div>
                 </div>
             </div>
         </div>

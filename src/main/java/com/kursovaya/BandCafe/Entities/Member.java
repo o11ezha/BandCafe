@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 public class Member {
     private String memberID;
     @NotNull(message = "Введите имя")
-    @Pattern(regexp = "[A-Za-zА-Яа-яЁё]+", message = "Имя должно состоять только из букв")
+    @Pattern(regexp = "^([A-Za-zА-Яа-яЁё]{2,}\\s[A-Za-zА-Яа-яЁё]{1,}'?-?[A-Za-zА-Яа-яЁё]{2,}\\s?([A-Za-zА-Яа-яЁё]{1,})?)+", message = "Имя должно состоять только из букв")
     private String memberName;
     @NotNull(message = "Введите сценическое имя")
     private String memberStageName;
@@ -14,11 +14,9 @@ public class Member {
     @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "Дата должна быть в формате ГГГГ-ММ-ДД")
     private String memberDateOfBirth;
     @NotNull(message = "Введите страну")
-    @Pattern(regexp = "[A-Za-zА-Яа-яЁё]+", message = "Страна должна состоять только из букв")
     private String memberCountry;
     @NotNull(message = "Введите город")
     private String memberCity;
-    @Pattern(regexp = "[0-9+]+", message = "Номер телефона должен состоять только из цифр")
     private Integer memberHeight;
     private String memberDescSource;
     private String labelID;
@@ -104,19 +102,4 @@ public class Member {
         this.groupID = groupID;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "memberID='" + memberID + '\'' +
-                ", memberName='" + memberName + '\'' +
-                ", memberStageName='" + memberStageName + '\'' +
-                ", memberDateOfBirth='" + memberDateOfBirth + '\'' +
-                ", memberCountry='" + memberCountry + '\'' +
-                ", memberCity='" + memberCity + '\'' +
-                ", memberHeight=" + memberHeight +
-                ", memberDescSource='" + memberDescSource + '\'' +
-                ", labelID='" + labelID + '\'' +
-                ", groupID='" + groupID + '\'' +
-                '}';
-    }
 }

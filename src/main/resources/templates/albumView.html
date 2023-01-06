@@ -133,7 +133,7 @@
                                 </iframe>
                             </div>
                             <div th:if="${account.getRoleID() < 2}">
-                                <a th:href="@{/bands/{groupName}/{albumID}/{songID}/edit (groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">
+                                <a th:href="@{/bands/{groupName}/{albumID}/{songID}/edit(groupName=${groupName}, albumID=${album.getAlbumID()}, songID=${song.getSongID()})}">
                                     <div class="btn btn-outline-danger message mb-3">Edit song</div>
                                 </a>
 

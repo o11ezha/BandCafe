@@ -141,12 +141,12 @@
                         <div class="tour-item ">
                             <div class="tour-desc bg-white">
                                 <div class="tour-text color-grey-3 text-center"
-                                     th:text="${group1.getGroupFandom()}"></div>
+                                     th:text="${group1.getGroupName()}"></div>
                                 <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
                                                                                           th:src="@{'/MainImages/' + 'groupicon.jpg'}"
                                                                                           alt=""></div>
                                 <div class="link-name d-flex justify-content-center"
-                                     th:text="${group1.getGroupName()}"></div>
+                                     th:text="${group1.getGroupFandom()}"></div>
                                 <div class="d-grid gap-2 col-6 mx-auto ">
                                     <a th:href="@{/bands/{groupName}(groupName = ${group1.getGroupName()})}">
                                         <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Know
@@ -173,12 +173,12 @@
                         <div class="tour-item ">
                             <div class="tour-desc bg-white">
                                 <div class="tour-text color-grey-3 text-center"
-                                     th:text="${group2.getGroupFandom()}"></div>
+                                     th:text="${group2.getGroupName()}"></div>
                                 <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people"
                                                                                           th:src="@{'/MainImages/' + 'groupicon.jpg'}"
                                                                                           alt=""></div>
                                 <div class="link-name d-flex justify-content-center  ml-1"
-                                     th:text="${group2.getGroupName()}"></div>
+                                     th:text="${group2.getGroupFandom()}"></div>
                                 <div class="d-grid gap-2 col-6 mx-auto ">
                                     <a th:href="@{/bands/{groupName}(groupName = ${group2.getGroupName()})}">
                                         <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">Know
@@ -186,7 +186,7 @@
                                         </button>
                                     </a>
                                     <div th:if="${account.getRoleID() < 2}">
-                                        <a th:href="@{/bands//edit/{groupID}(groupID = ${group2.getGroupID()})}">
+                                        <a th:href="@{/bands/edit/{groupID}(groupID = ${group2.getGroupID()})}">
                                             <button class="btn btn-outline-success  justify-content-center pt-2 pb-2">
                                                 Edit
                                                 Group

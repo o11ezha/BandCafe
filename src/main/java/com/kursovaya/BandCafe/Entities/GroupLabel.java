@@ -82,17 +82,4 @@ public class GroupLabel {
         this.labelDescSource = labelDescSource;
     }
 
-    @Override
-    public String toString() {
-        return "GroupLabel{" +
-                "labelID='" + labelID + '\'' +
-                ", labelName='" + labelName + '\'' +
-                ", labelDirector='" + labelDirector + '\'' +
-                ", labelCountry='" + labelCountry + '\'' +
-                ", labelCity='" + labelCity + '\'' +
-                ", labelMainAddress='" + labelMainAddress + '\'' +
-                ", labelDate='" + labelDate + '\'' +
-                ", labelDescSource='" + labelDescSource + '\'' +
-                '}';
-    }
 }

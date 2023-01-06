@@ -155,7 +155,6 @@ public class AccountController {
     public  String accountEditForm(
             @PathVariable @RequestParam String login,
             @RequestParam String password,
-            @RequestParam Integer role,
             String errorLogin,
             Principal principal,
             Model model){
