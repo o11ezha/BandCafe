@@ -23,7 +23,6 @@
     @import "https://fonts.googleapis.com/css?family=Raleway";
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
 
-
     body {
         background: linear-gradient(to bottom, #bae7fa, #ffffff);
         min-height: 100vh
@@ -54,6 +53,7 @@
         text-transform: uppercase;
         text-align: center;
     }
+
     .noMerch {
         font-family: 'Raleway', sans-serif;
         font-size: 15px;
@@ -133,18 +133,6 @@
         width: 100px;
     }
 
-    .formBtn {
-        width: 140px;
-        display: inline-block;
-
-        background: teal;
-        color: #fff;
-        font-weight: 100;
-        font-size: 1.2em;
-        border: none;
-        height: 30px;
-    }
-
     img {
         align-content: end;
         height: 170px;
@@ -157,7 +145,6 @@
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -167,31 +154,23 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #969efa;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: rgba(178, 58, 226, 0.83);
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
     <a th:href="@{'/forums'}">Forums</a>
-        <a th:href="@{'/bands'}">Groups</a>
-        <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
     <a th:href="@{'/merch'}">Merch</a>
 </div>
 
@@ -217,12 +196,8 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div th:each="order : ${orders}">
-                <!-- List group-->
                 <ul class="list-group shadow">
-                    <!-- list group item-->
                     <li class="list-group-item">
-                        <!-- Custom content-->
-
                         <div class="media align-items-lg-center flex-column flex-lg-row">
                             <div class="d-flex align-items-center justify-content-between mt-0">
                                 <img th:src="@{'/imgorder/' + ${order.getMerchDescSource()}}"
@@ -232,41 +207,53 @@
 
                                 <div class="media-body order-2 order-lg-1">
                                     <h5 class="mt-0 font-weight-bold mb-2" th:text="${order.getMerchName()}"></h5>
-                                    <h6 class="font-weight-bold my-2" th:text="${order.getTotalPrice() + ' руб.'}"></h6>
-                                    <h7 class="noMerch" th:text="${order.getMerchStatus()== false ? 'Товар не доступен' : ''}"></h7>
+                                    <h6 class="font-weight-bold my-2" th:text="${order.getTotalPrice() + ' rub.'}"></h6>
+                                    <h7 class="noMerch"
+                                        th:text="${order.getMerchStatus()== false ? 'Товар не доступен' : ''}"></h7>
 
                                     <ul class="list-inline default">
                                         <li class="font-italic mb-1 small" th:text="${order.getOrderAddDate()}"></li>
                                         <li class="font-italic mb-1 small" th:text="${order.getOrderAddress()}"></li>
-                                        <li class="font-italic mb-1 small" th:text="${order.getOrderAmount()}"></li>
+                                        <li class="font-italic mb-1 small"
+                                            th:text="${order.getOrderAmount() + ' item(s)'}"></li>
+                                        <li class="font-italic mb-1 small">
+                                            <div th:switch="${order.getOrderStatus()}">
+                                                <div th:case="0">
+                                                    <span class="badge bg-secondary">В обработке</span>
+                                                </div>
+                                                <div th:case="1">
+                                                    <span class="badge bg-primary">В пути</span>
+                                                </div>
+                                                <div th:case="2">
+                                                    <span class="badge bg-success">Доставлен</span>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                     <span th:hidden="!(${order.getMerchStatus()})">
                                         <span th:hidden="${order.getOrderConfirm()}">
                                             <a th:href="@{/profile/{profileID}/orders/{orderID}(profileID = ${profileID}, orderID=${order.getOrderID()})}">
                                                 <button class="btn btn-outline-dark flex-shrink-0 mt-2 mb-2 justify-content-md-end"
-                                                    type="submit">Оплатить</button>
+                                                        type="submit">Оплатить</button>
                                             </a>
                                         </span>
                                     </span>
-                                        <span th:hidden="${(order.getOrderConfirm())}">
+                                    <span th:hidden="${(order.getOrderConfirm())}">
                                             <a th:href="@{/profile/{profileID}/orders/{orderID}/delete(profileID = ${profileID}, orderID=${order.getOrderID()})}">
                                                 <button class="btn btn-outline-dark flex-shrink-0 mt-2 mb-2 justify-content-md-end"
                                                         type="submit">Удалить</button>
                                             </a>
-                                        </span>
+                                    </span>
                                 </div>
-
-                            </div> <!-- End -->
+                            </div>
                         </div>
-                    </li> <!-- End -->
+                    </li>
                 </ul>
-                  </span>
             </div>
         </div>
     </div>
 </div>
 <script>$(function () {
-
     $('#contact').click(function () {
         $('#contactForm').fadeToggle();
     })
@@ -278,7 +265,6 @@
             container.fadeOut();
         }
     });
-
 });</script>
 </body>
 </html>

@@ -11,8 +11,9 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background: #f68eb1
     }
 
     .form-control:focus {
@@ -60,7 +61,6 @@
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -70,25 +70,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #fa96b5;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #e23a6e;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -103,7 +95,7 @@
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Изменить альбом</h4>
+                    <h4 class="text-right">Изменить мерч</h4>
                 </div>
                 <form th:action="@{/merch/edit/{merchID}(merchID = ${merchID})}" th:method="post" th:object="${merch}">
 
@@ -151,7 +143,6 @@
                     </div>
                     <br>
                     <br>
-
 
                     <label> <input class="btn btn-primary profile-button" th:type="submit" th:value="Редактировать">
                     </label>

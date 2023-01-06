@@ -15,9 +15,11 @@
 </head>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
 
     body {
-        background-color: #B3E5FC;
+        background-color: #b77c5f;
+        font-family: "Montserrat", Sans-serif;
     }
 
 
@@ -30,7 +32,7 @@
     }
 
     .topnav {
-        background-color: #ad880d;
+        background-color: #57311f;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
 
@@ -50,13 +52,13 @@
     /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
-        background-color: #fada96;
+        background-color: #80533e;
         color: black;
     }
 
     /* Add a color to the active/current link */
     .topnav a.active {
-        background-color: #e2ad3a;
+        background-color: #774529;
         font-weight: 700;
         color: white;
     }
@@ -83,29 +85,29 @@
         <thead>
         <tr class="border-bottom">
             <th>
-                <span class="ml-2">Название агентства</span>
+                <span class="ml-2">Agency name</span>
             </th>
             <th>
-                <span class="ml-2">Директор агентства</span>
+                <span class="ml-2">Agency's Director</span>
             </th>
             <th>
-                <span class="ml-2">Страна, в которой расположено главное здание агентства</span>
+                <span class="ml-2">Country</span>
             </th>
             <th>
-                <span class="ml-2">Город, в котором расположено главное здание агентства</span>
+                <span class="ml-2">City</span>
             </th>
             <th>
-                <span class="ml-2">Адрес главного агентства</span>
+                <span class="ml-2">Address</span>
             </th>
             <th>
-                <span class="ml-2">Дата основания агентства</span>
+                <span class="ml-2">Foundation Date</span>
             </th>
             <th>
-                <span class="ml-2">Описание агентства</span>
+                <span class="ml-2">Description</span>
             </th>
             <div th:if="${account.getRoleID() < 2}">
                 <th>
-                    <span class="ml-4">Действия</span>
+                    <span class="ml-4">Actions</span>
                 </th>
             </div>
         </tr>
@@ -146,16 +148,16 @@
             </td>
             <td>
                 <div class="p-2">
-                    <span class="d-block font-weight-bold" th:type="text" name="Description"></span>
+                    <span th:type="text" name="Description"></span>
                 </div>
             </td>
 
             <td>
-                <div class="p-2 icons">
+                <div class="p-2">
                     <div th:if="${account.getRoleID() < 2}">
                         <a th:href="@{/labels/edit/{labelID}(labelID=${label.getLabelID()})}">
-                            <button class="btn btn-outline-primary btn-big" type="button">
-                                Перейти к редактировнию лэйбла
+                            <button class="btn btn-outline-warning btn-big" type="button">
+                                Edit
                             </button>
                         </a>
                     </div>

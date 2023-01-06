@@ -28,7 +28,6 @@
     .container {
         max-width: 1000px;
         padding: 20px;
-
     }
 
     .col-12 {
@@ -142,10 +141,10 @@
             </div>
             <div class="row">
                 <div th:if="${memberPositions.size() > 0}">
-                    <p>Songs:</p>
+                    <p>Positions:</p>
                     <div class="col-12 bg-white px-3 mb-3 pb-3">
                         <div class="d-flex align-items-center justify-content-between border-bottom" th:each="position : ${memberPositions}">
-                            <p style="padding-right: 10px" th:text="${position.getPositionName()}"></p>
+                            <p style="padding-bottom: 5px" th:text="${position.getPositionName()}"></p>
                         </div>
                         <div th:if="${memberPositions.size() == 0}">
                             <p>No info about positions</p>
@@ -156,44 +155,5 @@
         </div>
     </div>
 </div>
-
-
-<!--<div th:if="${account.getRoleID() < 2}">-->
-<!--<a th:href="@{/member/edit/{memberID}(memberID=${member.getMemberID()})}">Редактировать мембера</a><br>-->
-<!--<a th:href="@{/member/deletemem/{memberID}(memberID=${member.getMemberID()})}">Удалить мембера</a><br>-->
-<!--<a th:href="@{/member/editPos/{memberID}(memberID=${member.getMemberID()})}">Изменить позиции мембера</a>-->
-<!--</div>-->
-
-<!--<p>Имя: </p>-->
-<!--<label th:text="${member.getMemberName()}"></label>-->
-<!--<p>Сценическое имя: </p>-->
-<!--<label th:text="${member.getMemberStageName()}"></label>-->
-<!--<p>День рождения: </p>-->
-<!--<label th:text="${member.getMemberDateOfBirth}"></label>-->
-<!--<p>Страна: </p>-->
-<!--<label th:text="${member.getMemberCountry}"></label>-->
-<!--<p>Город: </p>-->
-<!--<label th:text="${member.getMemberCity}"></label>-->
-<!--<p>Рост: </p>-->
-<!--<label th:text="${(member.getMemberHeight() == null) || (member.getMemberHeight() == 0) ?-->
-<!-- 'Неизвестен' : member.getMemberHeight() }"></label>-->
-<!--<p>Группа: </p>-->
-<!--<label th:text="${memberGroup}"></label>-->
-<!--<p>Лэйбл: </p>-->
-<!--<label th:text="${label}"></label>-->
-<!--<p>Позиции: </p>-->
-<!--<div>-->
-<!--    <div  th:if="${memberPositions.size() > 0}">-->
-<!--        <ul th:each="position : ${memberPositions}">-->
-<!--            <li th:text="${position.getPositionName()}"></li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div th:if="${memberPositions.size() == 0}">-->
-<!--        <p>Позиции не указаны</p>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<p>Описание мембера: </p>-->
-<!--<label th:text="${memberdesc}"></label>-->
-
 </body>
 </html>

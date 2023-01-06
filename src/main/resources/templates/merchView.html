@@ -19,9 +19,10 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
 
     body {
-        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        font-family: "Montserrat", Sans-serif;
     }
 
     .dot {
@@ -41,9 +42,6 @@
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
-    /* Style the links inside the navigation bar */
-
-
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -53,26 +51,19 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #fa96b5;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #e23a6e;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
 </style>
-<div class="topnav">
+<div class="topnav" style="font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif">
     <a class="active" th:href="@{'/'}">Relax</a>
     <a th:href="@{'/forums'}">Forums</a>
     <a th:href="@{'/bands'}">Groups</a>

@@ -132,7 +132,6 @@ public class ForumController {
            categoryPost = 99;
         }
 
-        System.out.println((fileImage.getOriginalFilename()));
 
         if (!Objects.requireNonNull(fileImage.getOriginalFilename()).equals("")
                 && !fileImage.isEmpty()){
@@ -149,7 +148,6 @@ public class ForumController {
             try {
                 fileImage.transferTo(new File(uploadDir + "/"+ resultFilename));
                 postFilePath = resultFilename;
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }

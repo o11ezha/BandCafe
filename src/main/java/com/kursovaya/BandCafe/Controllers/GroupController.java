@@ -159,15 +159,12 @@ public class GroupController {
             try {
                 filegroup.transferTo(new File(uploadDir + "/"+ resultFilename));
                 group.setGroupDescSource(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
         group.setGroupManager(principal.getName());
 
-        System.out.println(group.toString());
         memberGroupService.addGroup(group);
 
         return "redirect:/bands";
@@ -202,8 +199,6 @@ public class GroupController {
         group.setGroupDebutDate(group2.getGroupDebutDate());
         group.setGroupDescSource(group2.getGroupDescSource());
 
-        System.out.println(group2.toString());
-        System.out.println(group.toString());
 
         if (bindingResult.hasErrors()) {
             System.out.println(

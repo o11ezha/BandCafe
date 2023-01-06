@@ -57,7 +57,6 @@
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -67,14 +66,12 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #83eea8;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #3ae288;
         font-weight: 700;
@@ -105,9 +102,6 @@
                         <p class="text-muted mb-3" th:text="${groupdesc}"></p>
                         <div class="d-flex ">
                             <div th:if="${account.getRoleID() < 2}">
-                                <a th:href="@{/bands/edit/{groupID}(groupID=${group.getGroupID()})}">
-                                    <div class="btn btn-outline-primary message">Edit group</div>
-                                </a>
 
                                 <a th:href="@{/{groupName}/member/add(groupName=${group.getGroupName()})}">
                                     <div class="btn btn-outline-primary message">Add member</div>
@@ -140,8 +134,9 @@
             <div class="row">
                 <div th:if="${members} != null">
                     <p>Members:</p>
-                    <div class="col-12 bg-white px-3 mb-3 pb-3" >
-                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each=" member : ${members}">
+                    <div class="col-12 bg-white px-3 mb-3 pb-3">
+                        <div class="d-flex align-items-center justify-content-between border-bottom"
+                             th:each=" member : ${members}">
                             <a th:href="@{/member/{memberStageName}(memberStageName=${member.getMemberStageName()})}">
                                 <p class="py-2" th:text="${member.getMemberStageName()}"></p>
                             </a>
@@ -150,8 +145,9 @@
                 </div>
                 <div th:if="${albums} != null">
                     <p>Albums:</p>
-                    <div class="col-12 bg-white px-3 mb-3 pb-3" >
-                        <div class="d-flex align-items-center justify-content-between border-bottom" th:each=" album : ${albums}">
+                    <div class="col-12 bg-white px-3 mb-3 pb-3">
+                        <div class="d-flex align-items-center justify-content-between border-bottom"
+                             th:each=" album : ${albums}">
                             <a th:href="@{{groupName}/{albumName}(groupName=${group.getGroupName()}, albumName=${album.getAlbumName()})}">
                                 <p class="py-2" th:text="${album.getAlbumName()}"></p>
                             </a>

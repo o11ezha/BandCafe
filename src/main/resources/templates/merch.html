@@ -18,9 +18,11 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
+
     body {
         background: linear-gradient(to bottom, #ffffff,  #f68eb1);
-        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+        font-family: "Montserrat", Sans-serif;
     }
 
     .product-image {
@@ -102,7 +104,7 @@
     }
 
 </style>
-<div class="topnav">
+<div class="topnav" style="font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif">
     <a class="active" th:href="@{'/'}">Relax</a>
         <a th:href="@{'/forums'}">Forums</a>
         <a th:href="@{'/bands'}">Groups</a>
@@ -133,7 +135,7 @@
                             </div>
                             <div class="d-flex flex-column mt-4">
                                 <a th:href="@{'/merch/' + ${merch.getMerchName()}}">
-                                    <button class="btn btn-primary btn-big" type="button">Подробнее</button>
+                                    <button class="btn btn-primary btn-big" type="button">More info</button>
                                 </a>
                             </div>
                         </div>

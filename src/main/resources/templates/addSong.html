@@ -11,32 +11,33 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background: rgb(159, 159, 159)
     }
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #BA68C8
+        border-color: #1e1e1e
     }
 
     .profile-button {
-        background: rgb(99, 39, 120);
+        background: rgb(105, 105, 105);
         box-shadow: none;
         border: none
     }
 
     .profile-button:hover {
-        background: #682773
+        background: rgb(105, 105, 105);
     }
 
     .profile-button:focus {
-        background: #682773;
+        background: rgb(105, 105, 105);
         box-shadow: none
     }
 
     .profile-button:active {
-        background: #682773;
+        background: rgb(105, 105, 105);
         box-shadow: none
     }
 
@@ -45,14 +46,11 @@
     }
 
     .topnav {
-        background-color: #128537;
+        background-color: #444444;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -62,25 +60,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
-        background-color: #b3ee83;
+        background-color: #e3e3e3;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
-        background-color: #dce23a;
+        background-color: #5e5e5e;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -100,13 +90,15 @@
                       th:method="post" th:object="${song}">
 
                     <label class="labels" th:for="songName" th:text="'Название песни: '"></label>
-                    <input class="form-control" type="text" th:field="*{songName}" id="songName" name="songName" required>
+                    <input class="form-control" type="text" th:field="*{songName}" id="songName" name="songName"
+                           required>
                     <p style="color:red" th:errors="*{songName}" th:if="${#fields.hasErrors('songName')}"
                        th:text="'songName error'"></p>
                     <label style="color:red" th:text="${errorSongName}"></label>
 
                     <label class="labels" th:for="songDuration" th:text="'Длительность песни (в секудах): '"></label>
-                    <input class="form-control" type="number" th:field="*{songDuration}" id="songDuration" name="songDuration" required>
+                    <input class="form-control" type="number" th:field="*{songDuration}" id="songDuration"
+                           name="songDuration" required>
                     <p style="color:red" th:errors="*{songDuration}" th:if="${#fields.hasErrors('songDuration')}"
                        th:text="'songDuration error'"></p>
                     <label style="color:red" th:text="${errorSongDuration}"></label>

@@ -45,13 +45,9 @@ public class ProfileController {
         Profile profile = profileService.findByProfileID(profileID);
         model.addAttribute("account", account);
 
-        System.out.println(profile.toString());
-
         if (roleSelected.equals("member")){
             String memberInfo = memberService.getSpecialStageNameFromProfID(profileID);
             String memberDate = memberService.getSpecialDateFromProfID(profileID);
-
-            System.out.println(memberInfo + " " + memberDate);
 
             model.addAttribute("memberInfo", memberInfo);
             model.addAttribute("memberDate", memberDate);
@@ -118,7 +114,6 @@ public class ProfileController {
             try {
                 avatarImage.transferTo(new File(uploadDir + "/" + resultFilename));
                 profile.setProfileAvatarSource(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }

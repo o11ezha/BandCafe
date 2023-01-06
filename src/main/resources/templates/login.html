@@ -102,7 +102,7 @@
     footer {
         height: 10vh;
         background-color: #ffffff;
-        color:  #cc0971;
+        color: #cc0971;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -131,8 +131,9 @@
             <label>Login:</label>
             <input class="field_class" name="username" type="text" placeholder="Введите свой логин" autofocus required>
             <label>Password:</label>
-            <input id="password" class="field_class" name="password" type="password" placeholder="И пароль, пожавста >:з" required>
-            <input type="checkbox"  th:onclick="myFunction()"><label> Show Password</label>
+            <input id="password" class="field_class" name="password" type="password"
+                   placeholder="И пароль, пожавста >:з" required>
+            <input type="checkbox" th:onclick="myFunction()"><label> Show Password</label>
             <div th:if="${#request.getParameter('error') == 'true'}"
                  style="color:red;margin:10px 0px;">Login Failed<br/>
                 Reason:

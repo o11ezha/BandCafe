@@ -59,12 +59,10 @@ public class AlbumController {
         String pathToImg = "";
 
         if (!Objects.equals(album.getAlbumCover(), "") && !Objects.equals(album.getAlbumCover(), null)) {
-            System.out.println(album.getAlbumCover());
             pathToImg = album.getAlbumCover();
         }
         else pathToImg = "default.jpg";
 
-        System.out.println(pathToImg);
 
         model.addAttribute("pathToImg", pathToImg);
         model.addAttribute("album", album);
@@ -120,7 +118,6 @@ public class AlbumController {
             try {
                 filecover.transferTo(new File(uploadDir + "/" + resultFilename));
                 album.setAlbumCover(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,7 +128,6 @@ public class AlbumController {
         String groupID = memberGroupService.getGroupByGroupName(groupName).getGroupID();
         album.setGroupOwnerID(groupID);
 
-        System.out.println(album.toString());
 
         albumService.addAlbum(album);
         return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8");
@@ -190,7 +186,6 @@ public class AlbumController {
             try {
                 filecover.transferTo(new File(uploadDir + "/" + resultFilename));
                 album.setAlbumCover(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }

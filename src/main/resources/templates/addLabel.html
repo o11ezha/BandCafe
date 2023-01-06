@@ -10,39 +10,77 @@
 </head>
 <body>
 <style>
+    @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background-color: #b77c5f;
     }
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #BA68C8
+        border-color: #9d5438
     }
 
     .profile-button {
-        background: rgb(99, 39, 120);
+        background: rgb(59, 26, 26);
         box-shadow: none;
         border: none
     }
 
     .profile-button:hover {
-        background: #682773
+        background: rgb(59, 26, 26);
     }
 
     .profile-button:focus {
-        background: #682773;
+        background: rgb(59, 26, 26);
         box-shadow: none
     }
 
     .profile-button:active {
-        background: #682773;
+        background: rgb(59, 26, 26);
         box-shadow: none
     }
 
     .labels {
         font-size: 11px
     }
+
+
+    .topnav {
+        background-color: #57311f;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
+
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #80533e;
+        color: black;
+    }
+
+    .topnav a.active {
+        background-color: #774529;
+        font-weight: 700;
+        color: white;
+    }
 </style>
+<body>
+<div class="topnav">
+    <a class="active" th:href="@{'/'}">Relax</a>
+    <a th:href="@{'/forums'}">Forums</a>
+    <a th:href="@{'/bands'}">Groups</a>
+    <a th:href="@{'/labels'}">Labels</a>
+    <a th:href="@{'/merch'}">Merch</a>
+</div>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-5 border-right">

@@ -86,11 +86,8 @@
         background-color: #713acc;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -100,25 +97,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #9e83ee;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #3a8ee2;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -166,8 +155,6 @@
                         <br>
                     </div>
                 </div>
-
-
                 <div class="col-md-4 style-3">
                     <div th:each="forum2 : ${forums2}">
                         <div class="tour-item ">

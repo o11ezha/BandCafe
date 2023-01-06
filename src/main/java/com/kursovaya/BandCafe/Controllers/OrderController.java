@@ -63,7 +63,6 @@ public class OrderController {
             orders.add(orderService.getOrdersByOrderID(orderID));
         }
 
-        System.out.println(orders);
         model.addAttribute("orders", orders);
         return "manageOrders";
     }
@@ -88,7 +87,6 @@ public class OrderController {
                          @RequestParam BigDecimal money,
                          Principal principal,
                          Model model) {
-        System.out.println(money);
         ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByLogin(principal.getName());
         List<OrderView> orders = orderService.getOrdersByProfileID(principal.getName());
 
@@ -176,10 +174,6 @@ public class OrderController {
         model.addAttribute("merch", merch);
         model.addAttribute("memberGroup", memberGroup);
 
-        System.out.println(principal.getName());
-        System.out.println(merch.getMerchID());
-        System.out.println(inputQuantity);
-        System.out.println(address);
 
         if (inputQuantity == null || inputQuantity < 1) {
             model.addAttribute("errorAmount", "Укажите количество верно з:");
@@ -195,11 +189,6 @@ public class OrderController {
             model.addAttribute("errorAddress", "Укажите адрес доставки");
             return "merchView";
         }
-
-        System.out.println(principal.getName());
-        System.out.println(merch.getMerchID());
-        System.out.println(inputQuantity);
-        System.out.println(address);
 
         orderService.addOrder(principal.getName(), merch.getMerchID(), inputQuantity, address);
         return "redirect:/merch";

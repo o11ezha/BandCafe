@@ -94,8 +94,6 @@ public class MemberController {
 
         identicalParts(model);
 
-        System.out.println(member.toString());
-
         if (bindingResult.hasErrors()) {
             System.out.println(
                     //print all errors
@@ -168,7 +166,6 @@ public class MemberController {
             try {
                 filemember.transferTo(new File(uploadDir + "/" + resultFilename));
                 member.setMemberDescSource(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -177,9 +174,6 @@ public class MemberController {
         if (member.getMemberHeight() == null) {
             member.setMemberHeight(0);
         }
-
-        System.out.println(member.toString());
-        System.out.println(loginMember);
 
         memberService.addMember(member,loginMember);
         return "redirect:/bands/" + URLEncoder.encode(groupName, "UTF-8");
@@ -215,9 +209,6 @@ public class MemberController {
 
         identicalParts(model);
 
-        System.out.println(member2.toString());
-        System.out.println(member.toString());
-
         member.setMemberDescSource(member2.getMemberDescSource());
 
         if (bindingResult.hasErrors()) {
@@ -238,7 +229,6 @@ public class MemberController {
             return "editMember";
         }
         List<String> allMembersStageNames = memberService.getAllMembersStageNames();
-        System.out.println(allMembersStageNames);
 
         if (allMembersStageNames.contains(member.getMemberStageName()) && !member.getMemberStageName().equals(member2.getMemberStageName())) {
             model.addAttribute("errorStageName", "Такое сценическое имя уже существует");

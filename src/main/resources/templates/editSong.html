@@ -11,32 +11,33 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background: rgb(159, 159, 159)
     }
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #BA68C8
+        border-color: #1e1e1e
     }
 
     .profile-button {
-        background: rgb(99, 39, 120);
+        background: rgb(105, 105, 105);
         box-shadow: none;
         border: none
     }
 
     .profile-button:hover {
-        background: #682773
+        background: rgb(105, 105, 105);
     }
 
     .profile-button:focus {
-        background: #682773;
+        background: rgb(105, 105, 105);
         box-shadow: none
     }
 
     .profile-button:active {
-        background: #682773;
+        background: rgb(105, 105, 105);
         box-shadow: none
     }
 
@@ -45,14 +46,11 @@
     }
 
     .topnav {
-        background-color: #128537;
+        background-color: #444444;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -62,25 +60,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
-        background-color: #b3ee83;
+        background-color: #e3e3e3;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
-        background-color: #dce23a;
+        background-color: #5e5e5e;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -94,7 +84,7 @@
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Изменить альбом</h4>
+                    <h4 class="text-right">Изменить песню</h4>
                 </div>
                 <form th:action="@{/bands/{groupName}/{albumID}/{songName} (groupName = ${groupName}, albumID=${albumID}, songName=${songName})}"
                       th:method="post" th:object="${song}">

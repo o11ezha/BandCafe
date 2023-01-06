@@ -11,8 +11,9 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background-color: #b78aef;
     }
 
     .form-control:focus {
@@ -45,14 +46,11 @@
     }
 
     .topnav {
-        background-color: #128537;
+        background-color: #461285;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -62,25 +60,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
-        background-color: #b3ee83;
+        background-color: #c7adf8;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
-        background-color: #dce23a;
+        background-color: #4b3ae2;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -199,7 +189,6 @@
 
                     <label> <input class="btn btn-primary profile-button" th:type="submit" th:value="Добавить"> </label>
                 </form>
-
             </div>
         </div>
     </div>

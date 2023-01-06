@@ -59,10 +59,6 @@ public class MerchController {
     public String returnAllMerch(Principal principal, Model model){
         List<MerchView> merchAll = merchService.getAllMerchFromView();
         List<String> merchIDs = merchService.getMerchIDsByManagerLogin(principal.getName());
-        System.out.println(merchIDs);
-        for (String merchID : merchIDs) {
-            System.out.println(merchID);
-        }
 
         model.addAttribute("login", principal.getName());
         model.addAttribute("merchIDs", merchIDs);
@@ -167,18 +163,12 @@ public class MerchController {
             try {
                 merchImage.transferTo(new File(uploadDir + "/" + resultFilename));
                 merch.setMerchDescSource(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             merch.setMerchDescSource("default.png");
         }
-
-        System.out.println(merch.getMerchPrice().getClass().getName());
-
-
-        System.out.println(merch.toString());
 
         merchService.addMerch(merch, principal.getName());
         return "redirect:/merch";
@@ -264,7 +254,6 @@ public class MerchController {
             merch.setMerchStatus(false);
         }
 
-        System.out.println(merch.toString());
 
         merchService.editMerch(merch);
         return "redirect:/merch/" + URLEncoder.encode(merch.getMerchName(), StandardCharsets.UTF_8);

@@ -5,10 +5,8 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{'/css/' + 'homepage.css'}"/>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>
-
 </head>
 <body>
-
 <div class="container">
     <div class="st-container">
         <div class="topnav">
@@ -24,9 +22,9 @@
                     <a th:href="@{'/acc/' +${account.getAccountLogin()}}">Account</a>
                     <a th:href="@{'/profile/' +${profileID}}">Profile</a>
                 </div>
-            <div th:if="${principal == null}">Please, sign in
-                <a th:href="@{'/login'}">Sign in</a>
-            </div>
+                <div th:if="${principal == null}">Please, sign in
+                    <a th:href="@{'/login'}">Sign in</a>
+                </div>
             </div>
         </div>
 
@@ -53,7 +51,8 @@
             <section class="st-panel st-color" id="st-panel-2">
                 <div class="st-deco" data-icon="&#xf118;"></div>
                 <h2>Happiness</h2>
-                <p>Happiness is not something you postpone for the future; it is something you design for the present.</p>
+                <p>Happiness is not something you postpone for the future; it is something you design for the
+                    present.</p>
             </section>
 
             <section class="st-panel" id="st-panel-3">
@@ -82,7 +81,6 @@
     </div>
 
 </div>
-
 
 <form th:if="${principal != null}" th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>

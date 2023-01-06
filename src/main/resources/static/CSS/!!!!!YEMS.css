@@ -447,19 +447,12 @@ hr {
 }
 
 .topnav {
-    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-    background-color: #821134;
+    background-color: #713acc;
     overflow: hidden;
     font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
-    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
     float: left;
     color: #f2f2f2;
     text-align: center;
@@ -468,23 +461,14 @@ hr {
     font-size: 17px;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
-    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
     font-weight: 700;
-    background-color: #fa96b5;
+    background-color: #9e83ee;
     color: black;
 }
 
-/* Add a color to the active/current link */
 .topnav a.active {
-    background-color: #e23a6e;
+    background-color: #3a8ee2;
     font-weight: 700;
     color: white;
-}
-
-/* Right-aligned section inside the top navigation */
-.topnav-right {
-    float: right;
 }

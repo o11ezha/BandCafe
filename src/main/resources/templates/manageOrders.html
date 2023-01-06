@@ -17,15 +17,14 @@
 </head>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
         background: #ffffff
     }
 
-
     .product-image {
         width: 100%
     }
-
 
     .spec-1 {
         color: #938787;
@@ -35,7 +34,6 @@
     h5 {
         font-weight: 400
     }
-
 
     .para {
         font-size: 16px
@@ -61,18 +59,11 @@
 
     }
 
-    .form-select-sm {
-        width: 70%;
-    }
-
     .topnav {
         background-color: #821134;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
     }
-
-    /* Style the links inside the navigation bar */
-
 
     .topnav a {
         float: left;
@@ -83,26 +74,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #fa96b5;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #e23a6e;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -122,9 +104,12 @@
                     <div class="col-md-6 mt-1">
                         <h5 th:text="${order.getMerchName()}"></h5>
                         <div class="d-flex flex-row"></div>
-                        <div class="mt-1 mb-1 spec-1"><span th:text="'Заказал пользователь: ' + ${order.getAccountLogin()}"></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span th:text="'Количество заказанных вещей: ' + ${order.getOrderAmount()}"></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span th:text="'Адрес: '+  ${order.getOrderAddress()}"></span></div>
+                        <div class="mt-1 mb-1 spec-1"><span
+                                th:text="'Заказал пользователь: ' + ${order.getAccountLogin()}"></span></div>
+                        <div class="mt-1 mb-1 spec-1"><span
+                                th:text="'Количество заказанных вещей: ' + ${order.getOrderAmount()}"></span></div>
+                        <div class="mt-1 mb-1 spec-1"><span th:text="'Адрес: '+  ${order.getOrderAddress()}"></span>
+                        </div>
                         <div class="mt-1 mb-1 spec-1" th:text="'Статус заказа: '"></div>
                         <th:block th:switch="${order.getOrderStatus()}">
                             <span class="mt-1 mb-1 spec-1" th:case="0">В корзине</span>
@@ -135,7 +120,9 @@
                         <form th:action="@{/manageOrders}" method="post">
                             <input th:readonly="true" th:value="${order.getOrderID()}" name="orderID" type="hidden">
                             <input th:readonly="true" th:value="${order.getOrderStatus()}" name="status" type="hidden">
-                            <button th:hidden="${!order.getOrderConfirm() || order.getOrderStatus() == 2}" type="submit" class="btn btn-outline-primary ">Изменить статус</button>
+                            <button th:hidden="${!order.getOrderConfirm() || order.getOrderStatus() == 2}" type="submit"
+                                    class="btn btn-outline-primary ">Изменить статус
+                            </button>
                         </form>
                         <p class="text-justify text-truncate para mb-0"></p>
                     </div>
@@ -146,17 +133,6 @@
                         <div class="d-flex flex-row align-items-center">
                             <h5 class="mr-1"
                                 th:text="${order.getMerchStatus() ? 'В продаже' : 'Продажа приостановлена'}"></h5>
-                            <!--              </div>-->
-                            <!--              <div class="d-flex flex-column mt-4">-->
-                            <!--                <a th:href="@{'/merch/' + ${merch.getMerchName()}}">-->
-                            <!--                  <button class="btn btn-outline-dark btn-big" type="button">Подробнее</button>-->
-                            <!--                </a>-->
-                            <!--              </div>-->
-                            <!--              <div class="d-flex flex-column mt-4">-->
-                            <!--                <a th:href="@{'/merch/edit/' + ${merch.getMerchID()}}">-->
-                            <!--                  <button class="btn btn-outline-dark btn-big" type="button">Редактировать</button>-->
-                            <!--                </a>-->
-                            <!--              </div>-->
                         </div>
                     </div>
                 </div>

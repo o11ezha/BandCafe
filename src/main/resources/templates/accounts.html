@@ -9,54 +9,46 @@
 </head>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+    @import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
+
     body {
-    background-color: #2c1a9f;
-}
+        background-color: #2c1a9f;
+        font-family: "Montserrat", Sans-serif;
+    }
 
-.card-1 {
+    .card-1 {
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        background-color: #fff;
+    }
 
-    border: none;
-    border-radius: 10px;
-    width: 100%;
-    background-color: #fff;
-}
+    .topnav {
+        background-color: #1c0b59;
+        overflow: hidden;
+        font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
+    }
 
-.topnav {
-    background-color: #291182;
-    overflow: hidden;
-    font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-}
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
 
-/* Style the links inside the navigation bar */
+    .topnav a:hover {
+        font-weight: 700;
+        background-color: #3438a8;
+        color: black;
+    }
 
-
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-    font-weight: 700;
-    background-color: #969bfa;
-    color: black;
-}
-
-/* Add a color to the active/current link */
-.topnav a.active {
-    background-color: #3a5ce2;
-    font-weight: 700;
-    color: white;
-}
-
-/* Right-aligned section inside the top navigation */
-.topnav-right {
-    float: right;
-}
+    .topnav a.active {
+        background-color: #233788;
+        font-weight: 700;
+        color: white;
+    }
 
 </style>
 <div class="topnav">
@@ -79,7 +71,7 @@
                 </select>
             </div>
             <div class="col-4 mb-2">
-                <button class="btn btn-outline-primary btn-sm" style="background: #ffffff" type="submit">Отфильтровать</button>
+                <button class="btn btn-outline-primary btn-sm" style="background: #ffffff" type="submit">Filter</button>
             </div>
         </div>
 
@@ -89,13 +81,13 @@
         <thead>
         <tr class="border-bottom">
             <th>
-                <span class="ml-2">Логин</span>
+                <span class="ml-2">Login</span>
             </th>
             <th>
-                <span class="ml-2">Роль</span>
+                <span class="ml-2">Role</span>
             </th>
             <th>
-                <span class="ml-2">Ссылка</span>
+                <span class="ml-2">Link to edit</span>
             </th>
         </tr>
         </thead>
@@ -125,7 +117,7 @@
                         </select> <br>
                         <button class="btn btn-outline-primary"
                                 th:disabled="${(account.getRoleID() == 0) || (account.getRoleID() == 2)}"
-                                th:type="submit">Сохранить
+                                th:type="submit">Save
                         </button>
                     </form>
                 </div>
@@ -135,7 +127,7 @@
                 <div class="p-2">
                     <a th:href="@{/editacc/{login}(login=${account.getAccountLogin()})}">
                         <button class="btn btn-outline-primary" type="button">
-                            Перейти к редактированию аккаунта
+                            Edit account
                         </button>
                     </a>
                 </div>

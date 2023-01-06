@@ -11,32 +11,33 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-        background: rgb(99, 39, 120)
+        background-color: #93e2ee;
     }
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #BA68C8
+        border-color: #687ec8
     }
 
     .profile-button {
-        background: rgb(99, 39, 120);
+        background-color: #5f6bd9;
         box-shadow: none;
         border: none
     }
 
     .profile-button:hover {
-        background: #682773
+        background-color: #5f6bd9;
     }
 
     .profile-button:focus {
-        background: #682773;
+        background-color: #5f6bd9;
         box-shadow: none
     }
 
     .profile-button:active {
-        background: #682773;
+        background-color: #5f6bd9;
         box-shadow: none
     }
 
@@ -51,7 +52,6 @@
 
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -61,25 +61,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #9e83ee;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #3a8ee2;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>
@@ -93,7 +85,7 @@
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Изменить альбом</h4>
+                    <h4 class="text-right">Изменить форум</h4>
                 </div>
                 <form th:action="@{/forums/{forumName}/edit(forumName=${forumName})}" th:method="post"
                       th:object="${forum}">

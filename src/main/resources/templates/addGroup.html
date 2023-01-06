@@ -11,48 +11,46 @@
 <body>
 <style>
     @import url('//fonts.googleapis.com/css?family=Josefin+Slab:400,700');
+
     body {
-    background: rgb(99, 39, 120)
-}
+        background-color: #99ee93;
+    }
 
-.form-control:focus {
-    box-shadow: none;
-    border-color: #BA68C8
-}
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #68c86d
+    }
 
-.profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
-}
+    .profile-button {
+        background: rgb(39, 120, 40);
+        box-shadow: none;
+        border: none
+    }
 
-.profile-button:hover {
-    background: #682773
-}
+    .profile-button:hover {
+        background: rgb(39, 120, 40);
+    }
 
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
-}
+    .profile-button:focus {
+        background: rgb(39, 120, 40);
+        box-shadow: none
+    }
 
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
-}
+    .profile-button:active {
+        background: rgb(39, 120, 40);
+        box-shadow: none
+    }
 
-.labels {
-    font-size: 11px
-}
+    .labels {
+        font-size: 11px
+    }
 
     .topnav {
         background-color: #128537;
         overflow: hidden;
         font-family: 'Josefin Slab', 'Myriad Pro', Arial, sans-serif;
-
-
     }
 
-    /* Style the links inside the navigation bar */
     .topnav a {
         float: left;
         color: #f2f2f2;
@@ -62,25 +60,17 @@
         font-size: 17px;
     }
 
-    /* Change the color of links on hover */
     .topnav a:hover {
         font-weight: 700;
         background-color: #b3ee83;
         color: black;
     }
 
-    /* Add a color to the active/current link */
     .topnav a.active {
         background-color: #dce23a;
         font-weight: 700;
         color: white;
     }
-
-    /* Right-aligned section inside the top navigation */
-    .topnav-right {
-        float: right;
-    }
-
 </style>
 <div class="topnav">
     <a class="active" th:href="@{'/'}">Relax</a>

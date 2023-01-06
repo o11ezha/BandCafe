@@ -121,15 +121,12 @@ public class LabelController {
             try {
                 filelabeldesc.transferTo(new File(uploadDir + "/"+ resultFilename));
                 labelgroup.setLabelDescSource(resultFilename);
-                System.out.println("Файл загружен");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println(labelgroup.toString());
         labelService.addLabel(labelgroup);
-
         return "redirect:/labels";
     }
 
